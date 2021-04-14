@@ -16,7 +16,7 @@ public class JDBC { // Java Database Connectivity
         Statement statement = null;
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
-        String password = "9i#Bnh1U0&!^4oc4"; // Nastavit heslo pre lokalnu DB
+        String password = ""; // Nastavit heslo pre lokalnu DB
 
 // Tutorial: https://www.tutorialspoint.com/postgresql/postgresql_java.htm
         try {
@@ -24,7 +24,7 @@ public class JDBC { // Java Database Connectivity
             conn = DriverManager.getConnection(url, user, password);
 
 //            conn.setAutoCommit(false);
-            System.out.println("Opened database successfully");
+            System.out.println("Opened database successfully\n");
 
             statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM testTable;");
