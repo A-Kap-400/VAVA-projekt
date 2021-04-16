@@ -5,7 +5,6 @@
  */
 package users;
 
-import controller.Data;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +22,9 @@ public final class Admin {
     private String password_hash;
     private String password_salt;
     private boolean root;
+
+    public Admin() {
+    }
     
 
     public Admin(int id, String admin_name, String password_hash, String password_salt, boolean root) {
@@ -73,7 +75,7 @@ public final class Admin {
         this.password_hash = getHashValue(passwd, this.password_salt);
     }
     
-    private String getHashValue(String passwd, String salt){
+    public String getHashValue(String passwd, String salt){
         MessageDigest messageDigest;
         try {
             messageDigest = MessageDigest.getInstance("SHA-256");
@@ -93,26 +95,6 @@ public final class Admin {
           .limit(32)
           .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
           .toString();
-    }
-    
-    public boolean login(String name, String passwd){
-        Data data = new Data();
-        
-        for(Admin a : data.getAdminArrayList()){
-            passwd = getHashValue(passwd, a.password_salt);
-            if (a.admin_name.equals(name) && a.password_hash.equals(passwd)){
-                data.setPrihlaseny(a);
-                return true;
-            }
-        }
-        
-        return false;
-        
-    }
-
-    public void logoff(){
-        Data data = new Data();
-        data.setPrihlaseny(null);
     }
     
 }

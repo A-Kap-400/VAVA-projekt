@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS library.Users
     id           SERIAL       NOT NULL PRIMARY KEY,
     user_name    VARCHAR(50)  NOT NULL,
     address      VARCHAR(250) NOT NULL,
-    psc          VARCHAR(5) NOT NULL,
+    psc          VARCHAR(5)   NOT NULL,
     city         VARCHAR(250) NOT NULL,
     phone_number VARCHAR(13)  NOT NULL,
     created_at   timestamp    NOT NULL DEFAULT current_timestamp,
@@ -52,8 +52,8 @@ INSERT INTO library.Administrators
 (admin_name,password_hash,password_salt,root)
 VALUES
 ('Admin','ba27cae1149da2ad94db7fc40e482a51c06780fca11e5179ec06dbd2b8260da6','iSlyrYJsIq7DIrxZKQ3g5ancJyBU8FoI', TRUE), -- heslo: Admin
-('PatrikVelcicky','3d03fbde14b5a75187ea3962d0519ce42b0d4786aee2616ab3b853bfc1087f9c', 'dceT84MwRekTQUMIgF6qcModYsPCuYQv', FALSE),-- heslo: heslo
-('AkosKapel', '2cf2e95e987731fb1149faf4be65962f899749c289d3415c81e54ead4db6aae5', 'mOHqXO5561UHScp5s3fp7IPcNXc7ojGJ', FALSE);-- heslo: heslo
+('PatrikVelcicky','45229f47edc1521023c410065f624c61af38ace926df9c3c59c1acd163dfff7', 'dceT84MwRekTQUMIgF6qcModYsPCuYQv', FALSE),-- heslo: heslo
+('AkosKapel', 'ecee1809cbfb299e13560611220c19f8f1f91c6a0a8865d37b7b755d44a0fda0', 'mOHqXO5561UHScp5s3fp7IPcNXc7ojGJ', FALSE);-- heslo: heslo
 
 INSERT INTO library.Users
 (user_name, address, psc, city, phone_number)

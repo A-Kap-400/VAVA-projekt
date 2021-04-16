@@ -4,6 +4,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import users.Admin;
 
 /**
@@ -12,7 +13,7 @@ import users.Admin;
  */
 public class JDBC { // Java Database Connectivity
 
-    public static void main(String[] args) {
+    public void loadAdmin(Data data){
         Connection conn = null;
         Statement statement = null;
         String url = "jdbc:postgresql://localhost:5432/postgres";
@@ -30,7 +31,7 @@ public class JDBC { // Java Database Connectivity
             statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT id, admin_name, password_hash, password_salt, root FROM library.administrators WHERE deleted_at is NULL;");
 
-            Data data = new Data();
+            data.setAdminArrayList(new ArrayList<>());
             
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -40,13 +41,6 @@ public class JDBC { // Java Database Connectivity
                 boolean root = resultSet.getBoolean("root");
                   
                 data.getAdminArrayList().add(new Admin(id, admin_name, password_hash, password_salt, root));
-
-                System.out.println("id = " + id);
-                System.out.println("name = " + admin_name);
-                System.out.println("passwd = " + password_hash);
-                System.out.println("salt = " + password_salt);
-                System.out.println("root = " + root);
-                System.out.println("");
             }
 
             resultSet.close();
@@ -58,5 +52,8 @@ public class JDBC { // Java Database Connectivity
             System.out.println("Connection failed.");
         }
     }
+    
+    
+    
 
 }
