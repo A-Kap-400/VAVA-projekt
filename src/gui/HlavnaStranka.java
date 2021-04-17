@@ -81,6 +81,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PVyhMainjPanel.setVisible(true);
     }
     
+    private void SecondLeftSelectedNone(){
+        AdminSelectedNone();
+        UzivatelSelectedNone();
+        KnihaSelectedNone();
+    }
+    
     private void MainSelectedNone(){
         KnihajPanel.setBackground(new Color(23, 35, 51));
         UzivateljPanel1.setBackground(new Color(23, 35, 51));
@@ -167,9 +173,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         PKnihaMainVratitjPanel1 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         PKnihaMainPridatjPanel2 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
@@ -265,7 +269,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainAdminOdstranitVybranyjPanel8 = new javax.swing.JPanel();
         MainAdminZmenHeslojPanel5 = new javax.swing.JPanel();
         PrvyjLabel15 = new javax.swing.JLabel();
-        MainAdminZobrazitVybranyjPanel9 = new javax.swing.JPanel();
+        MainAdminZmenHesloVybranyjPanel9 = new javax.swing.JPanel();
+        MainAdminZobrazjPanel6 = new javax.swing.JPanel();
+        PrvyjLabel16 = new javax.swing.JLabel();
+        MainAdminZobrazVybranyjPanel10 = new javax.swing.JPanel();
         PVyhMainjPanel3 = new javax.swing.JPanel();
         PMainAdmiPridatZamjPanel2 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
@@ -288,6 +295,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         jTextField37 = new javax.swing.JTextField();
         jButton16 = new javax.swing.JButton();
+        PMainAdminZobrazjPanel4 = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jLabel45 = new javax.swing.JLabel();
+        jTextField38 = new javax.swing.JTextField();
         MainNastaveniaUcetjPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -1088,30 +1101,18 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jButton4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Potvrdiť vrátenie");
-        PKnihaMainVratitjPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 380, 180, -1));
-
-        jLabel13.setBackground(new java.awt.Color(23, 35, 51));
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel13.setText("Pokuta (€)");
-        PKnihaMainVratitjPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, -1, -1));
+        PKnihaMainVratitjPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 340, 180, -1));
 
         jTextField7.setBackground(new java.awt.Color(255, 255, 255));
         jTextField7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField7.setForeground(new java.awt.Color(23, 35, 51));
-        PKnihaMainVratitjPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, 200, -1));
-
-        jTextField8.setEditable(false);
-        jTextField8.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField8.setForeground(new java.awt.Color(23, 35, 51));
-        PKnihaMainVratitjPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, 200, -1));
+        PKnihaMainVratitjPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 200, -1));
 
         jLabel15.setBackground(new java.awt.Color(23, 35, 51));
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(23, 35, 51));
         jLabel15.setText("ID Knihy");
-        PKnihaMainVratitjPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
+        PKnihaMainVratitjPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
 
         PKnihaMainjPanel1.add(PKnihaMainVratitjPanel1, "card2");
 
@@ -1761,6 +1762,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
         });
         jTable3.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable3);
+        if (jTable3.getColumnModel().getColumnCount() > 0) {
+            jTable3.getColumnModel().getColumn(5).setHeaderValue("Telefónne číslo");
+        }
 
         PMainUzivatelZobrazjPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 770, 640));
 
@@ -1904,18 +1908,18 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel15.setForeground(new java.awt.Color(255, 255, 255));
         PrvyjLabel15.setText("Zmeniť heslo");
 
-        MainAdminZobrazitVybranyjPanel9.setBackground(new java.awt.Color(41, 57, 80));
-        MainAdminZobrazitVybranyjPanel9.setForeground(new java.awt.Color(23, 35, 51));
-        MainAdminZobrazitVybranyjPanel9.setPreferredSize(new java.awt.Dimension(6, 40));
+        MainAdminZmenHesloVybranyjPanel9.setBackground(new java.awt.Color(41, 57, 80));
+        MainAdminZmenHesloVybranyjPanel9.setForeground(new java.awt.Color(23, 35, 51));
+        MainAdminZmenHesloVybranyjPanel9.setPreferredSize(new java.awt.Dimension(6, 40));
 
-        javax.swing.GroupLayout MainAdminZobrazitVybranyjPanel9Layout = new javax.swing.GroupLayout(MainAdminZobrazitVybranyjPanel9);
-        MainAdminZobrazitVybranyjPanel9.setLayout(MainAdminZobrazitVybranyjPanel9Layout);
-        MainAdminZobrazitVybranyjPanel9Layout.setHorizontalGroup(
-            MainAdminZobrazitVybranyjPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout MainAdminZmenHesloVybranyjPanel9Layout = new javax.swing.GroupLayout(MainAdminZmenHesloVybranyjPanel9);
+        MainAdminZmenHesloVybranyjPanel9.setLayout(MainAdminZmenHesloVybranyjPanel9Layout);
+        MainAdminZmenHesloVybranyjPanel9Layout.setHorizontalGroup(
+            MainAdminZmenHesloVybranyjPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 6, Short.MAX_VALUE)
         );
-        MainAdminZobrazitVybranyjPanel9Layout.setVerticalGroup(
-            MainAdminZobrazitVybranyjPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        MainAdminZmenHesloVybranyjPanel9Layout.setVerticalGroup(
+            MainAdminZmenHesloVybranyjPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -1924,7 +1928,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainAdminZmenHeslojPanel5Layout.setHorizontalGroup(
             MainAdminZmenHeslojPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainAdminZmenHeslojPanel5Layout.createSequentialGroup()
-                .addComponent(MainAdminZobrazitVybranyjPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(MainAdminZmenHesloVybranyjPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PrvyjLabel15)
                 .addGap(0, 72, Short.MAX_VALUE))
@@ -1935,10 +1939,60 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(PrvyjLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(MainAdminZobrazitVybranyjPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+            .addComponent(MainAdminZmenHesloVybranyjPanel9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
         );
 
         LVyhMainjPanel3.add(MainAdminZmenHeslojPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, -1, -1));
+
+        MainAdminZobrazjPanel6.setBackground(new java.awt.Color(41, 57, 80));
+        MainAdminZobrazjPanel6.setForeground(new java.awt.Color(0, 0, 0));
+        MainAdminZobrazjPanel6.setPreferredSize(new java.awt.Dimension(200, 46));
+        MainAdminZobrazjPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MainAdminZobrazjPanel6MouseClicked(evt);
+            }
+        });
+
+        PrvyjLabel16.setBackground(new java.awt.Color(255, 255, 255));
+        PrvyjLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        PrvyjLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        PrvyjLabel16.setText("Zobraziť");
+
+        MainAdminZobrazVybranyjPanel10.setBackground(new java.awt.Color(41, 57, 80));
+        MainAdminZobrazVybranyjPanel10.setForeground(new java.awt.Color(23, 35, 51));
+        MainAdminZobrazVybranyjPanel10.setPreferredSize(new java.awt.Dimension(6, 40));
+
+        javax.swing.GroupLayout MainAdminZobrazVybranyjPanel10Layout = new javax.swing.GroupLayout(MainAdminZobrazVybranyjPanel10);
+        MainAdminZobrazVybranyjPanel10.setLayout(MainAdminZobrazVybranyjPanel10Layout);
+        MainAdminZobrazVybranyjPanel10Layout.setHorizontalGroup(
+            MainAdminZobrazVybranyjPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 6, Short.MAX_VALUE)
+        );
+        MainAdminZobrazVybranyjPanel10Layout.setVerticalGroup(
+            MainAdminZobrazVybranyjPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout MainAdminZobrazjPanel6Layout = new javax.swing.GroupLayout(MainAdminZobrazjPanel6);
+        MainAdminZobrazjPanel6.setLayout(MainAdminZobrazjPanel6Layout);
+        MainAdminZobrazjPanel6Layout.setHorizontalGroup(
+            MainAdminZobrazjPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainAdminZobrazjPanel6Layout.createSequentialGroup()
+                .addComponent(MainAdminZobrazVybranyjPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(PrvyjLabel16)
+                .addGap(0, 116, Short.MAX_VALUE))
+        );
+        MainAdminZobrazjPanel6Layout.setVerticalGroup(
+            MainAdminZobrazjPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MainAdminZobrazjPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PrvyjLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(MainAdminZobrazVybranyjPanel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+        );
+
+        LVyhMainjPanel3.add(MainAdminZobrazjPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, -1, -1));
 
         MainAdministrativajPanel.add(LVyhMainjPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 740));
 
@@ -2066,6 +2120,62 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PMainAdmiZmenaHeslajPanel3.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, -1, -1));
 
         PVyhMainjPanel3.add(PMainAdmiZmenaHeslajPanel3, "card2");
+
+        PMainAdminZobrazjPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        PMainAdminZobrazjPanel4.setForeground(new java.awt.Color(0, 0, 0));
+        PMainAdminZobrazjPanel4.setPreferredSize(new java.awt.Dimension(794, 740));
+        PMainAdminZobrazjPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton13.setBackground(new java.awt.Color(71, 120, 197));
+        jButton13.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(255, 255, 255));
+        jButton13.setText("Vyhľadať");
+        PMainAdminZobrazjPanel4.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 120, -1));
+
+        jScrollPane5.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTable4.setBackground(new java.awt.Color(255, 255, 255));
+        jTable4.setForeground(new java.awt.Color(23, 35, 51));
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Použivateľské meno", "Administrátor", "Vytvorený dňa", "Upravený dňa"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable4.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(jTable4);
+
+        PMainAdminZobrazjPanel4.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 770, 640));
+
+        jLabel45.setBackground(new java.awt.Color(23, 35, 51));
+        jLabel45.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel45.setForeground(new java.awt.Color(23, 35, 51));
+        jLabel45.setText("Používateľské meno / ID ");
+        PMainAdminZobrazjPanel4.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
+
+        jTextField38.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField38.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jTextField38.setForeground(new java.awt.Color(23, 35, 51));
+        PMainAdminZobrazjPanel4.add(jTextField38, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 310, -1));
+
+        PVyhMainjPanel3.add(PMainAdminZobrazjPanel4, "card2");
 
         MainAdministrativajPanel.add(PVyhMainjPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 0, -1, -1));
 
@@ -2221,6 +2331,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
     private void KnihajPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KnihajPanelMouseClicked
         if (data.getPrihlaseny() != null){
+            SecondLeftSelectedNone();
             MainSelectedNone();
             setVisibleFalse();
             KnihaVybranyjPanel.setBackground(new Color(240, 240, 240));
@@ -2234,6 +2345,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_KnihajPanelMouseClicked
 
     private void UzivateljPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UzivateljPanel1MouseClicked
+        SecondLeftSelectedNone();
         MainSelectedNone();
         setVisibleFalse();
         UzivatelVybranyjPanel1.setBackground(new Color(240, 240, 240));
@@ -2246,6 +2358,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_UzivateljPanel1MouseClicked
 
     private void AdministrativajPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AdministrativajPanel2MouseClicked
+        SecondLeftSelectedNone();
         MainSelectedNone();
         setVisibleFalse();
         AdministrativaVybranyjPanel3.setBackground(new Color(240, 240, 240));
@@ -2258,6 +2371,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_AdministrativajPanel2MouseClicked
 
     private void NastaveniaUctujPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NastaveniaUctujPanelMouseClicked
+        SecondLeftSelectedNone();
         MainSelectedNone();
         setVisibleFalse();
         NastaveniaUctuVybranyjPanel2.setBackground(new Color(240, 240, 240));
@@ -2342,33 +2456,125 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PKnihaMainZobrazjPanel2.setVisible(true);
     }//GEN-LAST:event_MainKnihaZobrazitjPanel5MouseClicked
 
+    private void UzivatelSelectedNone(){
+        UzivateOdstranitVybranyjPanel8.setBackground(new Color(41, 57, 80));
+        UzivatelPridatVybranyjPanel7.setBackground(new Color(41, 57, 80));
+        UzivatelZobrazitVybranyjPanel6.setBackground(new Color(41, 57, 80));
+        UzivatelUpravitVybranyjPanel9.setBackground(new Color(41, 57, 80));
+        MainUzivatelPridatjPanel3.setBackground(new Color(41, 57, 80));
+        MainUzivateOdstranitjPanel4.setBackground(new Color(41, 57, 80));
+        MainUzivatelUpravitjPanel5.setBackground(new Color(41, 57, 80));
+        MainUzivatelZobrazitjPanel2.setBackground(new Color(41, 57, 80));
+        
+    }
+    
+    private void UzivatelVisibleFlase(){
+        PVyhMainjPanel2.setVisible(false);
+        PMainUzivatelPriatjPanel.setVisible(false);
+        PMainUzivatelUpravitjPanel1.setVisible(false);
+        PMainUzivatelVymazatjPanel1.setVisible(false);
+        PMainUzivatelZobrazjPanel3.setVisible(false);         
+    }
+    
+    
     private void MainUzivatelZobrazitjPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivatelZobrazitjPanel2MouseClicked
-        // TODO add your handling code here:
+        UzivatelSelectedNone();
+        UzivatelZobrazitVybranyjPanel6.setBackground(new Color(240, 240, 240));
+        MainUzivatelZobrazitjPanel2.setBackground(new Color(61, 77, 110));
+        
+        UzivatelVisibleFlase();
+        PVyhMainjPanel2.setVisible(true);
+        PMainUzivatelZobrazjPanel3.setVisible(true);
     }//GEN-LAST:event_MainUzivatelZobrazitjPanel2MouseClicked
 
     private void MainUzivatelPridatjPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivatelPridatjPanel3MouseClicked
-        // TODO add your handling code here:
+        UzivatelSelectedNone();
+        UzivatelPridatVybranyjPanel7.setBackground(new Color(240, 240, 240));
+        MainUzivatelPridatjPanel3.setBackground(new Color(61, 77, 110));
+        
+        UzivatelVisibleFlase();
+        PVyhMainjPanel2.setVisible(true);
+        PMainUzivatelPriatjPanel.setVisible(true);
     }//GEN-LAST:event_MainUzivatelPridatjPanel3MouseClicked
 
     private void MainUzivateOdstranitjPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivateOdstranitjPanel4MouseClicked
-        // TODO add your handling code here:
+        UzivatelSelectedNone();
+        UzivateOdstranitVybranyjPanel8.setBackground(new Color(240, 240, 240));
+        MainUzivateOdstranitjPanel4.setBackground(new Color(61, 77, 110));
+        
+        UzivatelVisibleFlase();
+        PVyhMainjPanel2.setVisible(true);
+        PMainUzivatelVymazatjPanel1.setVisible(true);
     }//GEN-LAST:event_MainUzivateOdstranitjPanel4MouseClicked
 
     private void MainUzivatelUpravitjPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivatelUpravitjPanel5MouseClicked
-        // TODO add your handling code here:
+        UzivatelSelectedNone();
+        UzivatelUpravitVybranyjPanel9.setBackground(new Color(240, 240, 240));
+        MainUzivatelUpravitjPanel5.setBackground(new Color(61, 77, 110));
+        
+        UzivatelVisibleFlase();
+        PVyhMainjPanel2.setVisible(true);
+        PMainUzivatelUpravitjPanel1.setVisible(true);
     }//GEN-LAST:event_MainUzivatelUpravitjPanel5MouseClicked
 
+    private void AdminSelectedNone(){
+        MainAdminOdstranitVybranyjPanel8.setBackground(new Color(41, 57, 80));
+        MainAdminOdstranitjPanel4.setBackground(new Color(41, 57, 80));
+        MainAdminPridatVybranyjPanel7.setBackground(new Color(41, 57, 80));
+        MainAdminPridatjPanel3.setBackground(new Color(41, 57, 80));
+        MainAdminZmenHeslojPanel5.setBackground(new Color(41, 57, 80));
+        MainAdminZmenHesloVybranyjPanel9.setBackground(new Color(41, 57, 80));
+        MainAdminZobrazVybranyjPanel10.setBackground(new Color(41, 57, 80));
+        MainAdminZobrazjPanel6.setBackground(new Color(41, 57, 80));
+    }
+    
+    private void AdminVisibleFlase(){
+        PVyhMainjPanel3.setVisible(false);
+        PMainAdmiOdstranitZamjPanel3.setVisible(false);
+        PMainAdmiPridatZamjPanel2.setVisible(false);
+        PMainAdmiZmenaHeslajPanel3.setVisible(false);
+        PMainAdminZobrazjPanel4.setVisible(false);
+    }
+    
     private void MainAdminPridatjPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminPridatjPanel3MouseClicked
-        // TODO add your handling code here:
+        AdminSelectedNone();
+        MainAdminPridatVybranyjPanel7.setBackground(new Color(240, 240, 240));
+        MainAdminPridatjPanel3.setBackground(new Color(61, 77, 110));
+        
+        AdminVisibleFlase();
+        PVyhMainjPanel3.setVisible(true);
+        PMainAdmiPridatZamjPanel2.setVisible(true);
     }//GEN-LAST:event_MainAdminPridatjPanel3MouseClicked
 
     private void MainAdminOdstranitjPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminOdstranitjPanel4MouseClicked
-        // TODO add your handling code here:
+        AdminSelectedNone();
+        MainAdminOdstranitVybranyjPanel8.setBackground(new Color(240, 240, 240));
+        MainAdminOdstranitjPanel4.setBackground(new Color(61, 77, 110));
+        
+        AdminVisibleFlase();
+        PVyhMainjPanel3.setVisible(true);
+        PMainAdmiOdstranitZamjPanel3.setVisible(true);
     }//GEN-LAST:event_MainAdminOdstranitjPanel4MouseClicked
 
     private void MainAdminZmenHeslojPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminZmenHeslojPanel5MouseClicked
-        // TODO add your handling code here:
+        AdminSelectedNone();
+        MainAdminZmenHesloVybranyjPanel9.setBackground(new Color(240, 240, 240));
+        MainAdminZmenHeslojPanel5.setBackground(new Color(61, 77, 110));
+        
+        AdminVisibleFlase();
+        PVyhMainjPanel3.setVisible(true);
+        PMainAdmiZmenaHeslajPanel3.setVisible(true);
     }//GEN-LAST:event_MainAdminZmenHeslojPanel5MouseClicked
+
+    private void MainAdminZobrazjPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminZobrazjPanel6MouseClicked
+        AdminSelectedNone();
+        MainAdminZobrazVybranyjPanel10.setBackground(new Color(240, 240, 240));
+        MainAdminZobrazjPanel6.setBackground(new Color(61, 77, 110));
+        
+        AdminVisibleFlase();
+        PVyhMainjPanel3.setVisible(true);
+        PMainAdminZobrazjPanel4.setVisible(true);
+    }//GEN-LAST:event_MainAdminZobrazjPanel6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2426,8 +2632,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JPanel MainAdminOdstranitjPanel4;
     private javax.swing.JPanel MainAdminPridatVybranyjPanel7;
     private javax.swing.JPanel MainAdminPridatjPanel3;
+    private javax.swing.JPanel MainAdminZmenHesloVybranyjPanel9;
     private javax.swing.JPanel MainAdminZmenHeslojPanel5;
-    private javax.swing.JPanel MainAdminZobrazitVybranyjPanel9;
+    private javax.swing.JPanel MainAdminZobrazVybranyjPanel10;
+    private javax.swing.JPanel MainAdminZobrazjPanel6;
     private javax.swing.JPanel MainAdministrativajPanel;
     private javax.swing.JPanel MainKnihaOdstranitVybranyjPanel4;
     private javax.swing.JPanel MainKnihaOdstranitjPanel4;
@@ -2463,6 +2671,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JPanel PMainAdmiOdstranitZamjPanel3;
     private javax.swing.JPanel PMainAdmiPridatZamjPanel2;
     private javax.swing.JPanel PMainAdmiZmenaHeslajPanel3;
+    private javax.swing.JPanel PMainAdminZobrazjPanel4;
     private javax.swing.JPanel PMainUzivatelPriatjPanel;
     private javax.swing.JPanel PMainUzivatelUpravitjPanel1;
     private javax.swing.JPanel PMainUzivatelVymazatjPanel1;
@@ -2480,6 +2689,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JLabel PrvyjLabel13;
     private javax.swing.JLabel PrvyjLabel14;
     private javax.swing.JLabel PrvyjLabel15;
+    private javax.swing.JLabel PrvyjLabel16;
     private javax.swing.JLabel PrvyjLabel2;
     private javax.swing.JLabel PrvyjLabel3;
     private javax.swing.JLabel PrvyjLabel4;
@@ -2498,6 +2708,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
@@ -2518,7 +2729,6 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -2553,6 +2763,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2562,9 +2773,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
@@ -2597,11 +2810,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField35;
     private javax.swing.JTextField jTextField36;
     private javax.swing.JTextField jTextField37;
+    private javax.swing.JTextField jTextField38;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 }
