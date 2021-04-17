@@ -33,7 +33,3 @@ dist/
 nbdist/
 .nb-gradle/
 
-# Ostatne
-nbproject/
-build.xml
-manifest.mf
