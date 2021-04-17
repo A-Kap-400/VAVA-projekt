@@ -1054,7 +1054,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel9.setBackground(new java.awt.Color(23, 35, 51));
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel9.setText("Meno a Priezvisko / ID zákazníka");
+        jLabel9.setText("ID zákazníka");
         PKnihaMainPozicatjPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
 
         jButton3.setBackground(new java.awt.Color(71, 120, 197));
@@ -1609,7 +1609,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel30.setBackground(new java.awt.Color(23, 35, 51));
         jLabel30.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel30.setText("Meno a Priezvisko / ID zákazníka");
+        jLabel30.setText("ID zákazníka");
         PMainUzivatelVymazatjPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, -1, -1));
 
         jButton9.setBackground(new java.awt.Color(255, 99, 71));
@@ -2065,13 +2065,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField34.setBackground(new java.awt.Color(255, 255, 255));
         jTextField34.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField34.setForeground(new java.awt.Color(23, 35, 51));
-        PMainAdmiOdstranitZamjPanel3.add(jTextField34, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 280, -1));
+        PMainAdmiOdstranitZamjPanel3.add(jTextField34, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 270, -1));
 
         jButton15.setBackground(new java.awt.Color(255, 99, 71));
         jButton15.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton15.setForeground(new java.awt.Color(255, 255, 255));
-        jButton15.setText("Pridať zamestnanca");
-        PMainAdmiOdstranitZamjPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 340, -1, -1));
+        jButton15.setText("Odstrániť zamestnanca");
+        PMainAdmiOdstranitZamjPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
 
         PVyhMainjPanel3.add(PMainAdmiOdstranitZamjPanel3, "card2");
 
