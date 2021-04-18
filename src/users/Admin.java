@@ -8,6 +8,7 @@ package users;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,23 +23,35 @@ public final class Admin {
     private String password_hash;
     private String password_salt;
     private boolean root;
-
+    private Date vytvoreny;
+    private Date upraveny;
+    
     public Admin() {
     }
     
 
-    public Admin(int id, String admin_name, String password_hash, String password_salt, boolean root) {
+    public Admin(int id, String admin_name, String password_hash, String password_salt, boolean root, Date vytvoreny, Date upraveny) {
         this.id = id;
         this.admin_name = admin_name;
         this.password_hash = password_hash;
         this.password_salt = password_salt;
         this.root = root;
+        this.vytvoreny = vytvoreny;
+        this.upraveny = upraveny;
     }
 
     public Admin(String admin_name, String passwd, boolean root) {
         this.admin_name = admin_name;
         setPassword_hash(passwd);
         this.root = root;
+    }
+    
+    public Date getVytvoreny() {
+        return vytvoreny;
+    }
+
+    public Date getUpraveny() {
+        return upraveny;
     }
 
     public boolean isRoot() {
@@ -47,10 +60,6 @@ public final class Admin {
     
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
     
     public String getAdmin_name() {
@@ -63,10 +72,6 @@ public final class Admin {
 
     public String getPassword_salt() {
         return password_salt;
-    }
-
-    public void setAdmin_name(String admin_name) {
-        this.admin_name = admin_name;
     }
 
     public void setPassword_hash(String passwd) {

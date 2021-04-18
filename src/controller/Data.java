@@ -7,6 +7,8 @@ package controller;
 
 import java.util.ArrayList;
 import users.Admin;
+import users.Kniha;
+import users.Zakaznik;
 
 /**
  *
@@ -17,6 +19,8 @@ public final class Data {
     private static Data instance;
     
     private ArrayList<Admin> adminArrayList = new ArrayList<>();
+    private ArrayList<Zakaznik> zakaznikArrayList = new ArrayList<>();
+    private ArrayList<Kniha> knihaArrayList = new ArrayList<>();
     private Admin prihlaseny = null;
 
     public static Data getInstance() {
@@ -38,9 +42,27 @@ public final class Data {
         return adminArrayList;
     }
 
+    public ArrayList<Zakaznik> getZakaznikArrayList() {
+        return zakaznikArrayList;
+    }
+
+    public ArrayList<Kniha> getKnihaArrayList() {
+        return knihaArrayList;
+    }
+
     public void setAdminArrayList(ArrayList<Admin> adminArrayList) {
         this.adminArrayList = adminArrayList;
     }
+
+    public void setZakaznikArrayList(ArrayList<Zakaznik> zakaznikArrayList) {
+        this.zakaznikArrayList = zakaznikArrayList;
+    }
+
+    public void setKnihaArrayList(ArrayList<Kniha> knihaArrayList) {
+        this.knihaArrayList = knihaArrayList;
+    }
+    
+    
     
     public boolean login(String name, String passwd){
         Admin admin = new Admin();

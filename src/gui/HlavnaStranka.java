@@ -64,7 +64,6 @@ public class HlavnaStranka extends javax.swing.JFrame {
         initComponents();
         pocitajCas();
         setVisibleFalse();
-        databaza.loadAdmin(data);
         defaultPage();
     }
 
@@ -2302,6 +2301,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private void LogPrihlasitjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogPrihlasitjButtonActionPerformed
         String name = LogMenojTextField.getText();
         String passwd = String.valueOf(LogHeslojPasswordField.getPassword());
+        
+        databaza.loadAdmin(data, "");
         
         boolean prihlaseny = data.login(name, passwd);
         
