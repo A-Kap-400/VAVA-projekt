@@ -2311,7 +2311,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         String name = LogMenojTextField.getText();
         String passwd = String.valueOf(LogHeslojPasswordField.getPassword());
 
-        databaza.loadAdmin(data, "");
+        databaza.loadAdmins(data, "");
 
         boolean prihlaseny = data.login(name, passwd);
 

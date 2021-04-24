@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author velco & kappel
+ * @author velco & Akos Kappel
  */
 public final class Admin {
 
@@ -41,7 +41,7 @@ public final class Admin {
 
     @Override
     public String toString() {
-        return "Admin(name=" + name + ", pw_hash=" + passwordHash + ", root=" + root + ')';
+        return "Admin(name=" + name + ", passwordHash=" + passwordHash + ", root=" + root + ')';
     }
 
     @Override
@@ -74,20 +74,12 @@ public final class Admin {
         return true;
     }
 
-    public Date getVytvoreny() {
-        return vytvoreny;
-    }
-
-    public Date getUpraveny() {
-        return upraveny;
-    }
-
-    public boolean isRoot() {
-        return root;
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -102,26 +94,50 @@ public final class Admin {
         return passwordHash;
     }
 
-    public void setPasswordHash(String hash) {
-        this.passwordHash = hash;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getPasswordSalt() {
         return passwordSalt;
     }
 
-    public void setPasswordSalt(String salt) {
-        this.passwordSalt = salt;
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
+    }
+
+    public boolean isRoot() {
+        return root;
+    }
+
+    public void setRoot(boolean root) {
+        this.root = root;
+    }
+
+    public Date getVytvoreny() {
+        return vytvoreny;
+    }
+
+    public void setVytvoreny(Date vytvoreny) {
+        this.vytvoreny = vytvoreny;
+    }
+
+    public Date getUpraveny() {
+        return upraveny;
+    }
+
+    public void setUpraveny(Date upraveny) {
+        this.upraveny = upraveny;
     }
 
     public void createPasswordHash(String passwd) {
-        this.createPasswordSalt();
+        this.passwordSalt = generatePasswordSalt();
         this.passwordHash = getHashValue(passwd, this.passwordSalt);
     }
 
     // https://www.baeldung.com/java-random-string#apachecommons-bounded 
-    private void createPasswordSalt() {
-        this.passwordSalt = new Random().ints(48, 123)
+    private static String generatePasswordSalt() {
+        return new Random().ints(48, 123)
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
                 .limit(32)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)

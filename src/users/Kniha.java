@@ -4,19 +4,18 @@ import java.util.Date;
 
 /**
  *
- * @author velco & kappel
+ * @author velco & Akos Kappel
  */
 public final class Kniha {
 
-    private int id_kniha;
+    private int idKniha;
     private String zaner;
     private String nazov;
     private String autor;
     private Date pozicaneDo;
 
-    public Kniha(int id_kniha, String zaner, String nazov, String autor, Date pozicaneDo, String meno) {
-//        super(meno); // TODO toto treba opravit
-        this.id_kniha = id_kniha;
+    public Kniha(int idKniha, String zaner, String nazov, String autor, Date pozicaneDo, String meno) {
+        this.idKniha = idKniha;
         this.zaner = zaner;
         this.nazov = nazov;
         this.autor = autor;
@@ -24,19 +23,19 @@ public final class Kniha {
     }
 
     public Kniha(int id_kniha, String zaner, String nazov, String autor, Date pozicaneDo) {
-        this.id_kniha = id_kniha;
+        this.idKniha = id_kniha;
         this.zaner = zaner;
         this.nazov = nazov;
         this.autor = autor;
         this.pozicaneDo = pozicaneDo;
     }
 
-    public int getId_kniha() {
-        return id_kniha;
+    public int getIdKniha() {
+        return idKniha;
     }
 
-    public void setId_kniha(int id_kniha) {
-        this.id_kniha = id_kniha;
+    public void setIdKniha(int idKniha) {
+        this.idKniha = idKniha;
     }
 
     public String getZaner() {

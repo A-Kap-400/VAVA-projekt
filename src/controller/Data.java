@@ -7,7 +7,7 @@ import users.Zakaznik;
 
 /**
  *
- * @author velco
+ * @author velco & kappel
  */
 public final class Data {
 
@@ -64,15 +64,21 @@ public final class Data {
         this.knihaArrayList = knihaArrayList;
     }
 
+    public void addAdmin(Admin a) {
+        this.adminArrayList.add(a);
+    }
+
     public boolean login(String name, String passwd) {
         String pwHash;
 
         for (Admin a : this.getAdminArrayList()) {
-            pwHash = Admin.getHashValue(passwd, a.getPasswordSalt());
+            if (a.getName().equals(name)) {
+                pwHash = Admin.getHashValue(passwd, a.getPasswordSalt());
 
-            if (a.getName().equals(name) && a.getPasswordHash().equals(pwHash)) {
-                this.setPrihlaseny(a);
-                return true;
+                if (a.getName().equals(name) && a.getPasswordHash().equals(pwHash)) {
+                    this.setPrihlaseny(a);
+                    return true;
+                }
             }
         }
 

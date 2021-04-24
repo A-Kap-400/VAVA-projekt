@@ -2,24 +2,20 @@ package users;
 
 /**
  *
- * @author velco & kappel
+ * @author velco & Akos Kappel
  */
 public class Zakaznik {
 
-    private int id_zak;
+    private int idZakaznik;
     private String meno;
+    private String email; // TODO pridat email
     private String adresa;
     private String mesto;
     private String psc;
     private String telCislo;
-    private String email;
 
-    public Zakaznik(String meno) {
-        this.meno = meno;
-    }
-
-    public Zakaznik(int id_zak, String meno, String adresa, String mesto, String psc, String telCislo) {
-        this.id_zak = id_zak;
+    public Zakaznik(int idZakaznik, String meno, String adresa, String mesto, String psc, String telCislo) {
+        this.idZakaznik = idZakaznik;
         this.meno = meno;
         this.adresa = adresa;
         this.mesto = mesto;
@@ -27,12 +23,12 @@ public class Zakaznik {
         this.telCislo = telCislo;
     }
 
-    public int getId_zak() {
-        return id_zak;
+    public int getIdZakaznik() {
+        return idZakaznik;
     }
 
-    public void setId_zak(int id_zak) {
-        this.id_zak = id_zak;
+    public void setIdZakaznik(int idZakaznik) {
+        this.idZakaznik = idZakaznik;
     }
 
     public String getMeno() {
@@ -41,6 +37,14 @@ public class Zakaznik {
 
     public void setMeno(String meno) {
         this.meno = meno;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getAdresa() {
@@ -73,14 +77,6 @@ public class Zakaznik {
 
     public void setTelCislo(String telCislo) {
         this.telCislo = telCislo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
 }

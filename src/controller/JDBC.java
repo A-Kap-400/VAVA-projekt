@@ -100,7 +100,7 @@ public class JDBC { // Java Database Connectivity
     }
 
     // toto pouzi aj pre zobrazovanie zamestnancov
-    public void loadAdmin(Data data, String meno_ID_zamestnanec) {
+    public void loadAdmins(Data data, String meno_ID_zamestnanec) {
         try {
             boolean jeInt;
             int id_zam = 0;
@@ -116,7 +116,7 @@ public class JDBC { // Java Database Connectivity
                     "SELECT id, admin_name, password_hash, password_salt, root, created_at, updated_at "
                     + "FROM library.administrators "
                     + "WHERE deleted_at is NULL "
-                    + ((meno_ID_zamestnanec.isEmpty()) ? ("") : ("AND " + ((jeInt) ? ("id = ?") : ("admin_name = ?"))))
+                    + ((meno_ID_zamestnanec.isBlank()) ? ("") : ("AND " + ((jeInt) ? ("id = ?") : ("admin_name = ?"))))
                     + ";");
 
             if (!meno_ID_zamestnanec.isEmpty()) {
@@ -133,15 +133,14 @@ public class JDBC { // Java Database Connectivity
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String admin_name = resultSet.getString("admin_name");
-                String password_hash = resultSet.getString("password_hash");
-                String password_salt = resultSet.getString("password_salt");
-                boolean root = resultSet.getBoolean("root");
+                String name = resultSet.getString("admin_name");
+                String passwordHash = resultSet.getString("password_hash");
+                String passwordSalt = resultSet.getString("password_salt");
+                boolean isRoot = resultSet.getBoolean("root");
                 Date vytovoreny = resultSet.getTimestamp("created_at");
                 Date upraveny = resultSet.getTimestamp("updated_at");
 
-                data.getAdminArrayList().add(new Admin(id, admin_name, password_hash, password_salt, root, vytovoreny, upraveny));
-
+                data.addAdmin(new Admin(id, name, passwordHash, passwordSalt, isRoot, vytovoreny, upraveny));
             }
 
             resultSet.close();
