@@ -4,41 +4,74 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author velco
+ * @author velco & kappel
  */
 public final class Admin {
 
     private int id;
-    private String admin_name;
-    private String password_hash;
-    private String password_salt;
+    private String name;
+    private String passwordHash;
+    private String passwordSalt;
     private boolean root;
     private Date vytvoreny;
     private Date upraveny;
 
-    public Admin() {
-    }
-
-    public Admin(int id, String admin_name, String password_hash, String password_salt, boolean root, Date vytvoreny, Date upraveny) {
+    public Admin(int id, String name, String passwordHash, String passwordSalt, boolean root, Date vytvoreny, Date upraveny) {
         this.id = id;
-        this.admin_name = admin_name;
-        this.password_hash = password_hash;
-        this.password_salt = password_salt;
+        this.name = name;
+        this.passwordHash = passwordHash;
+        this.passwordSalt = passwordSalt;
         this.root = root;
         this.vytvoreny = vytvoreny;
         this.upraveny = upraveny;
     }
 
     public Admin(String admin_name, String passwd, boolean root) {
-        this.admin_name = admin_name;
-        setPassword_hash(passwd);
+        this.name = admin_name;
+        createPasswordHash(passwd);
         this.root = root;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin(name=" + name + ", pw_hash=" + passwordHash + ", root=" + root + ')';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.passwordHash);
+        return hash;
+    }
+
+    // Metoda na porovnavanie adminov.
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Admin other = (Admin) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.passwordHash, other.passwordHash)) {
+            return false;
+        }
+        return true;
     }
 
     public Date getVytvoreny() {
@@ -57,43 +90,55 @@ public final class Admin {
         return id;
     }
 
-    public String getAdmin_name() {
-        return admin_name;
+    public String getName() {
+        return name;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPassword_salt() {
-        return password_salt;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword_hash(String passwd) {
-        setPassword_salt();
-
-        this.password_hash = getHashValue(passwd, this.password_salt);
+    public void setPasswordHash(String hash) {
+        this.passwordHash = hash;
     }
 
-    public String getHashValue(String passwd, String salt) {
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String salt) {
+        this.passwordSalt = salt;
+    }
+
+    public void createPasswordHash(String passwd) {
+        this.createPasswordSalt();
+        this.passwordHash = getHashValue(passwd, this.passwordSalt);
+    }
+
+    // https://www.baeldung.com/java-random-string#apachecommons-bounded 
+    private void createPasswordSalt() {
+        this.passwordSalt = new Random().ints(48, 123)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(32)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+    }
+
+    public static String getHashValue(String passwd, String salt) {
         MessageDigest messageDigest;
         try {
             messageDigest = MessageDigest.getInstance("SHA-256");
             messageDigest.update((passwd + salt).getBytes());
             return new BigInteger(1, messageDigest.digest()).toString(16);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
-            return "False";
-        }
-    }
 
-    // https://www.baeldung.com/java-random-string#apachecommons-bounded 
-    private void setPassword_salt() {
-        this.password_salt = new Random().ints(48, 123)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
-                .limit(32)
-                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-                .toString();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex); // TODO log4j
+            return null;
+        }
     }
 
 }

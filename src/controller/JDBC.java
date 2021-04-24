@@ -13,7 +13,7 @@ import users.Zakaznik;
 
 /**
  *
- * @author kappe & velco
+ * @author kappel & velco
  */
 public class JDBC { // Java Database Connectivity
 

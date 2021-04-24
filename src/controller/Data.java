@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.util.ArrayList;
@@ -15,13 +10,20 @@ import users.Zakaznik;
  * @author velco
  */
 public final class Data {
-    
+
     private static Data instance;
-    
-    private ArrayList<Admin> adminArrayList = new ArrayList<>();
-    private ArrayList<Zakaznik> zakaznikArrayList = new ArrayList<>();
-    private ArrayList<Kniha> knihaArrayList = new ArrayList<>();
-    private Admin prihlaseny = null;
+
+    private ArrayList<Admin> adminArrayList;
+    private ArrayList<Zakaznik> zakaznikArrayList;
+    private ArrayList<Kniha> knihaArrayList;
+    private Admin prihlaseny;
+
+    private Data() {
+        this.adminArrayList = new ArrayList<>();
+        this.zakaznikArrayList = new ArrayList<>();
+        this.knihaArrayList = new ArrayList<>();
+        this.prihlaseny = null;
+    }
 
     public static Data getInstance() {
         if (instance == null) {
@@ -61,28 +63,24 @@ public final class Data {
     public void setKnihaArrayList(ArrayList<Kniha> knihaArrayList) {
         this.knihaArrayList = knihaArrayList;
     }
-    
-    
-    
-    public boolean login(String name, String passwd){
-        Admin admin = new Admin();
 
-        for(Admin a : this.getAdminArrayList()){
-            passwd = admin.getHashValue(passwd, a.getPassword_salt());
+    public boolean login(String name, String passwd) {
+        String pwHash;
 
-            if (a.getAdmin_name().equals(name) && a.getPassword_hash().equals(passwd)){
+        for (Admin a : this.getAdminArrayList()) {
+            pwHash = Admin.getHashValue(passwd, a.getPasswordSalt());
+
+            if (a.getName().equals(name) && a.getPasswordHash().equals(pwHash)) {
                 this.setPrihlaseny(a);
                 return true;
             }
         }
 
         return false;
-
     }
 
-    public void logoff(){
+    public void logoff() {
         this.setPrihlaseny(null);
     }
-    
-    
+
 }

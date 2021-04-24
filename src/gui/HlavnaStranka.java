@@ -8,17 +8,15 @@ import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
-import users.Admin;
 
 /**
  *
- * @author velco
+ * @author velco & kappel
  */
 public class HlavnaStranka extends javax.swing.JFrame {
 
     private JDBC databaza;
     private Data data;
-    private Admin admin;
 
     /**
      * Creates new form HlavnaStranka
@@ -33,7 +31,6 @@ public class HlavnaStranka extends javax.swing.JFrame {
         this.databaza = new JDBC();
         this.databaza.connect();
         this.data = Data.getInstance();
-        this.admin = new Admin();
 
         // Toto pri zatvoreni okna ukonci spojenie s databazou.
         addWindowListener(new WindowAdapter() {
@@ -2321,18 +2318,17 @@ public class HlavnaStranka extends javax.swing.JFrame {
         if (prihlaseny) {
             setVisibleFalse();
             PrihlasitSajLabel.setText("Odhlásiť sa");
+
             if (data.getPrihlaseny().isRoot()) {
                 KnihajPanel.setVisible(true);
                 UzivateljPanel1.setVisible(true);
                 NastaveniaUctujPanel.setVisible(true);
                 AdministrativajPanel2.setVisible(true);
-
             } else {
                 KnihajPanel.setVisible(true);
                 UzivateljPanel1.setVisible(true);
                 NastaveniaUctujPanel.setVisible(true);
                 AdministrativajPanel2.setVisible(false);
-
             }
         } else {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne meno alebo heslo", "Chyba", JOptionPane.WARNING_MESSAGE);
