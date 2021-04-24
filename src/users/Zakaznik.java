@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package users;
 
 /**
@@ -10,6 +5,7 @@ package users;
  * @author velco
  */
 public class Zakaznik {
+
     private int id_zak;
     private String meno;
     private String adresa;
@@ -24,7 +20,6 @@ public class Zakaznik {
         this.meno = meno;
     }
 
-    
     public Zakaznik(int id_zak, String meno, String adresa, String mesto, String psc, String telCislo) {
         this.id_zak = id_zak;
         this.meno = meno;
@@ -34,8 +29,6 @@ public class Zakaznik {
         this.telCislo = telCislo;
     }
 
-    
-    
     public int getId_zak() {
         return id_zak;
     }
@@ -59,7 +52,5 @@ public class Zakaznik {
     public String getTelCislo() {
         return telCislo;
     }
-    
-    
-    
+
 }

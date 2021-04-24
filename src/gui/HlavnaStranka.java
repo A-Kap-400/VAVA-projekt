@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gui;
 
 import controller.Data;
 import controller.JDBC;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
@@ -18,11 +15,61 @@ import users.Admin;
  * @author velco
  */
 public class HlavnaStranka extends javax.swing.JFrame {
-    JDBC databaza = new JDBC();
-    Data data = Data.getInstance();
-    Admin admin = new Admin();
-    
-    private void setVisibleFalse(){
+
+    private JDBC databaza;
+    private Data data;
+    private Admin admin;
+
+    /**
+     * Creates new form HlavnaStranka
+     */
+    public HlavnaStranka() {
+        initComponents();
+
+        pocitajCas();
+        setVisibleFalse();
+        defaultPage();
+
+        this.databaza = new JDBC();
+        this.databaza.connect();
+        this.data = Data.getInstance();
+        this.admin = new Admin();
+
+        // Toto pri zatvoreni okna ukonci spojenie s databazou.
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent ev) {
+                databaza.disconnect();
+                System.out.println("Ukončenie aplikácie.\n"); // TODO log4j
+                dispose();
+                System.exit(0);
+            }
+        });
+    }
+
+    private void pocitajCas() {
+
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    Calendar calendar = new GregorianCalendar();
+
+                    String hodinaFormat = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY));
+                    String minutaFormat = String.format("%02d", calendar.get(Calendar.MINUTE));
+                    String sekundaFormat = String.format("%02d", calendar.get(Calendar.SECOND));
+
+                    String den = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH));
+                    String mesiac = String.format("%02d", 1 + calendar.get(Calendar.MONTH));
+                    String rok = String.format("%04d", calendar.get(Calendar.YEAR));
+
+                    DatumCasjLabel.setText(den + "." + mesiac + "." + rok + "  " + hodinaFormat + ":" + minutaFormat + ":" + sekundaFormat);
+                }
+            }
+        }.start();
+    }
+
+    private void setVisibleFalse() {
         MainjPanel.setVisible(false);
         MainLogjPanel.setVisible(false);
         MainUserVyhtadavanieKnihjPanel.setVisible(false);
@@ -30,44 +77,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainUzivateljPanel.setVisible(false);
         MainAdministrativajPanel.setVisible(false);
         MainNastaveniaUcetjPanel.setVisible(false);
-       
-    }
-    
-    private void pocitajCas(){
-       
-        new Thread(){
-            @Override
-            public void run() {
-                while (true) {
-                    Calendar calendar = new GregorianCalendar();
-                    
-                    String hodinaFormat = String.format("%02d", calendar.get(Calendar.HOUR_OF_DAY));
-                    String minutaFormat = String.format("%02d", calendar.get(Calendar.MINUTE));
-                    String sekundaFormat = String.format("%02d", calendar.get(Calendar.SECOND));
-                    
-                    String den = String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH));
-                    String mesiac = String.format("%02d", 1 + calendar.get(Calendar.MONTH));
-                    String rok = String.format("%04d", calendar.get(Calendar.YEAR));
-                   
-                    DatumCasjLabel.setText(den + "." + mesiac + "." + rok + "  " + hodinaFormat + ":" + minutaFormat + ":" + sekundaFormat);
-                }
-            }
-            
-        }.start();
-        
-    }
-    
-    /**
-     * Creates new form HlavnaStranka
-     */
-    public HlavnaStranka() {
-        initComponents();
-        pocitajCas();
-        setVisibleFalse();
-        defaultPage();
     }
 
-    private void defaultPage(){
+    private void defaultPage() {
         KnihaVybranyjPanel.setBackground(new Color(240, 240, 240));
         KnihajPanel.setBackground(new Color(41, 57, 80));
         KnihajPanel.setVisible(true);
@@ -79,14 +91,14 @@ public class HlavnaStranka extends javax.swing.JFrame {
         LVyhMainjPanel.setVisible(true);
         PVyhMainjPanel.setVisible(true);
     }
-    
-    private void SecondLeftSelectedNone(){
+
+    private void SecondLeftSelectedNone() {
         AdminSelectedNone();
         UzivatelSelectedNone();
         KnihaSelectedNone();
     }
-    
-    private void MainSelectedNone(){
+
+    private void MainSelectedNone() {
         KnihajPanel.setBackground(new Color(23, 35, 51));
         UzivateljPanel1.setBackground(new Color(23, 35, 51));
         AdministrativajPanel2.setBackground(new Color(23, 35, 51));
@@ -96,6 +108,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         AdministrativaVybranyjPanel3.setBackground(new Color(23, 35, 51));
         NastaveniaUctuVybranyjPanel2.setBackground(new Color(23, 35, 51));
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -2276,19 +2289,18 @@ public class HlavnaStranka extends javax.swing.JFrame {
         LogMenojTextField.setText("");
         LogHeslojPasswordField.setText("");
         PrihlasitSajLabel.setText("Prihlásiť sa");
-        
-        if(data.getPrihlaseny() == null){
+
+        if (data.getPrihlaseny() == null) {
             setVisibleFalse();
             MainSelectedNone();
             MainjPanel.setVisible(true);
             MainLogjPanel.setVisible(true);
-        }else{
+        } else {
             data.logoff();
             setVisibleFalse();
             MainSelectedNone();
             defaultPage();
-   
-        }   
+        }
     }//GEN-LAST:event_PrihlasitjPanelMouseClicked
 
     private void LogSpatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogSpatjButtonActionPerformed
@@ -2301,43 +2313,40 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private void LogPrihlasitjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogPrihlasitjButtonActionPerformed
         String name = LogMenojTextField.getText();
         String passwd = String.valueOf(LogHeslojPasswordField.getPassword());
-        
+
         databaza.loadAdmin(data, "");
-        
+
         boolean prihlaseny = data.login(name, passwd);
-        
-        if(prihlaseny){
+
+        if (prihlaseny) {
             setVisibleFalse();
             PrihlasitSajLabel.setText("Odhlásiť sa");
-            if(data.getPrihlaseny().isRoot()){
+            if (data.getPrihlaseny().isRoot()) {
                 KnihajPanel.setVisible(true);
                 UzivateljPanel1.setVisible(true);
                 NastaveniaUctujPanel.setVisible(true);
                 AdministrativajPanel2.setVisible(true);
-                
-            }else{
+
+            } else {
                 KnihajPanel.setVisible(true);
                 UzivateljPanel1.setVisible(true);
                 NastaveniaUctujPanel.setVisible(true);
                 AdministrativajPanel2.setVisible(false);
-                
+
             }
- 
-        }else{
-            JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne meno alebo heslo", "Chyba",  JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne meno alebo heslo", "Chyba", JOptionPane.WARNING_MESSAGE);
         }
-        
-        
     }//GEN-LAST:event_LogPrihlasitjButtonActionPerformed
 
     private void KnihajPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KnihajPanelMouseClicked
-        if (data.getPrihlaseny() != null){
+        if (data.getPrihlaseny() != null) {
             SecondLeftSelectedNone();
             MainSelectedNone();
             setVisibleFalse();
             KnihaVybranyjPanel.setBackground(new Color(240, 240, 240));
             KnihajPanel.setBackground(new Color(41, 57, 80));
-            
+
             MainjPanel.setVisible(true);
             MainKnihajPanel.setVisible(true);
             LKnihaMainjPanel1.setVisible(true);
@@ -2351,7 +2360,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         setVisibleFalse();
         UzivatelVybranyjPanel1.setBackground(new Color(240, 240, 240));
         UzivateljPanel1.setBackground(new Color(41, 57, 80));
-        
+
         MainjPanel.setVisible(true);
         MainUzivateljPanel.setVisible(true);
         LVyhMainjPanel2.setVisible(true);
@@ -2364,7 +2373,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         setVisibleFalse();
         AdministrativaVybranyjPanel3.setBackground(new Color(240, 240, 240));
         AdministrativajPanel2.setBackground(new Color(41, 57, 80));
-        
+
         MainjPanel.setVisible(true);
         MainAdministrativajPanel.setVisible(true);
         LVyhMainjPanel3.setVisible(true);
@@ -2384,7 +2393,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainZmenaHeslajPasswordField3.setText("");
     }//GEN-LAST:event_NastaveniaUctujPanelMouseClicked
 
-    private void KnihaSelectedNone(){
+    private void KnihaSelectedNone() {
         MainKnihaPozicanieVybranyjPanel1.setBackground(new Color(41, 57, 80));
         MainKnihaPozicaniejPanel1.setBackground(new Color(41, 57, 80));
         MainKnihaOdstranitVybranyjPanel4.setBackground(new Color(41, 57, 80));
@@ -2396,8 +2405,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainKnihaZobraziVybranyjPanel5.setBackground(new Color(41, 57, 80));
         MainKnihaZobrazitjPanel5.setBackground(new Color(41, 57, 80));
     }
-    
-    private void KnihaVisibleFalse(){
+
+    private void KnihaVisibleFalse() {
         PKnihaMainjPanel1.setVisible(false);
         PKnihaMainOdstranitjPanel3.setVisible(false);
         PKnihaMainPozicatjPanel.setVisible(false);
@@ -2406,12 +2415,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PKnihaMainZobrazjPanel2.setVisible(false);
     }
 
-    
+
     private void MainKnihaPozicaniejPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainKnihaPozicaniejPanel1MouseClicked
         KnihaSelectedNone();
         MainKnihaPozicanieVybranyjPanel1.setBackground(new Color(240, 240, 240));
         MainKnihaPozicaniejPanel1.setBackground(new Color(61, 77, 110));
-        
+
         KnihaVisibleFalse();
         PKnihaMainjPanel1.setVisible(true);
         PKnihaMainPozicatjPanel.setVisible(true);
@@ -2421,7 +2430,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         KnihaSelectedNone();
         MainKnihaVratitVybranyjPanel2.setBackground(new Color(240, 240, 240));
         MainKnihaVratitjPanel2.setBackground(new Color(61, 77, 110));
-        
+
         KnihaVisibleFalse();
         PKnihaMainjPanel1.setVisible(true);
         PKnihaMainVratitjPanel1.setVisible(true);
@@ -2431,7 +2440,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         KnihaSelectedNone();
         MainKnihaPrdatVybranyjPanel3.setBackground(new Color(240, 240, 240));
         MainKnihaPrdatjPanel3.setBackground(new Color(61, 77, 110));
-        
+
         KnihaVisibleFalse();
         PKnihaMainjPanel1.setVisible(true);
         PKnihaMainPridatjPanel2.setVisible(true);
@@ -2441,7 +2450,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         KnihaSelectedNone();
         MainKnihaOdstranitVybranyjPanel4.setBackground(new Color(240, 240, 240));
         MainKnihaOdstranitjPanel4.setBackground(new Color(61, 77, 110));
-        
+
         KnihaVisibleFalse();
         PKnihaMainjPanel1.setVisible(true);
         PKnihaMainOdstranitjPanel3.setVisible(true);
@@ -2451,13 +2460,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         KnihaSelectedNone();
         MainKnihaZobraziVybranyjPanel5.setBackground(new Color(240, 240, 240));
         MainKnihaZobrazitjPanel5.setBackground(new Color(61, 77, 110));
-        
+
         KnihaVisibleFalse();
         PKnihaMainjPanel1.setVisible(true);
         PKnihaMainZobrazjPanel2.setVisible(true);
     }//GEN-LAST:event_MainKnihaZobrazitjPanel5MouseClicked
 
-    private void UzivatelSelectedNone(){
+    private void UzivatelSelectedNone() {
         UzivateOdstranitVybranyjPanel8.setBackground(new Color(41, 57, 80));
         UzivatelPridatVybranyjPanel7.setBackground(new Color(41, 57, 80));
         UzivatelZobrazitVybranyjPanel6.setBackground(new Color(41, 57, 80));
@@ -2466,23 +2475,23 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainUzivateOdstranitjPanel4.setBackground(new Color(41, 57, 80));
         MainUzivatelUpravitjPanel5.setBackground(new Color(41, 57, 80));
         MainUzivatelZobrazitjPanel2.setBackground(new Color(41, 57, 80));
-        
+
     }
-    
-    private void UzivatelVisibleFlase(){
+
+    private void UzivatelVisibleFlase() {
         PVyhMainjPanel2.setVisible(false);
         PMainUzivatelPriatjPanel.setVisible(false);
         PMainUzivatelUpravitjPanel1.setVisible(false);
         PMainUzivatelVymazatjPanel1.setVisible(false);
-        PMainUzivatelZobrazjPanel3.setVisible(false);         
+        PMainUzivatelZobrazjPanel3.setVisible(false);
     }
-    
-    
+
+
     private void MainUzivatelZobrazitjPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivatelZobrazitjPanel2MouseClicked
         UzivatelSelectedNone();
         UzivatelZobrazitVybranyjPanel6.setBackground(new Color(240, 240, 240));
         MainUzivatelZobrazitjPanel2.setBackground(new Color(61, 77, 110));
-        
+
         UzivatelVisibleFlase();
         PVyhMainjPanel2.setVisible(true);
         PMainUzivatelZobrazjPanel3.setVisible(true);
@@ -2492,7 +2501,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         UzivatelSelectedNone();
         UzivatelPridatVybranyjPanel7.setBackground(new Color(240, 240, 240));
         MainUzivatelPridatjPanel3.setBackground(new Color(61, 77, 110));
-        
+
         UzivatelVisibleFlase();
         PVyhMainjPanel2.setVisible(true);
         PMainUzivatelPriatjPanel.setVisible(true);
@@ -2502,7 +2511,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         UzivatelSelectedNone();
         UzivateOdstranitVybranyjPanel8.setBackground(new Color(240, 240, 240));
         MainUzivateOdstranitjPanel4.setBackground(new Color(61, 77, 110));
-        
+
         UzivatelVisibleFlase();
         PVyhMainjPanel2.setVisible(true);
         PMainUzivatelVymazatjPanel1.setVisible(true);
@@ -2512,13 +2521,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         UzivatelSelectedNone();
         UzivatelUpravitVybranyjPanel9.setBackground(new Color(240, 240, 240));
         MainUzivatelUpravitjPanel5.setBackground(new Color(61, 77, 110));
-        
+
         UzivatelVisibleFlase();
         PVyhMainjPanel2.setVisible(true);
         PMainUzivatelUpravitjPanel1.setVisible(true);
     }//GEN-LAST:event_MainUzivatelUpravitjPanel5MouseClicked
 
-    private void AdminSelectedNone(){
+    private void AdminSelectedNone() {
         MainAdminOdstranitVybranyjPanel8.setBackground(new Color(41, 57, 80));
         MainAdminOdstranitjPanel4.setBackground(new Color(41, 57, 80));
         MainAdminPridatVybranyjPanel7.setBackground(new Color(41, 57, 80));
@@ -2528,20 +2537,20 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainAdminZobrazVybranyjPanel10.setBackground(new Color(41, 57, 80));
         MainAdminZobrazjPanel6.setBackground(new Color(41, 57, 80));
     }
-    
-    private void AdminVisibleFlase(){
+
+    private void AdminVisibleFlase() {
         PVyhMainjPanel3.setVisible(false);
         PMainAdmiOdstranitZamjPanel3.setVisible(false);
         PMainAdmiPridatZamjPanel2.setVisible(false);
         PMainAdmiZmenaHeslajPanel3.setVisible(false);
         PMainAdminZobrazjPanel4.setVisible(false);
     }
-    
+
     private void MainAdminPridatjPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminPridatjPanel3MouseClicked
         AdminSelectedNone();
         MainAdminPridatVybranyjPanel7.setBackground(new Color(240, 240, 240));
         MainAdminPridatjPanel3.setBackground(new Color(61, 77, 110));
-        
+
         AdminVisibleFlase();
         PVyhMainjPanel3.setVisible(true);
         PMainAdmiPridatZamjPanel2.setVisible(true);
@@ -2551,7 +2560,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         AdminSelectedNone();
         MainAdminOdstranitVybranyjPanel8.setBackground(new Color(240, 240, 240));
         MainAdminOdstranitjPanel4.setBackground(new Color(61, 77, 110));
-        
+
         AdminVisibleFlase();
         PVyhMainjPanel3.setVisible(true);
         PMainAdmiOdstranitZamjPanel3.setVisible(true);
@@ -2561,7 +2570,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         AdminSelectedNone();
         MainAdminZmenHesloVybranyjPanel9.setBackground(new Color(240, 240, 240));
         MainAdminZmenHeslojPanel5.setBackground(new Color(61, 77, 110));
-        
+
         AdminVisibleFlase();
         PVyhMainjPanel3.setVisible(true);
         PMainAdmiZmenaHeslajPanel3.setVisible(true);
@@ -2571,7 +2580,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         AdminSelectedNone();
         MainAdminZobrazVybranyjPanel10.setBackground(new Color(240, 240, 240));
         MainAdminZobrazjPanel6.setBackground(new Color(61, 77, 110));
-        
+
         AdminVisibleFlase();
         PVyhMainjPanel3.setVisible(true);
         PMainAdminZobrazjPanel4.setVisible(true);

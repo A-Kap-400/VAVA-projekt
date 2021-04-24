@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package users;
 
 import java.util.Date;
@@ -11,7 +6,8 @@ import java.util.Date;
  *
  * @author velco
  */
-public final class Kniha extends Zakaznik{
+public final class Kniha extends Zakaznik {
+
     private int id_kniha;
     private String zaner;
     private String nazov;
@@ -30,7 +26,6 @@ public final class Kniha extends Zakaznik{
         this.pozicaneDo = pozicaneDo;
     }
 
-
     public Kniha(int id_kniha, String zaner, String nazov, String autor, Date pozicaneDo) {
         this.id_kniha = id_kniha;
         this.zaner = zaner;
@@ -38,7 +33,7 @@ public final class Kniha extends Zakaznik{
         this.autor = autor;
         this.pozicaneDo = pozicaneDo;
     }
-    
+
     public int getId_kniha() {
         return id_kniha;
     }
@@ -58,7 +53,5 @@ public final class Kniha extends Zakaznik{
     public Date getPozicaneDo() {
         return pozicaneDo;
     }
-    
-    
-    
+
 }
