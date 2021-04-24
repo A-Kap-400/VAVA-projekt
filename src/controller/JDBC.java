@@ -13,7 +13,7 @@ import users.Zakaznik;
 
 /**
  *
- * @author kappel & velco
+ * @author Akos Kappel & velco
  */
 public class JDBC { // Java Database Connectivity
 
@@ -154,15 +154,15 @@ public class JDBC { // Java Database Connectivity
         try {
             ArrayList<String> premenne = new ArrayList<>();
 
-            if (!nazov.isBlank()) {
+            if (!nazov.isEmpty()) {
                 nazov = "%" + nazov + "%";
                 premenne.add(nazov);
             }
-            if (!zaner.isBlank()) {
+            if (!zaner.isEmpty()) {
                 zaner = "%" + zaner + "%";
                 premenne.add(zaner);
             }
-            if (!autor.isBlank()) {
+            if (!autor.isEmpty()) {
                 autor = "%" + autor + "%";
                 premenne.add(autor);
             }
@@ -183,7 +183,6 @@ public class JDBC { // Java Database Connectivity
             }
 
             ResultSet resultSet = statement.executeQuery();
-
             data.setKnihaArrayList(new ArrayList<>());
 
             while (resultSet.next()) {
@@ -193,7 +192,7 @@ public class JDBC { // Java Database Connectivity
                 String autor_kniha = resultSet.getString("author");
                 Date pozicanaDo_kniha = resultSet.getTimestamp("borrow_until");
 
-                data.getKnihaArrayList().add(new Kniha(id_kniha, zaner_kniha, nazov_kniha, autor_kniha, pozicanaDo_kniha));
+                data.addBook(new Kniha(id_kniha, zaner_kniha, nazov_kniha, autor_kniha, pozicanaDo_kniha));
             }
 
             resultSet.close();

@@ -5,9 +5,13 @@ import controller.JDBC;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import users.Kniha;
 
 /**
  *
@@ -143,17 +147,17 @@ public class HlavnaStranka extends javax.swing.JFrame {
         LogHeslojPasswordField = new javax.swing.JPasswordField();
         MainUserVyhtadavanieKnihjPanel = new javax.swing.JPanel();
         LVyhMainjPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        searchBooksBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        isAvailableCheckBox = new javax.swing.JCheckBox();
+        bookGenreSearchFld = new javax.swing.JTextField();
+        bookTitleSearchFld = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        bookAuthorSearchFld = new javax.swing.JTextField();
         PVyhMainjPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        searchedBooksTbl = new javax.swing.JTable();
         MainKnihajPanel = new javax.swing.JPanel();
         LKnihaMainjPanel1 = new javax.swing.JPanel();
         MainKnihaPozicaniejPanel1 = new javax.swing.JPanel();
@@ -185,16 +189,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         PKnihaMainPridatjPanel2 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        addBookBtn = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        bookTitleFld = new javax.swing.JTextField();
+        bookAuthorFld = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jTextField16 = new javax.swing.JTextField();
+        bookGenreFld = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        bookDescriptionArea = new javax.swing.JTextArea();
         PKnihaMainOdstranitjPanel3 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jTextField11 = new javax.swing.JTextField();
@@ -659,10 +663,15 @@ public class HlavnaStranka extends javax.swing.JFrame {
         LVyhMainjPanel.setForeground(new java.awt.Color(0, 0, 0));
         LVyhMainjPanel.setPreferredSize(new java.awt.Dimension(200, 330));
 
-        jButton1.setBackground(new java.awt.Color(71, 120, 197));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Vyhľadať");
+        searchBooksBtn.setBackground(new java.awt.Color(71, 120, 197));
+        searchBooksBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        searchBooksBtn.setForeground(new java.awt.Color(255, 255, 255));
+        searchBooksBtn.setText("Vyhľadať");
+        searchBooksBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                searchBooksBtnMouseReleased(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -672,26 +681,26 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Názov");
 
-        jCheckBox1.setBackground(new java.awt.Color(41, 57, 80));
-        jCheckBox1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Zobraziť len dostupné");
+        isAvailableCheckBox.setBackground(new java.awt.Color(41, 57, 80));
+        isAvailableCheckBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        isAvailableCheckBox.setForeground(new java.awt.Color(255, 255, 255));
+        isAvailableCheckBox.setText("Zobraziť len dostupné");
 
-        jTextField1.setBackground(new java.awt.Color(61, 77, 110));
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        bookGenreSearchFld.setBackground(new java.awt.Color(61, 77, 110));
+        bookGenreSearchFld.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        bookGenreSearchFld.setForeground(new java.awt.Color(255, 255, 255));
 
-        jTextField2.setBackground(new java.awt.Color(61, 77, 110));
-        jTextField2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        bookTitleSearchFld.setBackground(new java.awt.Color(61, 77, 110));
+        bookTitleSearchFld.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        bookTitleSearchFld.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Autor");
 
-        jTextField6.setBackground(new java.awt.Color(61, 77, 110));
-        jTextField6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField6.setForeground(new java.awt.Color(255, 255, 255));
+        bookAuthorSearchFld.setBackground(new java.awt.Color(61, 77, 110));
+        bookAuthorSearchFld.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        bookAuthorSearchFld.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout LVyhMainjPanelLayout = new javax.swing.GroupLayout(LVyhMainjPanel);
         LVyhMainjPanel.setLayout(LVyhMainjPanelLayout);
@@ -700,9 +709,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
             .addGroup(LVyhMainjPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LVyhMainjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bookTitleSearchFld, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bookGenreSearchFld, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bookAuthorSearchFld, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(LVyhMainjPanelLayout.createSequentialGroup()
                         .addGroup(LVyhMainjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -710,9 +719,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
                             .addGroup(LVyhMainjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(LVyhMainjPanelLayout.createSequentialGroup()
                                     .addGap(44, 44, 44)
-                                    .addComponent(jButton1)
+                                    .addComponent(searchBooksBtn)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(isAvailableCheckBox, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addComponent(jLabel12))
                         .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -723,29 +732,29 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bookGenreSearchFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bookTitleSearchFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bookAuthorSearchFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
+                .addComponent(isAvailableCheckBox)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(443, Short.MAX_VALUE))
+                .addComponent(searchBooksBtn)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         MainUserVyhtadavanieKnihjPanel.add(LVyhMainjPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 740));
 
         PVyhMainjPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setBackground(new java.awt.Color(255, 255, 255));
-        jTable1.setForeground(new java.awt.Color(23, 35, 51));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        searchedBooksTbl.setBackground(new java.awt.Color(255, 255, 255));
+        searchedBooksTbl.setForeground(new java.awt.Color(23, 35, 51));
+        searchedBooksTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -768,8 +777,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
+        searchedBooksTbl.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(searchedBooksTbl);
 
         javax.swing.GroupLayout PVyhMainjPanelLayout = new javax.swing.GroupLayout(PVyhMainjPanel);
         PVyhMainjPanel.setLayout(PVyhMainjPanelLayout);
@@ -1130,11 +1139,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PKnihaMainPridatjPanel2.setPreferredSize(new java.awt.Dimension(794, 740));
         PKnihaMainPridatjPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton5.setBackground(new java.awt.Color(71, 120, 197));
-        jButton5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Pridať knihu");
-        PKnihaMainPridatjPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, 180, -1));
+        addBookBtn.setBackground(new java.awt.Color(71, 120, 197));
+        addBookBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        addBookBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addBookBtn.setText("Pridať knihu");
+        addBookBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                addBookBtnMouseReleased(evt);
+            }
+        });
+        PKnihaMainPridatjPanel2.add(addBookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, 180, -1));
 
         jLabel14.setBackground(new java.awt.Color(23, 35, 51));
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -1142,15 +1156,15 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel14.setText("Autor");
         PKnihaMainPridatjPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, -1, -1));
 
-        jTextField9.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField9.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField9.setForeground(new java.awt.Color(23, 35, 51));
-        PKnihaMainPridatjPanel2.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 440, -1));
+        bookTitleFld.setBackground(new java.awt.Color(255, 255, 255));
+        bookTitleFld.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        bookTitleFld.setForeground(new java.awt.Color(23, 35, 51));
+        PKnihaMainPridatjPanel2.add(bookTitleFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 440, -1));
 
-        jTextField10.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField10.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField10.setForeground(new java.awt.Color(23, 35, 51));
-        PKnihaMainPridatjPanel2.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 440, -1));
+        bookAuthorFld.setBackground(new java.awt.Color(255, 255, 255));
+        bookAuthorFld.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        bookAuthorFld.setForeground(new java.awt.Color(23, 35, 51));
+        PKnihaMainPridatjPanel2.add(bookAuthorFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 440, -1));
 
         jLabel16.setBackground(new java.awt.Color(23, 35, 51));
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -1164,10 +1178,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel21.setText("Popis");
         PKnihaMainPridatjPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, -1));
 
-        jTextField16.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField16.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField16.setForeground(new java.awt.Color(23, 35, 51));
-        PKnihaMainPridatjPanel2.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 440, -1));
+        bookGenreFld.setBackground(new java.awt.Color(255, 255, 255));
+        bookGenreFld.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        bookGenreFld.setForeground(new java.awt.Color(23, 35, 51));
+        PKnihaMainPridatjPanel2.add(bookGenreFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 440, -1));
 
         jLabel22.setBackground(new java.awt.Color(23, 35, 51));
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -1175,13 +1189,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel22.setText("Žáner");
         PKnihaMainPridatjPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
 
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextArea1.setForeground(new java.awt.Color(23, 35, 51));
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(null);
-        jScrollPane2.setViewportView(jTextArea1);
+        bookDescriptionArea.setBackground(new java.awt.Color(255, 255, 255));
+        bookDescriptionArea.setColumns(20);
+        bookDescriptionArea.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        bookDescriptionArea.setForeground(new java.awt.Color(23, 35, 51));
+        bookDescriptionArea.setRows(5);
+        bookDescriptionArea.setBorder(null);
+        jScrollPane2.setViewportView(bookDescriptionArea);
 
         PKnihaMainPridatjPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 440, 190));
 
@@ -2582,6 +2596,46 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PMainAdminZobrazjPanel4.setVisible(true);
     }//GEN-LAST:event_MainAdminZobrazjPanel6MouseClicked
 
+    private void addBookBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBookBtnMouseReleased
+        String title = bookTitleFld.getText().trim();
+        String author = bookAuthorFld.getText().trim();
+        String genre = bookGenreFld.getText().trim();
+        String description = bookDescriptionArea.getText().trim();
+
+        if (title.isBlank() || author.isBlank() || genre.isBlank() || description.isBlank()) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Prosím vyplňte všetky informácie.", "Chýbajú údaje o knihe!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+//        Kniha k = new Kniha() // TODO
+        System.out.println("");
+    }//GEN-LAST:event_addBookBtnMouseReleased
+
+    /**
+     * Tato metoda naplni tabulku pre vyhladavanie knih na hlavnej stranke.
+     */
+    private void searchBooksBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBooksBtnMouseReleased
+        String genre = bookGenreSearchFld.getText().trim();
+        String title = bookTitleSearchFld.getText().trim();
+        String author = bookAuthorSearchFld.getText().trim();
+        boolean isAvailable = isAvailableCheckBox.isSelected();
+
+        databaza.neprihlasenyKnihaZobraz(data, title, genre, author, isAvailable);
+
+        DefaultTableModel tblModel = (DefaultTableModel) searchedBooksTbl.getModel();
+        tblModel.setRowCount(0);
+
+        ArrayList<Kniha> books = data.getKnihaArrayList();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        for (int i = 0; i < books.size(); i++) {
+            Kniha k = books.get(i);
+            String[] row = {String.valueOf(k.getIdKniha()), k.getZaner(), k.getNazov(),
+                k.getAutor(), k.getPozicaneDo() != null ? sdf.format(k.getPozicaneDo()) : ""};
+            tblModel.addRow(row);
+        }
+    }//GEN-LAST:event_searchBooksBtnMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -2710,7 +2764,15 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JPanel UzivatelVybranyjPanel1;
     private javax.swing.JPanel UzivatelZobrazitVybranyjPanel6;
     private javax.swing.JPanel UzivateljPanel1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton addBookBtn;
+    private javax.swing.JTextField bookAuthorFld;
+    private javax.swing.JTextField bookAuthorSearchFld;
+    private javax.swing.JTextArea bookDescriptionArea;
+    private javax.swing.JTextField bookGenreFld;
+    private javax.swing.JTextField bookGenreSearchFld;
+    private javax.swing.JTextField bookTitleFld;
+    private javax.swing.JTextField bookTitleSearchFld;
+    private javax.swing.JCheckBox isAvailableCheckBox;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -2721,12 +2783,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JCheckBox jCheckBox4;
@@ -2780,23 +2840,17 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField16;
     private javax.swing.JTextField jTextField17;
     private javax.swing.JTextField jTextField18;
     private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField20;
     private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
@@ -2819,8 +2873,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField38;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JButton searchBooksBtn;
+    private javax.swing.JTable searchedBooksTbl;
     // End of variables declaration//GEN-END:variables
 }

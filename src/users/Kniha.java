@@ -22,8 +22,8 @@ public final class Kniha {
         this.pozicaneDo = pozicaneDo;
     }
 
-    public Kniha(int id_kniha, String zaner, String nazov, String autor, Date pozicaneDo) {
-        this.idKniha = id_kniha;
+    public Kniha(int idKniha, String zaner, String nazov, String autor, Date pozicaneDo) {
+        this.idKniha = idKniha;
         this.zaner = zaner;
         this.nazov = nazov;
         this.autor = autor;

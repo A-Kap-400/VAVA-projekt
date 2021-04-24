@@ -7,7 +7,7 @@ import users.Zakaznik;
 
 /**
  *
- * @author velco & kappel
+ * @author velco & Akos Kappel
  */
 public final class Data {
 
@@ -66,6 +66,14 @@ public final class Data {
 
     public void addAdmin(Admin a) {
         this.adminArrayList.add(a);
+    }
+
+    public void addBook(Kniha k) {
+        this.knihaArrayList.add(k);
+    }
+
+    public void addCustomer(Zakaznik z) {
+        this.zakaznikArrayList.add(z);
     }
 
     public boolean login(String name, String passwd) {
