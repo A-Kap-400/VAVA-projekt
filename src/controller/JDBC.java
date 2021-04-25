@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import users.Admin;
@@ -202,14 +203,17 @@ public class JDBC { // Java Database Connectivity
         }
     }
 
-    public void knihaPozicat(int user_id, Date borrow_until, int book_id) {
+    public void knihaPozicat(int user_id, LocalDate borrow_until, int book_id) {
+        // TODO: nie je osetrene pozicanie uz pozicanej knihy !!!
         try {
             statement = conn.prepareStatement(
                     "UPDATE library.Books SET user_id = ?, borrow_until = ? WHERE id = ? AND deleted_at is NULL;"
             );
 
+            java.sql.Date sqlDate = java.sql.Date.valueOf(borrow_until);
+
             statement.setInt(1, user_id);
-            statement.setDate(2, (java.sql.Date) borrow_until);
+            statement.setDate(2, sqlDate);
             statement.setInt(3, book_id);
 
             statement.executeUpdate();
@@ -269,6 +273,7 @@ public class JDBC { // Java Database Connectivity
     }
 
     public void knihaZobraz(Data data, String nazov, String zaner, String autor, Boolean dostupne, Boolean neskore, String meno_id, String kniha_id) {
+        // TODO: id knihy a id zakaznika nefunguje !!! (exception hadze na riadku 330)
         try {
             ArrayList<String> premenne = new ArrayList<>();
 
@@ -332,7 +337,6 @@ public class JDBC { // Java Database Connectivity
             }
 
             ResultSet resultSet = statement.executeQuery();
-
             data.setKnihaArrayList(new ArrayList<>());
 
             while (resultSet.next()) {
@@ -343,13 +347,13 @@ public class JDBC { // Java Database Connectivity
                 String zak_kniha = resultSet.getString("user_name");
                 Date pozicanaDo_kniha = resultSet.getTimestamp("borrow_until");
 
-                data.getKnihaArrayList().add(new Kniha(id_kniha, zaner_kniha, nazov_kniha, autor_kniha, pozicanaDo_kniha, zak_kniha));
-
+                data.addBook(new Kniha(id_kniha, zaner_kniha, nazov_kniha, autor_kniha, pozicanaDo_kniha, zak_kniha));
             }
 
             resultSet.close();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("Function knihaZobraz() failed."); // TODO log4j
         }
     }
@@ -412,6 +416,7 @@ public class JDBC { // Java Database Connectivity
     }
 
     public void zakaznikZobrazit(Data data, String zakMeno_id, boolean neskore) {
+        // TODO toto nefunguje !!!
         try {
             boolean jeInt;
             int id_zam = 0;
