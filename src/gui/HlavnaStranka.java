@@ -258,7 +258,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         userDeleteIdFld = new javax.swing.JTextField();
         PMainUzivatelUpravitjPanel1 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
+        customerSearchIdBtn = new javax.swing.JButton();
         jTextField24 = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jTextField25 = new javax.swing.JTextField();
@@ -270,7 +270,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jTextField29 = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
+        editCustomerBtn = new javax.swing.JButton();
         PMainUzivatelZobrazjPanel3 = new javax.swing.JPanel();
         userSearchBtn = new javax.swing.JButton();
         userLateReturnCheckBox = new javax.swing.JCheckBox();
@@ -1691,11 +1691,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel31.setText("Meno a Priezvisko");
         PMainUzivatelUpravitjPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
-        jButton10.setBackground(new java.awt.Color(71, 120, 197));
-        jButton10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Vyhľadať");
-        PMainUzivatelUpravitjPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 120, 60));
+        customerSearchIdBtn.setBackground(new java.awt.Color(71, 120, 197));
+        customerSearchIdBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        customerSearchIdBtn.setForeground(new java.awt.Color(255, 255, 255));
+        customerSearchIdBtn.setText("Vyhľadať");
+        customerSearchIdBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                customerSearchIdBtnMouseReleased(evt);
+            }
+        });
+        PMainUzivatelUpravitjPanel1.add(customerSearchIdBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 120, 60));
 
         jTextField24.setBackground(new java.awt.Color(255, 255, 255));
         jTextField24.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -1762,12 +1767,17 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel36.setText("ID zákazníka");
         PMainUzivatelUpravitjPanel1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
 
-        jButton11.setBackground(new java.awt.Color(71, 120, 197));
-        jButton11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Upraviť zákazníka");
-        jButton11.setEnabled(false);
-        PMainUzivatelUpravitjPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, -1, -1));
+        editCustomerBtn.setBackground(new java.awt.Color(71, 120, 197));
+        editCustomerBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        editCustomerBtn.setForeground(new java.awt.Color(255, 255, 255));
+        editCustomerBtn.setText("Upraviť zákazníka");
+        editCustomerBtn.setEnabled(false);
+        editCustomerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                editCustomerBtnMouseReleased(evt);
+            }
+        });
+        PMainUzivatelUpravitjPanel1.add(editCustomerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, -1, -1));
 
         PVyhMainjPanel2.add(PMainUzivatelUpravitjPanel1, "card2");
 
@@ -2503,6 +2513,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainKnihaOdstranitjPanel4MouseClicked
 
     private void MainKnihaZobrazitjPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainKnihaZobrazitjPanel5MouseClicked
+        DefaultTableModel tblModel = (DefaultTableModel) searchedBooksAdminTable.getModel();
+        tblModel.setRowCount(0);
+
         KnihaSelectedNone();
         MainKnihaZobraziVybranyjPanel5.setBackground(new Color(240, 240, 240));
         MainKnihaZobrazitjPanel5.setBackground(new Color(61, 77, 110));
@@ -2761,7 +2774,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         for (int i = 0; i < books.size(); i++) {
             Kniha k = books.get(i);
             String[] row = {String.valueOf(k.getIdKniha()), k.getZaner(), k.getNazov(),
-                k.getAutor(), k.getPozicaneDo() != null ? sdf.format(k.getPozicaneDo()) : ""};
+                k.getAutor(), k.getPozicaneDo() != null ? sdf.format(k.getPozicaneDo()) : "", "MENO"};
             tblModel.addRow(row);
         }
     }//GEN-LAST:event_searchBookBtnMouseReleased
@@ -2825,6 +2838,14 @@ public class HlavnaStranka extends javax.swing.JFrame {
             tblModel.addRow(row);
         }
     }//GEN-LAST:event_userSearchBtnMouseReleased
+
+    private void customerSearchIdBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerSearchIdBtnMouseReleased
+
+    }//GEN-LAST:event_customerSearchIdBtnMouseReleased
+
+    private void editCustomerBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editCustomerBtnMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editCustomerBtnMouseReleased
 
     /**
      * @param args the command line arguments
@@ -2970,10 +2991,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JTextField borrowBookIdFld;
     private javax.swing.JTextField borrowCustomerIdFld;
     private com.toedter.calendar.JDateChooser borrowUntilDateChooser;
+    private javax.swing.JButton customerSearchIdBtn;
     private javax.swing.JButton deleteUserBtn;
+    private javax.swing.JButton editCustomerBtn;
     private javax.swing.JCheckBox isAvailableCheckBox;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;

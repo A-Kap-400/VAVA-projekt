@@ -273,7 +273,6 @@ public class JDBC { // Java Database Connectivity
     }
 
     public void knihaZobraz(Data data, String nazov, String zaner, String autor, Boolean dostupne, Boolean neskore, String meno_id, String kniha_id) {
-        // TODO: id knihy a id zakaznika nefunguje !!! (exception hadze na riadku 330)
         try {
             ArrayList<String> premenne = new ArrayList<>();
 
@@ -307,7 +306,7 @@ public class JDBC { // Java Database Connectivity
                     "SELECT books.id, books.typ, books.name, books.author, books.borrow_until, users.user_name"
                     + " FROM library.Books AS books LEFT JOIN library.Users AS users ON users.id = books.user_id"
                     + " WHERE books.deleted_at is NULL AND users.deleted_at is NULL"
-                    + ((meno_id.isEmpty()) ? ("") : ("AND " + ((jeInt) ? ("users.id = ?") : ("users.user_name = ?"))))
+                    + ((meno_id.isEmpty()) ? ("") : (" AND " + ((jeInt) ? ("users.id = ?") : ("users.user_name = ?"))))
                     + ((kniha_id.isEmpty()) ? ("") : (" AND books.id = ?"))
                     + ((nazov.isEmpty()) ? ("") : (" AND books.name ILIKE ?"))
                     + ((zaner.isEmpty()) ? ("") : (" AND books.typ ILIKE ?"))
@@ -328,7 +327,7 @@ public class JDBC { // Java Database Connectivity
             if (!kniha_id.isEmpty()) {
                 pocitadlo += 1;
                 id_knih = Integer.valueOf(kniha_id);
-                statement.setInt(2, id_knih);
+                statement.setInt(meno_id.isEmpty() ? 1 : 2, id_knih);
             }
 
             for (int i = 0; i < premenne.size(); i++) {
@@ -353,7 +352,6 @@ public class JDBC { // Java Database Connectivity
             resultSet.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println("Function knihaZobraz() failed."); // TODO log4j
         }
     }
@@ -416,7 +414,6 @@ public class JDBC { // Java Database Connectivity
     }
 
     public void zakaznikZobrazit(Data data, String zakMeno_id, boolean neskore) {
-        // TODO toto nefunguje !!!
         try {
             boolean jeInt;
             int id_zam = 0;
@@ -428,13 +425,15 @@ public class JDBC { // Java Database Connectivity
                 jeInt = false;
             }
 
+            // TODO: ILIKE
             statement = conn.prepareStatement(
-                    "SELECT DISTINCT users.id, user_name, address, psc, city, phone_number FROM library.Users RIGHT JOIN library.Books b on users.id = b.user_id "
-                    + "WHERE b.deleted_at is NULL AND users.deleted_at is NULL "
-                    + ((zakMeno_id.isEmpty()) ? ("") : ("AND " + ((jeInt) ? ("users.id = ?") : ("user_name = ?"))))
+                    "SELECT DISTINCT Users.id, user_name, address, psc, city, phone_number FROM library.Users LEFT JOIN library.Books b on Users.id = b.user_id "
+                    + "WHERE b.deleted_at is NULL AND Users.deleted_at is NULL "
+                    + ((zakMeno_id.isEmpty()) ? ("") : ("AND " + ((jeInt) ? ("Users.id = ?") : ("Users.user_name ILIKE ?"))))
                     + ((neskore) ? (" AND b.borrow_until < current_timestamp ") : (""))
-                    + " ORDER BY users.id ASC, b.borrow_until ASC; "
-                    + ";");
+                    + " ORDER BY Users.id ASC"
+                    + ";"
+            );
 
             if (!zakMeno_id.isEmpty()) {
                 if (jeInt) {
@@ -444,8 +443,8 @@ public class JDBC { // Java Database Connectivity
                 }
             }
 
+            System.out.println(statement.toString());
             ResultSet resultSet = statement.executeQuery();
-
             data.setZakaznikArrayList(new ArrayList<>());
 
             while (resultSet.next()) {
@@ -463,6 +462,7 @@ public class JDBC { // Java Database Connectivity
             resultSet.close();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("Function zakaznikZobrazit() failed."); // TODO log4j
         }
     }
