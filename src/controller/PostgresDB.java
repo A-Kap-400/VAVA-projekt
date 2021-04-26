@@ -16,7 +16,7 @@ import users.Zakaznik;
  *
  * @author Akos Kappel & velco
  */
-public class JDBC { // Java Database Connectivity
+public class PostgresDB implements JavaDatabaseConnectivity {
 
     // Parametre pre spojenie k databaze
     private String url;
@@ -32,7 +32,7 @@ public class JDBC { // Java Database Connectivity
      * pre narabanie k databaze:
      * https://www.tutorialspoint.com/postgresql/postgresql_java.htm
      */
-    public JDBC() {
+    public PostgresDB() {
         this.url = "jdbc:postgresql://localhost:5432/postgres";
         this.user = "postgres";
         this.password = "9i#Bnh1U0&!^4oc4"; // "admin";
@@ -70,6 +70,7 @@ public class JDBC { // Java Database Connectivity
      * Napojenie na databazu. Je nutne mat spravne nastavene hodnoty url, user a
      * password.
      */
+    @Override
     public void connect() {
         try {
             this.statement = null;
@@ -86,6 +87,7 @@ public class JDBC { // Java Database Connectivity
     /**
      * Ukoncenie spojenia k databaze.
      */
+    @Override
     public void disconnect() {
         try {
             if (statement != null) {

@@ -1,7 +1,7 @@
 package gui;
 
 import controller.Data;
-import controller.JDBC;
+import controller.PostgresDB;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -26,7 +26,7 @@ import users.Zakaznik;
  */
 public class HlavnaStranka extends javax.swing.JFrame {
 
-    private JDBC databaza;
+    private PostgresDB databaza;
     private Data data;
 
     /**
@@ -39,7 +39,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         setVisibleFalse();
         defaultPage();
 
-        this.databaza = new JDBC();
+        this.databaza = new PostgresDB();
         this.databaza.connect();
         this.data = Data.getInstance();
 
