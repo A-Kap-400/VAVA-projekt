@@ -2370,6 +2370,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PrihlasitjPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrihlasitjPanelMouseClicked
+        DefaultTableModel tblModel = (DefaultTableModel) searchedBooksCustomerTbl.getModel();
+        tblModel.setRowCount(0);
+
         KnihajPanel.setVisible(false);
         UzivateljPanel1.setVisible(false);
         NastaveniaUctujPanel.setVisible(false);
@@ -3098,7 +3101,25 @@ public class HlavnaStranka extends javax.swing.JFrame {
         String newPw = String.valueOf(MainZmenaHeslajPasswordField2.getPassword());
         String confirmNewPw = String.valueOf(MainZmenaHeslajPasswordField3.getPassword());
 
-        // TODO
+        Admin loggedInAdmin = data.getPrihlaseny();
+
+        if (!Admin.getHashValue(oldPw, loggedInAdmin.getPasswordSalt()).equals(loggedInAdmin.getPasswordHash())) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne heslo.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!newPw.equals(confirmNewPw)) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nové heslo sa nezhoduje.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        loggedInAdmin.createPasswordHash(newPw);
+        databaza.adminZmenaHesla(loggedInAdmin.getName(), loggedInAdmin.getPasswordHash(), loggedInAdmin.getPasswordSalt());
+        JOptionPane.showMessageDialog(MainLogjPanel, "Heslo bolo úspešne zmenené.", "Zmena hesla", JOptionPane.INFORMATION_MESSAGE);
+
+        MainZmenaHeslajPasswordField1.setText("");
+        MainZmenaHeslajPasswordField2.setText("");
+        MainZmenaHeslajPasswordField3.setText("");
     }//GEN-LAST:event_jButton2MouseReleased
 
     /**

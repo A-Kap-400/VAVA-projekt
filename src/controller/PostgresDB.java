@@ -29,7 +29,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
 
     /**
      * Tento konstruktor vytvori objekt, ktory je pripojeny k databaze. Tutorial
-     * pre narabanie k databaze:
+     * pre narabanie s databazou:
      * https://www.tutorialspoint.com/postgresql/postgresql_java.htm
      */
     public PostgresDB() {
