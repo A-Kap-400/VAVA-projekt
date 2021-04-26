@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import users.Admin;
 import users.Kniha;
 import users.Zakaznik;
 
@@ -258,7 +259,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         userDeleteIdFld = new javax.swing.JTextField();
         PMainUzivatelUpravitjPanel1 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
-        customerSearchIdBtn = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
         jTextField24 = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jTextField25 = new javax.swing.JTextField();
@@ -270,7 +271,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jTextField29 = new javax.swing.JTextField();
         jLabel36 = new javax.swing.JLabel();
-        editCustomerBtn = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         PMainUzivatelZobrazjPanel3 = new javax.swing.JPanel();
         userSearchBtn = new javax.swing.JButton();
         userLateReturnCheckBox = new javax.swing.JCheckBox();
@@ -300,12 +301,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField31 = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
         jTextField32 = new javax.swing.JTextField();
-        jButton14 = new javax.swing.JButton();
+        addAdminBtn = new javax.swing.JButton();
         jCheckBox5 = new javax.swing.JCheckBox();
         PMainAdmiOdstranitZamjPanel3 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jTextField34 = new javax.swing.JTextField();
-        jButton15 = new javax.swing.JButton();
+        deleteAdminBtn = new javax.swing.JButton();
         PMainAdmiZmenaHeslajPanel3 = new javax.swing.JPanel();
         jLabel42 = new javax.swing.JLabel();
         jTextField35 = new javax.swing.JTextField();
@@ -313,9 +314,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField36 = new javax.swing.JTextField();
         jLabel44 = new javax.swing.JLabel();
         jTextField37 = new javax.swing.JTextField();
-        jButton16 = new javax.swing.JButton();
+        changeAdminPasswordBtn = new javax.swing.JButton();
         PMainAdminZobrazjPanel4 = new javax.swing.JPanel();
-        jButton13 = new javax.swing.JButton();
+        showAdminsBtn = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jLabel45 = new javax.swing.JLabel();
@@ -751,7 +752,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 .addComponent(isAvailableCheckBox)
                 .addGap(18, 18, 18)
                 .addComponent(searchBooksBtn)
-                .addContainerGap(443, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         MainUserVyhtadavanieKnihjPanel.add(LVyhMainjPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 740));
@@ -783,6 +784,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        searchedBooksCustomerTbl.setRowHeight(26);
         searchedBooksCustomerTbl.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(searchedBooksCustomerTbl);
 
@@ -1324,6 +1326,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        searchedBooksAdminTable.setRowHeight(26);
         searchedBooksAdminTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(searchedBooksAdminTable);
 
@@ -1691,16 +1694,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel31.setText("Meno a Priezvisko");
         PMainUzivatelUpravitjPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
-        customerSearchIdBtn.setBackground(new java.awt.Color(71, 120, 197));
-        customerSearchIdBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        customerSearchIdBtn.setForeground(new java.awt.Color(255, 255, 255));
-        customerSearchIdBtn.setText("Vyhľadať");
-        customerSearchIdBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton10.setBackground(new java.awt.Color(71, 120, 197));
+        jButton10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("Vyhľadať");
+        jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                customerSearchIdBtnMouseReleased(evt);
+                jButton10MouseReleased(evt);
             }
         });
-        PMainUzivatelUpravitjPanel1.add(customerSearchIdBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 120, 60));
+        PMainUzivatelUpravitjPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 120, 60));
 
         jTextField24.setBackground(new java.awt.Color(255, 255, 255));
         jTextField24.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -1767,17 +1770,17 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel36.setText("ID zákazníka");
         PMainUzivatelUpravitjPanel1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
 
-        editCustomerBtn.setBackground(new java.awt.Color(71, 120, 197));
-        editCustomerBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        editCustomerBtn.setForeground(new java.awt.Color(255, 255, 255));
-        editCustomerBtn.setText("Upraviť zákazníka");
-        editCustomerBtn.setEnabled(false);
-        editCustomerBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        jButton11.setBackground(new java.awt.Color(71, 120, 197));
+        jButton11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("Upraviť zákazníka");
+        jButton11.setEnabled(false);
+        jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                editCustomerBtnMouseReleased(evt);
+                jButton11MouseReleased(evt);
             }
         });
-        PMainUzivatelUpravitjPanel1.add(editCustomerBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, -1, -1));
+        PMainUzivatelUpravitjPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 570, -1, -1));
 
         PVyhMainjPanel2.add(PMainUzivatelUpravitjPanel1, "card2");
 
@@ -1830,6 +1833,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable3.setRowHeight(26);
         jTable3.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
@@ -2107,11 +2111,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField32.setForeground(new java.awt.Color(23, 35, 51));
         PMainAdmiPridatZamjPanel2.add(jTextField32, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 280, -1));
 
-        jButton14.setBackground(new java.awt.Color(71, 120, 197));
-        jButton14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton14.setForeground(new java.awt.Color(255, 255, 255));
-        jButton14.setText("Pridať zamestnanca");
-        PMainAdmiPridatZamjPanel2.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, -1, -1));
+        addAdminBtn.setBackground(new java.awt.Color(71, 120, 197));
+        addAdminBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        addAdminBtn.setForeground(new java.awt.Color(255, 255, 255));
+        addAdminBtn.setText("Pridať zamestnanca");
+        addAdminBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                addAdminBtnMouseReleased(evt);
+            }
+        });
+        PMainAdmiPridatZamjPanel2.add(addAdminBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, -1, -1));
 
         jCheckBox5.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -2137,11 +2146,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField34.setForeground(new java.awt.Color(23, 35, 51));
         PMainAdmiOdstranitZamjPanel3.add(jTextField34, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 270, -1));
 
-        jButton15.setBackground(new java.awt.Color(255, 99, 71));
-        jButton15.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton15.setForeground(new java.awt.Color(255, 255, 255));
-        jButton15.setText("Odstrániť zamestnanca");
-        PMainAdmiOdstranitZamjPanel3.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
+        deleteAdminBtn.setBackground(new java.awt.Color(255, 99, 71));
+        deleteAdminBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        deleteAdminBtn.setForeground(new java.awt.Color(255, 255, 255));
+        deleteAdminBtn.setText("Odstrániť zamestnanca");
+        deleteAdminBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                deleteAdminBtnMouseReleased(evt);
+            }
+        });
+        PMainAdmiOdstranitZamjPanel3.add(deleteAdminBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
 
         PVyhMainjPanel3.add(PMainAdmiOdstranitZamjPanel3, "card2");
 
@@ -2183,11 +2197,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField37.setForeground(new java.awt.Color(23, 35, 51));
         PMainAdmiZmenaHeslajPanel3.add(jTextField37, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 280, -1));
 
-        jButton16.setBackground(new java.awt.Color(71, 120, 197));
-        jButton16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton16.setForeground(new java.awt.Color(255, 255, 255));
-        jButton16.setText("Zmeniť heslo");
-        PMainAdmiZmenaHeslajPanel3.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, -1, -1));
+        changeAdminPasswordBtn.setBackground(new java.awt.Color(71, 120, 197));
+        changeAdminPasswordBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        changeAdminPasswordBtn.setForeground(new java.awt.Color(255, 255, 255));
+        changeAdminPasswordBtn.setText("Zmeniť heslo");
+        changeAdminPasswordBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                changeAdminPasswordBtnMouseReleased(evt);
+            }
+        });
+        PMainAdmiZmenaHeslajPanel3.add(changeAdminPasswordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, -1, -1));
 
         PVyhMainjPanel3.add(PMainAdmiZmenaHeslajPanel3, "card2");
 
@@ -2196,11 +2215,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PMainAdminZobrazjPanel4.setPreferredSize(new java.awt.Dimension(794, 740));
         PMainAdminZobrazjPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton13.setBackground(new java.awt.Color(71, 120, 197));
-        jButton13.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jButton13.setText("Vyhľadať");
-        PMainAdminZobrazjPanel4.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 120, -1));
+        showAdminsBtn.setBackground(new java.awt.Color(71, 120, 197));
+        showAdminsBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        showAdminsBtn.setForeground(new java.awt.Color(255, 255, 255));
+        showAdminsBtn.setText("Vyhľadať");
+        showAdminsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                showAdminsBtnMouseReleased(evt);
+            }
+        });
+        PMainAdminZobrazjPanel4.add(showAdminsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, 120, -1));
 
         jScrollPane5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2229,6 +2253,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable4.setRowHeight(26);
         jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(jTable4);
 
@@ -2283,6 +2308,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Zmeniť");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButton2MouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout MainNastaveniaUcetjPanelLayout = new javax.swing.GroupLayout(MainNastaveniaUcetjPanel);
         MainNastaveniaUcetjPanel.setLayout(MainNastaveniaUcetjPanelLayout);
@@ -2344,6 +2374,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         UzivateljPanel1.setVisible(false);
         NastaveniaUctujPanel.setVisible(false);
         AdministrativajPanel2.setVisible(false);
+
         LogMenojTextField.setText("");
         LogHeslojPasswordField.setText("");
         PrihlasitSajLabel.setText("Prihlásiť sa");
@@ -2473,6 +2504,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }
 
     private void MainKnihaPozicaniejPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainKnihaPozicaniejPanel1MouseClicked
+        borrowBookIdFld.setText("");
+        borrowCustomerIdFld.setText("");
+        borrowUntilDateChooser.setDate(null);
+
         KnihaSelectedNone();
         MainKnihaPozicanieVybranyjPanel1.setBackground(new Color(240, 240, 240));
         MainKnihaPozicaniejPanel1.setBackground(new Color(61, 77, 110));
@@ -2483,6 +2518,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainKnihaPozicaniejPanel1MouseClicked
 
     private void MainKnihaVratitjPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainKnihaVratitjPanel2MouseClicked
+        returnBookIdFld.setText("");
+
         KnihaSelectedNone();
         MainKnihaVratitVybranyjPanel2.setBackground(new Color(240, 240, 240));
         MainKnihaVratitjPanel2.setBackground(new Color(61, 77, 110));
@@ -2493,6 +2530,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainKnihaVratitjPanel2MouseClicked
 
     private void MainKnihaPrdatjPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainKnihaPrdatjPanel3MouseClicked
+        bookTitleFld.setText("");
+        bookAuthorFld.setText("");
+        bookGenreFld.setText("");
+        bookDescriptionArea.setText("");
+
         KnihaSelectedNone();
         MainKnihaPrdatVybranyjPanel3.setBackground(new Color(240, 240, 240));
         MainKnihaPrdatjPanel3.setBackground(new Color(61, 77, 110));
@@ -2503,6 +2545,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainKnihaPrdatjPanel3MouseClicked
 
     private void MainKnihaOdstranitjPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainKnihaOdstranitjPanel4MouseClicked
+        bookRemoveIdFld.setText("");
+
         KnihaSelectedNone();
         MainKnihaOdstranitVybranyjPanel4.setBackground(new Color(240, 240, 240));
         MainKnihaOdstranitjPanel4.setBackground(new Color(61, 77, 110));
@@ -2513,8 +2557,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainKnihaOdstranitjPanel4MouseClicked
 
     private void MainKnihaZobrazitjPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainKnihaZobrazitjPanel5MouseClicked
-        DefaultTableModel tblModel = (DefaultTableModel) searchedBooksAdminTable.getModel();
-        tblModel.setRowCount(0);
+        showBookIdFld.setText("");
+        showBookGenreFld.setText("");
+        showBookTitleFld.setText("");
+        showBookAuthorFld.setText("");
+        showCustomerIdFld.setText("");
+        lateCheckBox.setSelected(false);
+        availableCheckBox.setSelected(false);
+
+        // Zobrazi vsetky knihy v systeme
+        searchBookBtnMouseReleased(null);
 
         KnihaSelectedNone();
         MainKnihaZobraziVybranyjPanel5.setBackground(new Color(240, 240, 240));
@@ -2546,6 +2598,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }
 
     private void MainUzivatelZobrazitjPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivatelZobrazitjPanel2MouseClicked
+        userSearchIdFld.setText("");
+        userLateReturnCheckBox.setSelected(false);
+
+        DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
+        tblModel.setRowCount(0);
+
         UzivatelSelectedNone();
         UzivatelZobrazitVybranyjPanel6.setBackground(new Color(240, 240, 240));
         MainUzivatelZobrazitjPanel2.setBackground(new Color(61, 77, 110));
@@ -2556,6 +2614,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainUzivatelZobrazitjPanel2MouseClicked
 
     private void MainUzivatelPridatjPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivatelPridatjPanel3MouseClicked
+        userAddNameFld.setText("");
+        userAddAddressFld.setText("");
+        userAddCityFld.setText("");
+        userAddPSCFld.setText("");
+        userAddPhoneFld.setText("+421");
+
         UzivatelSelectedNone();
         UzivatelPridatVybranyjPanel7.setBackground(new Color(240, 240, 240));
         MainUzivatelPridatjPanel3.setBackground(new Color(61, 77, 110));
@@ -2566,6 +2630,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainUzivatelPridatjPanel3MouseClicked
 
     private void MainUzivateOdstranitjPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivateOdstranitjPanel4MouseClicked
+        userDeleteIdFld.setText("");
+
         UzivatelSelectedNone();
         UzivateOdstranitVybranyjPanel8.setBackground(new Color(240, 240, 240));
         MainUzivateOdstranitjPanel4.setBackground(new Color(61, 77, 110));
@@ -2576,6 +2642,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainUzivateOdstranitjPanel4MouseClicked
 
     private void MainUzivatelUpravitjPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainUzivatelUpravitjPanel5MouseClicked
+        jTextField24.setText("");
+        jTextField25.setText("");
+        jTextField26.setText("");
+        jTextField27.setText("");
+        jTextField28.setText("");
+        jTextField29.setText("");
+
         UzivatelSelectedNone();
         UzivatelUpravitVybranyjPanel9.setBackground(new Color(240, 240, 240));
         MainUzivatelUpravitjPanel5.setBackground(new Color(61, 77, 110));
@@ -2605,6 +2678,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }
 
     private void MainAdminPridatjPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminPridatjPanel3MouseClicked
+        jTextField30.setText("");
+        jTextField31.setText("");
+        jTextField32.setText("");
+        jCheckBox5.setSelected(false);
+
         AdminSelectedNone();
         MainAdminPridatVybranyjPanel7.setBackground(new Color(240, 240, 240));
         MainAdminPridatjPanel3.setBackground(new Color(61, 77, 110));
@@ -2615,6 +2693,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainAdminPridatjPanel3MouseClicked
 
     private void MainAdminOdstranitjPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminOdstranitjPanel4MouseClicked
+        jTextField34.setText("");
+
         AdminSelectedNone();
         MainAdminOdstranitVybranyjPanel8.setBackground(new Color(240, 240, 240));
         MainAdminOdstranitjPanel4.setBackground(new Color(61, 77, 110));
@@ -2625,6 +2705,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainAdminOdstranitjPanel4MouseClicked
 
     private void MainAdminZmenHeslojPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminZmenHeslojPanel5MouseClicked
+        jTextField35.setText("");
+        jTextField36.setText("");
+        jTextField37.setText("");
+
         AdminSelectedNone();
         MainAdminZmenHesloVybranyjPanel9.setBackground(new Color(240, 240, 240));
         MainAdminZmenHeslojPanel5.setBackground(new Color(61, 77, 110));
@@ -2635,6 +2719,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
     }//GEN-LAST:event_MainAdminZmenHeslojPanel5MouseClicked
 
     private void MainAdminZobrazjPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminZobrazjPanel6MouseClicked
+        jTextField38.setText("");
+
+        DefaultTableModel tblModel = (DefaultTableModel) jTable4.getModel();
+        tblModel.setRowCount(0);
+
         AdminSelectedNone();
         MainAdminZobrazVybranyjPanel10.setBackground(new Color(240, 240, 240));
         MainAdminZobrazjPanel6.setBackground(new Color(61, 77, 110));
@@ -2774,7 +2863,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
         for (int i = 0; i < books.size(); i++) {
             Kniha k = books.get(i);
             String[] row = {String.valueOf(k.getIdKniha()), k.getZaner(), k.getNazov(),
-                k.getAutor(), k.getPozicaneDo() != null ? sdf.format(k.getPozicaneDo()) : "", "MENO"};
+                k.getAutor(), k.getPozicaneDo() != null ? sdf.format(k.getPozicaneDo()) : "",
+                k.getPozicaneKomu() != null ? k.getPozicaneKomu().getMeno() : ""};
             tblModel.addRow(row);
         }
     }//GEN-LAST:event_searchBookBtnMouseReleased
@@ -2823,9 +2913,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
      */
     private void userSearchBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userSearchBtnMouseReleased
         boolean lateReturn = userLateReturnCheckBox.isSelected();
-        String userId = userSearchIdFld.getText().trim();
+        String customerId = userSearchIdFld.getText().trim();
 
-        databaza.zakaznikZobrazit(data, userId, lateReturn);
+        databaza.zakaznikZobrazit(data, customerId, lateReturn);
 
         DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
         tblModel.setRowCount(0);
@@ -2839,13 +2929,177 @@ public class HlavnaStranka extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_userSearchBtnMouseReleased
 
-    private void customerSearchIdBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerSearchIdBtnMouseReleased
+    /**
+     * Zobrazenie udajov o zakaznikovi na upravu.
+     */
+    private void jButton10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseReleased
+        String customerId = jTextField29.getText().trim();
+        if (customerId.isBlank()) {
+            jTextField24.setText("");
+            jTextField24.setEnabled(false);
 
-    }//GEN-LAST:event_customerSearchIdBtnMouseReleased
+            jTextField25.setText("");
+            jTextField25.setEnabled(false);
 
-    private void editCustomerBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editCustomerBtnMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editCustomerBtnMouseReleased
+            jTextField26.setText("");
+            jTextField26.setEnabled(false);
+
+            jTextField27.setText("");
+            jTextField27.setEnabled(false);
+
+            jTextField28.setText("");
+            jTextField28.setEnabled(false);
+
+            jButton11.setEnabled(false);
+            return;
+        }
+
+        databaza.zakaznikZobrazit(data, customerId, false);
+
+        try {
+            Zakaznik z = data.getZakaznikArrayList().get(0);
+
+            jTextField24.setText(z.getMeno());
+            jTextField24.setEnabled(true);
+
+            jTextField25.setText(z.getAdresa());
+            jTextField25.setEnabled(true);
+
+            jTextField26.setText(z.getMesto());
+            jTextField26.setEnabled(true);
+
+            jTextField27.setText(z.getPsc());
+            jTextField27.setEnabled(true);
+
+            jTextField28.setText(z.getTelCislo());
+            jTextField28.setEnabled(true);
+
+            jButton11.setEnabled(true);
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Neplatné ID zákazníka.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton10MouseReleased
+
+    /**
+     * Zmena udajov o zakaznikovi.
+     */
+    private void jButton11MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseReleased
+        String name = jTextField24.getText().trim();
+        String address = jTextField25.getText().trim();
+        String city = jTextField26.getText().trim();
+        String psc = jTextField27.getText().trim();
+        String phone = jTextField28.getText().trim();
+
+        if (name.isBlank() || address.isBlank() || city.isBlank() || psc.isBlank() || phone.isBlank()) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Chýbajú údaje o zákazníkovi.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            databaza.zakaznikZobrazit(data, name, false);
+            int customerId = data.getZakaznikArrayList().get(0).getIdZakaznik();
+
+            databaza.zakaznikUpravit(name, address, psc, city, phone, customerId);
+            JOptionPane.showMessageDialog(MainLogjPanel, "Údaje o zákazníkovi boli aktualizované.", "Úprava údajov!", JOptionPane.INFORMATION_MESSAGE);
+        } catch (IndexOutOfBoundsException e) {
+        }
+    }//GEN-LAST:event_jButton11MouseReleased
+
+    /**
+     * Pridanie administratorov / zamestnancov.
+     */
+    private void addAdminBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAdminBtnMouseReleased
+        String name = jTextField30.getText().trim();
+        String password = jTextField31.getText();
+        String pwConfirm = jTextField32.getText();
+        boolean isRoot = jCheckBox5.isSelected();
+
+        if (name.isBlank() || password.isBlank() || pwConfirm.isBlank()) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Zadajte meno a heslo nového zamestnanca.", "Chýba meno alebo heslo!", JOptionPane.WARNING_MESSAGE);
+        } else if (!password.equals(pwConfirm)) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Potvdené heslo nie je rovnaké s pôvodným heslom.", "Chyba hesla!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Admin a = new Admin(name, password, isRoot);
+            databaza.adminPridat(name, a.getPasswordHash(), a.getPasswordSalt(), isRoot);
+            JOptionPane.showMessageDialog(MainLogjPanel, "Do systému bol pridaný nový zamestnanec.", "Pridanie zamestnanca", JOptionPane.INFORMATION_MESSAGE);
+
+            jTextField30.setText("");
+            jTextField31.setText("");
+            jTextField32.setText("");
+            jCheckBox5.setSelected(false);
+        }
+    }//GEN-LAST:event_addAdminBtnMouseReleased
+
+    /**
+     * Odstranenie administratorov / zamestnancov zo systemu.
+     */
+    private void deleteAdminBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteAdminBtnMouseReleased
+        String adminId = jTextField34.getText().trim();
+
+        if (adminId.isBlank()) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Neplatné ID zamestnanca.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            databaza.adminOdstranit(adminId);
+            JOptionPane.showMessageDialog(MainLogjPanel, "Zo systému bol odstránený zamestnanec.", "Odstránenie zamestnanca", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        jTextField34.setText("");
+    }//GEN-LAST:event_deleteAdminBtnMouseReleased
+
+    /**
+     * Zobrazenie administratorov / zamestnancov.
+     */
+    private void showAdminsBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showAdminsBtnMouseReleased
+        String adminId = jTextField38.getText().trim();
+
+        databaza.loadAdmins(data, adminId);
+
+        DefaultTableModel tblModel = (DefaultTableModel) jTable4.getModel();
+        tblModel.setRowCount(0);
+        ArrayList<Admin> admins = data.getAdminArrayList();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+        for (int i = 0; i < admins.size(); i++) {
+            Admin a = admins.get(i);
+            String[] row = {String.valueOf(a.getId()), a.getName(), a.isRoot() ? "áno" : "nie",
+                sdf.format(a.getVytvoreny()), sdf.format(a.getUpraveny())};
+            tblModel.addRow(row);
+        }
+    }//GEN-LAST:event_showAdminsBtnMouseReleased
+
+    /**
+     * Zmena hesla pre administratorov / zamestnancov.
+     */
+    private void changeAdminPasswordBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeAdminPasswordBtnMouseReleased
+        String adminId = jTextField35.getText().trim();
+        String password = jTextField36.getText();
+        String pwConfirm = jTextField37.getText();
+
+        if (adminId.isBlank() || password.isBlank() || pwConfirm.isBlank()) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Zadajte meno a nové heslo zamestnanca.", "Chýba meno alebo heslo!", JOptionPane.WARNING_MESSAGE);
+        } else if (!password.equals(pwConfirm)) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Potvdené heslo nie je rovnaké s novým heslom.", "Chyba hesla!", JOptionPane.WARNING_MESSAGE);
+        } else {
+            databaza.loadAdmins(data, adminId);
+            Admin a = data.getAdminArrayList().get(0);
+            a.createPasswordHash(password);
+
+            databaza.adminZmenaHesla(adminId, a.getPasswordHash(), a.getPasswordSalt());
+            JOptionPane.showMessageDialog(MainLogjPanel, "Heslo zamestnanca bolo úspešne zmenené.", "Zmena hesla", JOptionPane.INFORMATION_MESSAGE);
+
+            jTextField35.setText("");
+            jTextField36.setText("");
+            jTextField37.setText("");
+        }
+    }//GEN-LAST:event_changeAdminPasswordBtnMouseReleased
+
+    private void jButton2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseReleased
+        String oldPw = String.valueOf(MainZmenaHeslajPasswordField1.getPassword());
+        String newPw = String.valueOf(MainZmenaHeslajPasswordField2.getPassword());
+        String confirmNewPw = String.valueOf(MainZmenaHeslajPasswordField3.getPassword());
+
+        // TODO
+    }//GEN-LAST:event_jButton2MouseReleased
 
     /**
      * @param args the command line arguments
@@ -2975,6 +3229,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JPanel UzivatelVybranyjPanel1;
     private javax.swing.JPanel UzivatelZobrazitVybranyjPanel6;
     private javax.swing.JPanel UzivateljPanel1;
+    private javax.swing.JButton addAdminBtn;
     private javax.swing.JButton addBookBtn;
     private javax.swing.JButton addUserBtn;
     private javax.swing.JCheckBox availableCheckBox;
@@ -2991,14 +3246,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JTextField borrowBookIdFld;
     private javax.swing.JTextField borrowCustomerIdFld;
     private com.toedter.calendar.JDateChooser borrowUntilDateChooser;
-    private javax.swing.JButton customerSearchIdBtn;
+    private javax.swing.JButton changeAdminPasswordBtn;
+    private javax.swing.JButton deleteAdminBtn;
     private javax.swing.JButton deleteUserBtn;
-    private javax.swing.JButton editCustomerBtn;
     private javax.swing.JCheckBox isAvailableCheckBox;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JLabel jLabel1;
@@ -3073,6 +3326,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JButton searchBooksBtn;
     private javax.swing.JTable searchedBooksAdminTable;
     private javax.swing.JTable searchedBooksCustomerTbl;
+    private javax.swing.JButton showAdminsBtn;
     private javax.swing.JTextField showBookAuthorFld;
     private javax.swing.JTextField showBookGenreFld;
     private javax.swing.JTextField showBookIdFld;

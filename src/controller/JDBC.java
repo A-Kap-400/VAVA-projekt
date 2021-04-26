@@ -345,6 +345,7 @@ public class JDBC { // Java Database Connectivity
                 String autor_kniha = resultSet.getString("author");
                 String zak_kniha = resultSet.getString("user_name");
                 Date pozicanaDo_kniha = resultSet.getTimestamp("borrow_until");
+                // TODO pozicaneKomu
 
                 data.addBook(new Kniha(id_kniha, zaner_kniha, nazov_kniha, autor_kniha, pozicanaDo_kniha, zak_kniha));
             }
@@ -443,7 +444,6 @@ public class JDBC { // Java Database Connectivity
                 }
             }
 
-            System.out.println(statement.toString());
             ResultSet resultSet = statement.executeQuery();
             data.setZakaznikArrayList(new ArrayList<>());
 
@@ -462,7 +462,6 @@ public class JDBC { // Java Database Connectivity
             resultSet.close();
 
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println("Function zakaznikZobrazit() failed."); // TODO log4j
         }
     }
@@ -501,7 +500,7 @@ public class JDBC { // Java Database Connectivity
             }
 
             statement = conn.prepareStatement(
-                    "UPDATE library.Administrators SET deleted_at = current_timestamp WHERE" + ((jeInt) ? ("id = ?") : ("admin_name = ?")) + " AND deleted_at is NULL;"
+                    "UPDATE library.Administrators SET deleted_at = current_timestamp WHERE " + ((jeInt) ? ("id = ?") : ("admin_name = ?")) + " AND deleted_at is NULL;"
             );
 
             if (jeInt) {

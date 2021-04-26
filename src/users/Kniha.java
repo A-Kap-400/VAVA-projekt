@@ -13,6 +13,7 @@ public final class Kniha {
     private String nazov;
     private String autor;
     private Date pozicaneDo;
+    private Zakaznik pozicaneKomu;
 
     public Kniha(int idKniha, String zaner, String nazov, String autor, Date pozicaneDo, String meno) {
         this.idKniha = idKniha;
@@ -68,6 +69,14 @@ public final class Kniha {
 
     public void setPozicaneDo(Date pozicaneDo) {
         this.pozicaneDo = pozicaneDo;
+    }
+
+    public Zakaznik getPozicaneKomu() {
+        return pozicaneKomu;
+    }
+
+    public void setPozicaneKomu(Zakaznik pozicaneKomu) {
+        this.pozicaneKomu = pozicaneKomu;
     }
 
 }
