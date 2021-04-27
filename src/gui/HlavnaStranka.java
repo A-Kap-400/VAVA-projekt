@@ -2991,6 +2991,22 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             jButton11.setEnabled(true);
         } catch (IndexOutOfBoundsException e) {
+            jTextField24.setText("");
+            jTextField24.setEnabled(false);
+
+            jTextField25.setText("");
+            jTextField25.setEnabled(false);
+
+            jTextField26.setText("");
+            jTextField26.setEnabled(false);
+
+            jTextField27.setText("");
+            jTextField27.setEnabled(false);
+
+            jTextField28.setText("");
+            jTextField28.setEnabled(false);
+
+            jButton11.setEnabled(false);
             JOptionPane.showMessageDialog(MainLogjPanel, "Neplatné ID zákazníka.", "Chyba!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton10MouseReleased
@@ -3010,6 +3026,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
             return;
         }
 
+        if (!Zakaznik.isValidPhoneNumber(phone)) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát telefónneho čísla.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!Zakaznik.isValidPSC(psc)) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát PSČ.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         try {
             databaza.zakaznikZobrazit(data, name, false);
             int customerId = data.getZakaznikArrayList().get(0).getIdZakaznik();
@@ -3017,6 +3043,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
             databaza.zakaznikUpravit(name, address, psc, city, phone, customerId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Údaje o zákazníkovi boli aktualizované.", "Úprava údajov!", JOptionPane.INFORMATION_MESSAGE);
         } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nepodarilo sa upraviť údaje o zákazníkovi.", "Chyba!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButton11MouseReleased
 

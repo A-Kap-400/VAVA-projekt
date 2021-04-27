@@ -93,7 +93,7 @@ public class Zakaznik {
      * @return
      */
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        String regex = "^((00|\\+)[0-9]{3}[- ]|0)[0-9]{3}[- ]?[0-9]{3}[- ]?[0-9]{3}$";
+        String regex = "^((0{2}|\\+)[0-9]{3}[- ]?|0) ?[0-9]{3}[- ]?[0-9]{3}[- ]?[0-9]{3}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);
         return matcher.matches();

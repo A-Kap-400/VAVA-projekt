@@ -172,7 +172,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
 
             statement = conn.prepareStatement(
                     "SELECT books.id, books.typ, books.name, books.author, books.borrow_until"
-                    + " FROM library.Books AS books LEFT JOIN library.Users AS users ON users.id = books.user_id"
+                    + " FROM library.Books AS books LEFT JOIN library.users AS users ON users.id = books.user_id"
                     + " WHERE books.deleted_at is NULL AND users.deleted_at is NULL"
                     + ((nazov.isEmpty()) ? ("") : (" AND books.name ILIKE ?"))
                     + ((zaner.isEmpty()) ? ("") : (" AND books.typ ILIKE ?"))
@@ -209,7 +209,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
         // TODO: nie je osetrene pozicanie uz pozicanej knihy !!!
         try {
             statement = conn.prepareStatement(
-                    "UPDATE library.Books SET user_id = ?, borrow_until = ? WHERE id = ? AND deleted_at is NULL;"
+                    "UPDATE library.books SET user_id = ?, borrow_until = ? WHERE id = ? AND deleted_at is NULL;"
             );
 
             java.sql.Date sqlDate = java.sql.Date.valueOf(borrow_until);
@@ -228,7 +228,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     public void knihaVratit(int book_id) {
         try {
             statement = conn.prepareStatement(
-                    "UPDATE library.Books SET user_id = NULL, borrow_until = NULL WHERE id = ?;"
+                    "UPDATE library.books SET user_id = NULL, borrow_until = NULL WHERE id = ?;"
             );
 
             statement.setInt(1, book_id);
@@ -263,7 +263,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     public void knihaOdstran(int book_id) {
         try {
             statement = conn.prepareStatement(
-                    "UPDATE library.Books SET deleted_at = current_timestamp WHERE id = ? AND deleted_at is NULL;"
+                    "UPDATE library.books SET deleted_at = current_timestamp WHERE id = ? AND deleted_at is NULL;"
             );
 
             statement.setInt(1, book_id);
@@ -306,7 +306,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
 
             statement = conn.prepareStatement(
                     "SELECT books.id, books.typ, books.name, books.author, books.borrow_until, users.user_name"
-                    + " FROM library.Books AS books LEFT JOIN library.Users AS users ON users.id = books.user_id"
+                    + " FROM library.books AS books LEFT JOIN library.users AS users ON users.id = books.user_id"
                     + " WHERE books.deleted_at is NULL AND users.deleted_at is NULL"
                     + ((meno_id.isEmpty()) ? ("") : (" AND " + ((jeInt) ? ("users.id = ?") : ("users.user_name = ?"))))
                     + ((kniha_id.isEmpty()) ? ("") : (" AND books.id = ?"))
@@ -362,7 +362,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     public void zakaznikPridat(String menoPriezvisko_zakaznik, String adresa_zakaznik, String psc_zakaznik, String mesto_zakaznik, String telCislo_zakaznik) {
         try {
             statement = conn.prepareStatement(
-                    "INSERT INTO library.Users "
+                    "INSERT INTO library.users "
                     + "(user_name, address, psc, city, phone_number) "
                     + "VALUES "
                     + "(?, ?, ?, ?, ?);"
@@ -384,7 +384,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     public void zakaznikOdstran(int zak_id) {
         try {
             statement = conn.prepareStatement(
-                    "UPDATE library.Users SET deleted_at = current_timestamp WHERE id = ? and deleted_at is NULL"
+                    "UPDATE library.users SET deleted_at = current_timestamp WHERE id = ? and deleted_at is NULL"
             );
 
             statement.setInt(1, zak_id);
@@ -398,7 +398,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     public void zakaznikUpravit(String menoPriezvisko_zakaznik, String adresa_zakaznik, String psc_zakaznik, String mesto_zakaznik, String telCislo_zakaznik, int zak_id) {
         try {
             statement = conn.prepareStatement(
-                    "UPDATE library.Users SET user_name = ?,  address = ?, psc = ?, city = ?, phone_number = ? "
+                    "UPDATE library.users SET user_name = ?,  address = ?, psc = ?, city = ?, phone_number = ? "
                     + "WHERE id = ? AND deleted_at is NULL;"
             );
 
