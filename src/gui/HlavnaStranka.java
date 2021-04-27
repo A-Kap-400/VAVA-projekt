@@ -2657,6 +2657,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTextField28.setText("");
         jTextField29.setText("");
 
+        jButton11.setEnabled(false);
+        jTextField24.setEnabled(false);
+        jTextField25.setEnabled(false);
+        jTextField26.setEnabled(false);
+        jTextField27.setEnabled(false);
+        jTextField28.setEnabled(false);
+
         UzivatelSelectedNone();
         UzivatelUpravitVybranyjPanel9.setBackground(new Color(240, 240, 240));
         MainUzivatelUpravitjPanel5.setBackground(new Color(61, 77, 110));
