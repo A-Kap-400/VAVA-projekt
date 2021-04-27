@@ -14,8 +14,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
 import users.Admin;
 import users.Kniha;
 import users.Zakaznik;
@@ -28,6 +31,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
     private PostgresDB databaza;
     private Data data;
+    private ResourceBundle rb;
+    private static final Logger LOG = Logger.getLogger(HlavnaStranka.class.getName());
 
     /**
      * Creates new form HlavnaStranka
@@ -42,12 +47,14 @@ public class HlavnaStranka extends javax.swing.JFrame {
         this.databaza = new PostgresDB();
         this.databaza.connect();
         this.data = Data.getInstance();
+        this.rb = ResourceBundle.getBundle("gui/Bundle", new Locale("sk", "SK"));
 
         // Toto pri zatvoreni okna ukonci spojenie s databazou.
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent ev) {
                 databaza.disconnect();
+                LOG.info("Koniec aplikacie.");
                 System.out.println("Ukončenie aplikácie.\n"); // TODO log4j
                 dispose();
                 System.exit(0);
@@ -353,7 +360,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrihlasitSajLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrihlasitSajLabel.setForeground(new java.awt.Color(255, 255, 255));
         PrihlasitSajLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        PrihlasitSajLabel.setText("Prihlásiť sa");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("gui/Bundle_sk_SK"); // NOI18N
+        PrihlasitSajLabel.setText(bundle.getString("HlavnaStranka.PrihlasitSajLabel.text")); // NOI18N
         PrihlasitSajLabel.setMaximumSize(new java.awt.Dimension(150, 24));
         PrihlasitSajLabel.setMinimumSize(new java.awt.Dimension(150, 24));
         PrihlasitSajLabel.setPreferredSize(new java.awt.Dimension(150, 24));
@@ -373,7 +381,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         DatumCasjLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         DatumCasjLabel.setForeground(new java.awt.Color(255, 255, 255));
         DatumCasjLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        DatumCasjLabel.setText("10.04.2021   22:00:00");
+        DatumCasjLabel.setText(bundle.getString("HlavnaStranka.DatumCasjLabel.text")); // NOI18N
         DatumCasjLabel.setPreferredSize(new java.awt.Dimension(200, 24));
 
         JazykjComboBox.setBackground(new java.awt.Color(71, 120, 197));
@@ -428,7 +436,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel.setText("Kniha");
+        PrvyjLabel.setText(bundle.getString("HlavnaStranka.PrvyjLabel.text")); // NOI18N
 
         KnihaVybranyjPanel.setBackground(new java.awt.Color(23, 35, 51));
         KnihaVybranyjPanel.setForeground(new java.awt.Color(23, 35, 51));
@@ -477,7 +485,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel1.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel1.setText("Zákazník");
+        PrvyjLabel1.setText(bundle.getString("HlavnaStranka.PrvyjLabel1.text")); // NOI18N
 
         UzivatelVybranyjPanel1.setBackground(new java.awt.Color(23, 35, 51));
         UzivatelVybranyjPanel1.setForeground(new java.awt.Color(23, 35, 51));
@@ -526,7 +534,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel3.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel3.setText("Administratíva");
+        PrvyjLabel3.setText(bundle.getString("HlavnaStranka.PrvyjLabel3.text")); // NOI18N
 
         AdministrativaVybranyjPanel3.setBackground(new java.awt.Color(23, 35, 51));
         AdministrativaVybranyjPanel3.setForeground(new java.awt.Color(23, 35, 51));
@@ -575,7 +583,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel2.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel2.setText("Nastavenia účtu");
+        PrvyjLabel2.setText(bundle.getString("HlavnaStranka.PrvyjLabel2.text")); // NOI18N
 
         NastaveniaUctuVybranyjPanel2.setBackground(new java.awt.Color(23, 35, 51));
         NastaveniaUctuVybranyjPanel2.setForeground(new java.awt.Color(23, 35, 51));
@@ -626,19 +634,19 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel2.setText("Meno");
+        jLabel2.setText(bundle.getString("HlavnaStranka.jLabel2.text")); // NOI18N
         MainLogjPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 161, -1, -1));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel3.setText("Heslo");
+        jLabel3.setText(bundle.getString("HlavnaStranka.jLabel3.text")); // NOI18N
         MainLogjPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(395, 241, -1, -1));
 
         LogPrihlasitjButton.setBackground(new java.awt.Color(71, 120, 197));
         LogPrihlasitjButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         LogPrihlasitjButton.setForeground(new java.awt.Color(255, 255, 255));
-        LogPrihlasitjButton.setText("Prihlásiť");
+        LogPrihlasitjButton.setText(bundle.getString("HlavnaStranka.LogPrihlasitjButton.text")); // NOI18N
         LogPrihlasitjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LogPrihlasitjButtonActionPerformed(evt);
@@ -649,7 +657,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         LogSpatjButton.setBackground(new java.awt.Color(255, 99, 71));
         LogSpatjButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         LogSpatjButton.setForeground(new java.awt.Color(255, 255, 255));
-        LogSpatjButton.setText("Späť");
+        LogSpatjButton.setText(bundle.getString("HlavnaStranka.LogSpatjButton.text")); // NOI18N
         LogSpatjButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LogSpatjButtonActionPerformed(evt);
@@ -678,7 +686,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         searchBooksBtn.setBackground(new java.awt.Color(71, 120, 197));
         searchBooksBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         searchBooksBtn.setForeground(new java.awt.Color(255, 255, 255));
-        searchBooksBtn.setText("Vyhľadať");
+        searchBooksBtn.setText(bundle.getString("HlavnaStranka.searchBooksBtn.text")); // NOI18N
         searchBooksBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 searchBooksBtnMouseReleased(evt);
@@ -687,16 +695,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Žáner");
+        jLabel1.setText(bundle.getString("HlavnaStranka.jLabel1.text")); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Názov");
+        jLabel4.setText(bundle.getString("HlavnaStranka.jLabel4.text")); // NOI18N
 
         isAvailableCheckBox.setBackground(new java.awt.Color(41, 57, 80));
         isAvailableCheckBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         isAvailableCheckBox.setForeground(new java.awt.Color(255, 255, 255));
-        isAvailableCheckBox.setText("Zobraziť len dostupné");
+        isAvailableCheckBox.setText(bundle.getString("HlavnaStranka.isAvailableCheckBox.text")); // NOI18N
 
         bookGenreSearchFld.setBackground(new java.awt.Color(61, 77, 110));
         bookGenreSearchFld.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -708,7 +716,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Autor");
+        jLabel12.setText(bundle.getString("HlavnaStranka.jLabel12.text")); // NOI18N
 
         bookAuthorSearchFld.setBackground(new java.awt.Color(61, 77, 110));
         bookAuthorSearchFld.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -834,7 +842,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel4.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel4.setText("Požičať");
+        PrvyjLabel4.setText(bundle.getString("HlavnaStranka.PrvyjLabel4.text")); // NOI18N
 
         MainKnihaPozicanieVybranyjPanel1.setBackground(new java.awt.Color(41, 57, 80));
         MainKnihaPozicanieVybranyjPanel1.setForeground(new java.awt.Color(23, 35, 51));
@@ -884,7 +892,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel5.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel5.setText("Vrátiť");
+        PrvyjLabel5.setText(bundle.getString("HlavnaStranka.PrvyjLabel5.text")); // NOI18N
 
         MainKnihaVratitVybranyjPanel2.setBackground(new java.awt.Color(41, 57, 80));
         MainKnihaVratitVybranyjPanel2.setForeground(new java.awt.Color(23, 35, 51));
@@ -934,7 +942,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel6.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel6.setText("Pridať");
+        PrvyjLabel6.setText(bundle.getString("HlavnaStranka.PrvyjLabel6.text")); // NOI18N
 
         MainKnihaPrdatVybranyjPanel3.setBackground(new java.awt.Color(41, 57, 80));
         MainKnihaPrdatVybranyjPanel3.setForeground(new java.awt.Color(23, 35, 51));
@@ -984,7 +992,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel7.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel7.setText("Odstrániť");
+        PrvyjLabel7.setText(bundle.getString("HlavnaStranka.PrvyjLabel7.text")); // NOI18N
 
         MainKnihaOdstranitVybranyjPanel4.setBackground(new java.awt.Color(41, 57, 80));
         MainKnihaOdstranitVybranyjPanel4.setForeground(new java.awt.Color(23, 35, 51));
@@ -1034,7 +1042,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel8.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel8.setText("Zobraziť");
+        PrvyjLabel8.setText(bundle.getString("HlavnaStranka.PrvyjLabel8.text")); // NOI18N
 
         MainKnihaZobraziVybranyjPanel5.setBackground(new java.awt.Color(41, 57, 80));
         MainKnihaZobraziVybranyjPanel5.setForeground(new java.awt.Color(23, 35, 51));
@@ -1085,13 +1093,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel9.setBackground(new java.awt.Color(23, 35, 51));
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel9.setText("ID zákazníka");
+        jLabel9.setText(bundle.getString("HlavnaStranka.jLabel9.text")); // NOI18N
         PKnihaMainPozicatjPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, -1, -1));
 
         borrowBookBtn.setBackground(new java.awt.Color(71, 120, 197));
         borrowBookBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         borrowBookBtn.setForeground(new java.awt.Color(255, 255, 255));
-        borrowBookBtn.setText("Požičať knihu");
+        borrowBookBtn.setText(bundle.getString("HlavnaStranka.borrowBookBtn.text")); // NOI18N
         borrowBookBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 borrowBookBtnMouseReleased(evt);
@@ -1107,7 +1115,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel10.setBackground(new java.awt.Color(23, 35, 51));
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel10.setText("ID Knihy");
+        jLabel10.setText(bundle.getString("HlavnaStranka.jLabel10.text")); // NOI18N
         PKnihaMainPozicatjPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, -1, -1));
 
         borrowBookIdFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1118,7 +1126,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel11.setBackground(new java.awt.Color(255, 255, 255));
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel11.setText("Dátum vrátenia knihy");
+        jLabel11.setText(bundle.getString("HlavnaStranka.jLabel11.text")); // NOI18N
         PKnihaMainPozicatjPanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, -1, -1));
         PKnihaMainPozicatjPanel.add(borrowUntilDateChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 280, 30));
 
@@ -1132,7 +1140,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         returnBookBtn.setBackground(new java.awt.Color(71, 120, 197));
         returnBookBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         returnBookBtn.setForeground(new java.awt.Color(255, 255, 255));
-        returnBookBtn.setText("Potvrdiť vrátenie");
+        returnBookBtn.setText(bundle.getString("HlavnaStranka.returnBookBtn.text")); // NOI18N
         returnBookBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 returnBookBtnMouseReleased(evt);
@@ -1148,7 +1156,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel15.setBackground(new java.awt.Color(23, 35, 51));
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel15.setText("ID Knihy");
+        jLabel15.setText(bundle.getString("HlavnaStranka.jLabel15.text")); // NOI18N
         PKnihaMainVratitjPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
 
         PKnihaMainjPanel1.add(PKnihaMainVratitjPanel1, "card2");
@@ -1161,7 +1169,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         addBookBtn.setBackground(new java.awt.Color(71, 120, 197));
         addBookBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         addBookBtn.setForeground(new java.awt.Color(255, 255, 255));
-        addBookBtn.setText("Pridať knihu");
+        addBookBtn.setText(bundle.getString("HlavnaStranka.addBookBtn.text")); // NOI18N
         addBookBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 addBookBtnMouseReleased(evt);
@@ -1172,7 +1180,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel14.setBackground(new java.awt.Color(23, 35, 51));
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel14.setText("Autor");
+        jLabel14.setText(bundle.getString("HlavnaStranka.jLabel14.text")); // NOI18N
         PKnihaMainPridatjPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, -1, -1));
 
         bookTitleFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1188,13 +1196,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel16.setBackground(new java.awt.Color(23, 35, 51));
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel16.setText("Názov");
+        jLabel16.setText(bundle.getString("HlavnaStranka.jLabel16.text")); // NOI18N
         PKnihaMainPridatjPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
 
         jLabel21.setBackground(new java.awt.Color(23, 35, 51));
         jLabel21.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel21.setText("Popis");
+        jLabel21.setText(bundle.getString("HlavnaStranka.jLabel21.text")); // NOI18N
         PKnihaMainPridatjPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, -1));
 
         bookGenreFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1205,7 +1213,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel22.setBackground(new java.awt.Color(23, 35, 51));
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel22.setText("Žáner");
+        jLabel22.setText(bundle.getString("HlavnaStranka.jLabel22.text")); // NOI18N
         PKnihaMainPridatjPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
 
         bookDescriptionArea.setBackground(new java.awt.Color(255, 255, 255));
@@ -1228,7 +1236,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         bookRemoveBtn.setBackground(new java.awt.Color(255, 99, 71));
         bookRemoveBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         bookRemoveBtn.setForeground(new java.awt.Color(255, 255, 255));
-        bookRemoveBtn.setText("Odstrániť knihu");
+        bookRemoveBtn.setText(bundle.getString("HlavnaStranka.bookRemoveBtn.text")); // NOI18N
         bookRemoveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 bookRemoveBtnMouseReleased(evt);
@@ -1244,7 +1252,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel18.setBackground(new java.awt.Color(23, 35, 51));
         jLabel18.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel18.setText("ID Knihy");
+        jLabel18.setText(bundle.getString("HlavnaStranka.jLabel18.text")); // NOI18N
         PKnihaMainOdstranitjPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
 
         PKnihaMainjPanel1.add(PKnihaMainOdstranitjPanel3, "card2");
@@ -1257,7 +1265,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         searchBookBtn.setBackground(new java.awt.Color(71, 120, 197));
         searchBookBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         searchBookBtn.setForeground(new java.awt.Color(255, 255, 255));
-        searchBookBtn.setText("Vyhľadať");
+        searchBookBtn.setText(bundle.getString("HlavnaStranka.searchBookBtn.text")); // NOI18N
         searchBookBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 searchBookBtnMouseReleased(evt);
@@ -1268,7 +1276,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel19.setBackground(new java.awt.Color(23, 35, 51));
         jLabel19.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel19.setText("Názov");
+        jLabel19.setText(bundle.getString("HlavnaStranka.jLabel19.text")); // NOI18N
         PKnihaMainZobrazjPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, -1, -1));
 
         showBookIdFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1284,13 +1292,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel20.setBackground(new java.awt.Color(23, 35, 51));
         jLabel20.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel20.setText("ID Knihy");
+        jLabel20.setText(bundle.getString("HlavnaStranka.jLabel20.text")); // NOI18N
         PKnihaMainZobrazjPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel23.setBackground(new java.awt.Color(23, 35, 51));
         jLabel23.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel23.setText("Žáner");
+        jLabel23.setText(bundle.getString("HlavnaStranka.jLabel23.text")); // NOI18N
         PKnihaMainZobrazjPanel2.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, -1));
 
         showBookGenreFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1301,7 +1309,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         lateCheckBox.setBackground(new java.awt.Color(255, 255, 255));
         lateCheckBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lateCheckBox.setForeground(new java.awt.Color(23, 35, 51));
-        lateCheckBox.setText("Neskoré vrátenia");
+        lateCheckBox.setText(bundle.getString("HlavnaStranka.lateCheckBox.text")); // NOI18N
         PKnihaMainZobrazjPanel2.add(lateCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, -1, -1));
 
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
@@ -1340,13 +1348,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         availableCheckBox.setBackground(new java.awt.Color(255, 255, 255));
         availableCheckBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         availableCheckBox.setForeground(new java.awt.Color(23, 35, 51));
-        availableCheckBox.setText("Dostupné");
+        availableCheckBox.setText(bundle.getString("HlavnaStranka.availableCheckBox.text")); // NOI18N
         PKnihaMainZobrazjPanel2.add(availableCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, -1, -1));
 
         jLabel24.setBackground(new java.awt.Color(23, 35, 51));
         jLabel24.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel24.setText("Meno a Priezvisko / ID zákazníka");
+        jLabel24.setText(bundle.getString("HlavnaStranka.jLabel24.text")); // NOI18N
         PKnihaMainZobrazjPanel2.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
         showCustomerIdFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1362,7 +1370,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel25.setBackground(new java.awt.Color(23, 35, 51));
         jLabel25.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel25.setText("Autor");
+        jLabel25.setText(bundle.getString("HlavnaStranka.jLabel25.text")); // NOI18N
         PKnihaMainZobrazjPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, -1, -1));
 
         PKnihaMainjPanel1.add(PKnihaMainZobrazjPanel2, "card2");
@@ -1392,7 +1400,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel9.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel9.setText("Zobraziť");
+        PrvyjLabel9.setText(bundle.getString("HlavnaStranka.PrvyjLabel9.text")); // NOI18N
 
         UzivatelZobrazitVybranyjPanel6.setBackground(new java.awt.Color(41, 57, 80));
         UzivatelZobrazitVybranyjPanel6.setForeground(new java.awt.Color(23, 35, 51));
@@ -1442,7 +1450,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel10.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel10.setText("Pridať");
+        PrvyjLabel10.setText(bundle.getString("HlavnaStranka.PrvyjLabel10.text")); // NOI18N
 
         UzivatelPridatVybranyjPanel7.setBackground(new java.awt.Color(41, 57, 80));
         UzivatelPridatVybranyjPanel7.setForeground(new java.awt.Color(23, 35, 51));
@@ -1492,7 +1500,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel11.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel11.setText("Odstrániť");
+        PrvyjLabel11.setText(bundle.getString("HlavnaStranka.PrvyjLabel11.text")); // NOI18N
 
         UzivateOdstranitVybranyjPanel8.setBackground(new java.awt.Color(41, 57, 80));
         UzivateOdstranitVybranyjPanel8.setForeground(new java.awt.Color(23, 35, 51));
@@ -1542,7 +1550,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel12.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel12.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel12.setText("Upraviť");
+        PrvyjLabel12.setText(bundle.getString("HlavnaStranka.PrvyjLabel12.text")); // NOI18N
 
         UzivatelUpravitVybranyjPanel9.setBackground(new java.awt.Color(41, 57, 80));
         UzivatelUpravitVybranyjPanel9.setForeground(new java.awt.Color(23, 35, 51));
@@ -1593,13 +1601,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel17.setBackground(new java.awt.Color(23, 35, 51));
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel17.setText("Meno a Priezvisko");
+        jLabel17.setText(bundle.getString("HlavnaStranka.jLabel17.text")); // NOI18N
         PMainUzivatelPriatjPanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
 
         addUserBtn.setBackground(new java.awt.Color(71, 120, 197));
         addUserBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         addUserBtn.setForeground(new java.awt.Color(255, 255, 255));
-        addUserBtn.setText("Pridať zákazníka");
+        addUserBtn.setText(bundle.getString("HlavnaStranka.addUserBtn.text")); // NOI18N
         addUserBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 addUserBtnMouseReleased(evt);
@@ -1615,7 +1623,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel26.setBackground(new java.awt.Color(23, 35, 51));
         jLabel26.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel26.setText("Adresa ");
+        jLabel26.setText(bundle.getString("HlavnaStranka.jLabel26.text")); // NOI18N
         PMainUzivatelPriatjPanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, -1, -1));
 
         userAddAddressFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1626,7 +1634,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel27.setBackground(new java.awt.Color(255, 255, 255));
         jLabel27.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel27.setText("Mesto");
+        jLabel27.setText(bundle.getString("HlavnaStranka.jLabel27.text")); // NOI18N
         PMainUzivatelPriatjPanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
 
         userAddCityFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1637,7 +1645,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel28.setBackground(new java.awt.Color(255, 255, 255));
         jLabel28.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel28.setText("PSČ");
+        jLabel28.setText(bundle.getString("HlavnaStranka.jLabel28.text")); // NOI18N
         PMainUzivatelPriatjPanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, -1, -1));
 
         userAddPSCFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1648,13 +1656,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         userAddPhoneFld.setBackground(new java.awt.Color(255, 255, 255));
         userAddPhoneFld.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         userAddPhoneFld.setForeground(new java.awt.Color(23, 35, 51));
-        userAddPhoneFld.setText("+421");
+        userAddPhoneFld.setText(bundle.getString("HlavnaStranka.userAddPhoneFld.text")); // NOI18N
         PMainUzivatelPriatjPanel.add(userAddPhoneFld, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 470, 280, -1));
 
         jLabel29.setBackground(new java.awt.Color(255, 255, 255));
         jLabel29.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel29.setText("Telefónne číslo");
+        jLabel29.setText(bundle.getString("HlavnaStranka.jLabel29.text")); // NOI18N
         PMainUzivatelPriatjPanel.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, -1, -1));
 
         PVyhMainjPanel2.add(PMainUzivatelPriatjPanel, "card2");
@@ -1667,13 +1675,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel30.setBackground(new java.awt.Color(23, 35, 51));
         jLabel30.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel30.setText("ID zákazníka");
+        jLabel30.setText(bundle.getString("HlavnaStranka.jLabel30.text")); // NOI18N
         PMainUzivatelVymazatjPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, -1, -1));
 
         deleteUserBtn.setBackground(new java.awt.Color(255, 99, 71));
         deleteUserBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         deleteUserBtn.setForeground(new java.awt.Color(255, 255, 255));
-        deleteUserBtn.setText("Odstrániť zákazníka");
+        deleteUserBtn.setText(bundle.getString("HlavnaStranka.deleteUserBtn.text")); // NOI18N
         deleteUserBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 deleteUserBtnMouseReleased(evt);
@@ -1696,13 +1704,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel31.setBackground(new java.awt.Color(23, 35, 51));
         jLabel31.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel31.setText("Meno a Priezvisko");
+        jLabel31.setText(bundle.getString("HlavnaStranka.jLabel31.text")); // NOI18N
         PMainUzivatelUpravitjPanel1.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         jButton10.setBackground(new java.awt.Color(71, 120, 197));
         jButton10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
-        jButton10.setText("Vyhľadať");
+        jButton10.setText(bundle.getString("HlavnaStranka.jButton10.text")); // NOI18N
         jButton10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jButton10MouseReleased(evt);
@@ -1719,7 +1727,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel32.setBackground(new java.awt.Color(23, 35, 51));
         jLabel32.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel32.setText("Adresa ");
+        jLabel32.setText(bundle.getString("HlavnaStranka.jLabel32.text")); // NOI18N
         PMainUzivatelUpravitjPanel1.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
 
         jTextField25.setBackground(new java.awt.Color(255, 255, 255));
@@ -1731,7 +1739,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel33.setBackground(new java.awt.Color(255, 255, 255));
         jLabel33.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel33.setText("Mesto");
+        jLabel33.setText(bundle.getString("HlavnaStranka.jLabel33.text")); // NOI18N
         PMainUzivatelUpravitjPanel1.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
 
         jTextField26.setBackground(new java.awt.Color(255, 255, 255));
@@ -1743,7 +1751,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel34.setBackground(new java.awt.Color(255, 255, 255));
         jLabel34.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel34.setText("PSČ");
+        jLabel34.setText(bundle.getString("HlavnaStranka.jLabel34.text")); // NOI18N
         PMainUzivatelUpravitjPanel1.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, -1));
 
         jTextField27.setBackground(new java.awt.Color(255, 255, 255));
@@ -1761,7 +1769,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel35.setBackground(new java.awt.Color(255, 255, 255));
         jLabel35.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel35.setText("Telefónne číslo");
+        jLabel35.setText(bundle.getString("HlavnaStranka.jLabel35.text")); // NOI18N
         PMainUzivatelUpravitjPanel1.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 480, -1, -1));
 
         jTextField29.setBackground(new java.awt.Color(255, 255, 255));
@@ -1772,13 +1780,13 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel36.setBackground(new java.awt.Color(23, 35, 51));
         jLabel36.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel36.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel36.setText("ID zákazníka");
+        jLabel36.setText(bundle.getString("HlavnaStranka.jLabel36.text")); // NOI18N
         PMainUzivatelUpravitjPanel1.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
 
         jButton11.setBackground(new java.awt.Color(71, 120, 197));
         jButton11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Upraviť zákazníka");
+        jButton11.setText(bundle.getString("HlavnaStranka.jButton11.text")); // NOI18N
         jButton11.setEnabled(false);
         jButton11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -1797,7 +1805,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         userSearchBtn.setBackground(new java.awt.Color(71, 120, 197));
         userSearchBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         userSearchBtn.setForeground(new java.awt.Color(255, 255, 255));
-        userSearchBtn.setText("Vyhľadať");
+        userSearchBtn.setText(bundle.getString("HlavnaStranka.userSearchBtn.text")); // NOI18N
         userSearchBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 userSearchBtnMouseReleased(evt);
@@ -1808,7 +1816,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         userLateReturnCheckBox.setBackground(new java.awt.Color(255, 255, 255));
         userLateReturnCheckBox.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         userLateReturnCheckBox.setForeground(new java.awt.Color(23, 35, 51));
-        userLateReturnCheckBox.setText("Neskoré vrátenia");
+        userLateReturnCheckBox.setText(bundle.getString("HlavnaStranka.userLateReturnCheckBox.text")); // NOI18N
         PMainUzivatelZobrazjPanel3.add(userLateReturnCheckBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, -1, -1));
 
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
@@ -1842,7 +1850,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jTable3.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(5).setHeaderValue("Telefónne číslo");
+            jTable3.getColumnModel().getColumn(5).setHeaderValue(bundle.getString("HlavnaStranka.jTable3.columnModel.title5")); // NOI18N
         }
 
         PMainUzivatelZobrazjPanel3.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 770, 640));
@@ -1850,7 +1858,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel40.setBackground(new java.awt.Color(23, 35, 51));
         jLabel40.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel40.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel40.setText("Meno a Priezvisko / ID zákazníka");
+        jLabel40.setText(bundle.getString("HlavnaStranka.jLabel40.text")); // NOI18N
         PMainUzivatelZobrazjPanel3.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
 
         userSearchIdFld.setBackground(new java.awt.Color(255, 255, 255));
@@ -1885,7 +1893,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel13.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel13.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel13.setText("Pridať");
+        PrvyjLabel13.setText(bundle.getString("HlavnaStranka.PrvyjLabel13.text")); // NOI18N
 
         MainAdminPridatVybranyjPanel7.setBackground(new java.awt.Color(41, 57, 80));
         MainAdminPridatVybranyjPanel7.setForeground(new java.awt.Color(23, 35, 51));
@@ -1935,7 +1943,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel14.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel14.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel14.setText("Odstrániť");
+        PrvyjLabel14.setText(bundle.getString("HlavnaStranka.PrvyjLabel14.text")); // NOI18N
 
         MainAdminOdstranitVybranyjPanel8.setBackground(new java.awt.Color(41, 57, 80));
         MainAdminOdstranitVybranyjPanel8.setForeground(new java.awt.Color(23, 35, 51));
@@ -1985,7 +1993,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel15.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel15.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel15.setText("Zmeniť heslo");
+        PrvyjLabel15.setText(bundle.getString("HlavnaStranka.PrvyjLabel15.text")); // NOI18N
 
         MainAdminZmenHesloVybranyjPanel9.setBackground(new java.awt.Color(41, 57, 80));
         MainAdminZmenHesloVybranyjPanel9.setForeground(new java.awt.Color(23, 35, 51));
@@ -2035,7 +2043,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel16.setBackground(new java.awt.Color(255, 255, 255));
         PrvyjLabel16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         PrvyjLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        PrvyjLabel16.setText("Zobraziť");
+        PrvyjLabel16.setText(bundle.getString("HlavnaStranka.PrvyjLabel16.text")); // NOI18N
 
         MainAdminZobrazVybranyjPanel10.setBackground(new java.awt.Color(41, 57, 80));
         MainAdminZobrazVybranyjPanel10.setForeground(new java.awt.Color(23, 35, 51));
@@ -2086,7 +2094,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel37.setBackground(new java.awt.Color(23, 35, 51));
         jLabel37.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel37.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel37.setText("Používateľské meno");
+        jLabel37.setText(bundle.getString("HlavnaStranka.jLabel37.text")); // NOI18N
         PMainAdmiPridatZamjPanel2.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         jTextField30.setBackground(new java.awt.Color(255, 255, 255));
@@ -2097,7 +2105,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel38.setBackground(new java.awt.Color(23, 35, 51));
         jLabel38.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel38.setText("Heslo");
+        jLabel38.setText(bundle.getString("HlavnaStranka.jLabel38.text")); // NOI18N
         PMainAdmiPridatZamjPanel2.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
 
         jTextField31.setBackground(new java.awt.Color(255, 255, 255));
@@ -2108,7 +2116,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel39.setBackground(new java.awt.Color(255, 255, 255));
         jLabel39.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel39.setText("Potvrdiť heslo");
+        jLabel39.setText(bundle.getString("HlavnaStranka.jLabel39.text")); // NOI18N
         PMainAdmiPridatZamjPanel2.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
 
         jTextField32.setBackground(new java.awt.Color(255, 255, 255));
@@ -2119,7 +2127,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         addAdminBtn.setBackground(new java.awt.Color(71, 120, 197));
         addAdminBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         addAdminBtn.setForeground(new java.awt.Color(255, 255, 255));
-        addAdminBtn.setText("Pridať zamestnanca");
+        addAdminBtn.setText(bundle.getString("HlavnaStranka.addAdminBtn.text")); // NOI18N
         addAdminBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 addAdminBtnMouseReleased(evt);
@@ -2130,7 +2138,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jCheckBox5.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jCheckBox5.setForeground(new java.awt.Color(23, 35, 51));
-        jCheckBox5.setText("Administrátor");
+        jCheckBox5.setText(bundle.getString("HlavnaStranka.jCheckBox5.text")); // NOI18N
         PMainAdmiPridatZamjPanel2.add(jCheckBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, -1, -1));
 
         PVyhMainjPanel3.add(PMainAdmiPridatZamjPanel2, "card2");
@@ -2143,7 +2151,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel41.setBackground(new java.awt.Color(23, 35, 51));
         jLabel41.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel41.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel41.setText("Používateľské meno / ID ");
+        jLabel41.setText(bundle.getString("HlavnaStranka.jLabel41.text")); // NOI18N
         PMainAdmiOdstranitZamjPanel3.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, -1, -1));
 
         jTextField34.setBackground(new java.awt.Color(255, 255, 255));
@@ -2154,7 +2162,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         deleteAdminBtn.setBackground(new java.awt.Color(255, 99, 71));
         deleteAdminBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         deleteAdminBtn.setForeground(new java.awt.Color(255, 255, 255));
-        deleteAdminBtn.setText("Odstrániť zamestnanca");
+        deleteAdminBtn.setText(bundle.getString("HlavnaStranka.deleteAdminBtn.text")); // NOI18N
         deleteAdminBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 deleteAdminBtnMouseReleased(evt);
@@ -2172,7 +2180,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel42.setBackground(new java.awt.Color(23, 35, 51));
         jLabel42.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel42.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel42.setText("Používateľské meno / ID");
+        jLabel42.setText(bundle.getString("HlavnaStranka.jLabel42.text")); // NOI18N
         PMainAdmiZmenaHeslajPanel3.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, -1, -1));
 
         jTextField35.setBackground(new java.awt.Color(255, 255, 255));
@@ -2183,7 +2191,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel43.setBackground(new java.awt.Color(23, 35, 51));
         jLabel43.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel43.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel43.setText("Nové heslo");
+        jLabel43.setText(bundle.getString("HlavnaStranka.jLabel43.text")); // NOI18N
         PMainAdmiZmenaHeslajPanel3.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
 
         jTextField36.setBackground(new java.awt.Color(255, 255, 255));
@@ -2194,7 +2202,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel44.setBackground(new java.awt.Color(255, 255, 255));
         jLabel44.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel44.setText("Potvrdiť nové heslo");
+        jLabel44.setText(bundle.getString("HlavnaStranka.jLabel44.text")); // NOI18N
         PMainAdmiZmenaHeslajPanel3.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
 
         jTextField37.setBackground(new java.awt.Color(255, 255, 255));
@@ -2205,7 +2213,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         changeAdminPasswordBtn.setBackground(new java.awt.Color(71, 120, 197));
         changeAdminPasswordBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         changeAdminPasswordBtn.setForeground(new java.awt.Color(255, 255, 255));
-        changeAdminPasswordBtn.setText("Zmeniť heslo");
+        changeAdminPasswordBtn.setText(bundle.getString("HlavnaStranka.changeAdminPasswordBtn.text")); // NOI18N
         changeAdminPasswordBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 changeAdminPasswordBtnMouseReleased(evt);
@@ -2223,7 +2231,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         showAdminsBtn.setBackground(new java.awt.Color(71, 120, 197));
         showAdminsBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         showAdminsBtn.setForeground(new java.awt.Color(255, 255, 255));
-        showAdminsBtn.setText("Vyhľadať");
+        showAdminsBtn.setText(bundle.getString("HlavnaStranka.showAdminsBtn.text")); // NOI18N
         showAdminsBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 showAdminsBtnMouseReleased(evt);
@@ -2267,7 +2275,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel45.setBackground(new java.awt.Color(23, 35, 51));
         jLabel45.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel45.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel45.setText("Používateľské meno / ID ");
+        jLabel45.setText(bundle.getString("HlavnaStranka.jLabel45.text")); // NOI18N
         PMainAdminZobrazjPanel4.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
 
         jTextField38.setBackground(new java.awt.Color(255, 255, 255));
@@ -2286,19 +2294,19 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel5.setText("Zmena helsa");
+        jLabel5.setText(bundle.getString("HlavnaStranka.jLabel5.text")); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel6.setText("Zadajte staré heslo");
+        jLabel6.setText(bundle.getString("HlavnaStranka.jLabel6.text")); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel7.setText("Zadajte nové heslo");
+        jLabel7.setText(bundle.getString("HlavnaStranka.jLabel7.text")); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(23, 35, 51));
-        jLabel8.setText("Potvrďte nové heslo");
+        jLabel8.setText(bundle.getString("HlavnaStranka.jLabel8.text")); // NOI18N
 
         MainZmenaHeslajPasswordField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         MainZmenaHeslajPasswordField1.setForeground(new java.awt.Color(23, 35, 51));
@@ -2312,7 +2320,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(71, 120, 197));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Zmeniť");
+        jButton2.setText(bundle.getString("HlavnaStranka.jButton2.text")); // NOI18N
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jButton2MouseReleased(evt);
@@ -2385,7 +2393,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         LogMenojTextField.setText("");
         LogHeslojPasswordField.setText("");
-        PrihlasitSajLabel.setText("Prihlásiť sa");
+        PrihlasitSajLabel.setText(rb.getString("PRIHLÁSIŤ SA"));
 
         if (data.getPrihlaseny() == null) {
             setVisibleFalse();
@@ -2417,7 +2425,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (prihlaseny) {
             setVisibleFalse();
-            PrihlasitSajLabel.setText("Odhlásiť sa");
+            PrihlasitSajLabel.setText(rb.getString("ODHLÁSIŤ SA"));
 
             if (data.getPrihlaseny().isRoot()) {
                 KnihajPanel.setVisible(true);
@@ -2903,7 +2911,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát PSČ.", "Chyba!", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         databaza.zakaznikPridat(name, address, psc, city, phone);
         JOptionPane.showMessageDialog(MainLogjPanel, "Do systému bol pridaný nový zákazník.", "Pridaný zákazník!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -3171,12 +3179,112 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
     private void JazykjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JazykjComboBoxItemStateChanged
         int index = JazykjComboBox.getSelectedIndex();
+        String language = "sk";
+        String country = "SK";
 
         if (index == 0) { // SK
-            System.out.println("SK");
+            language = "sk";
+            country = "SK";
+            // TODO log4j
         } else if (index == 1) { // EN
-            System.out.println("EN");
+            language = "en";
+            country = "US";
+            // TODO log4j
         }
+
+        Locale l = new Locale(language, country);
+        this.rb = ResourceBundle.getBundle("gui/Bundle", l);
+        changeLanguage();
+    }
+
+    private void changeLanguage() {
+        jLabel25.setText(rb.getString("HlavnaStranka.jLabel25.text"));
+        jLabel24.setText(rb.getString("HlavnaStranka.jLabel24.text"));
+        jLabel8.setText(rb.getString("HlavnaStranka.jLabel8.text"));
+        availableCheckBox.setText(rb.getString("HlavnaStranka.availableCheckBox.text"));
+        jLabel7.setText(rb.getString("HlavnaStranka.jLabel7.text"));
+        jLabel6.setText(rb.getString("HlavnaStranka.jLabel6.text"));
+        jLabel5.setText(rb.getString("HlavnaStranka.jLabel5.text"));
+        lateCheckBox.setText(rb.getString("HlavnaStranka.lateCheckBox.text"));
+        jLabel23.setText(rb.getString("HlavnaStranka.jLabel23.text"));
+        jLabel45.setText(rb.getString("HlavnaStranka.jLabel45.text"));
+        showAdminsBtn.setText(rb.getString("HlavnaStranka.showAdminsBtn.text"));
+        changeAdminPasswordBtn.setText(rb.getString("HlavnaStranka.changeAdminPasswordBtn.text"));
+        jLabel44.setText(rb.getString("HlavnaStranka.jLabel44.text"));
+        jLabel43.setText(rb.getString("HlavnaStranka.jLabel43.text"));
+        jLabel42.setText(rb.getString("HlavnaStranka.jLabel42.text"));
+        deleteAdminBtn.setText(rb.getString("HlavnaStranka.deleteAdminBtn.text"));
+        jLabel41.setText(rb.getString("HlavnaStranka.jLabel41.text"));
+        jLabel20.setText(rb.getString("HlavnaStranka.jLabel20.text"));
+        jLabel19.setText(rb.getString("HlavnaStranka.jLabel19.text"));
+        searchBookBtn.setText(rb.getString("HlavnaStranka.searchBookBtn.text"));
+        jLabel18.setText(rb.getString("HlavnaStranka.jLabel18.text"));
+        bookRemoveBtn.setText(rb.getString("HlavnaStranka.bookRemoveBtn.text"));
+        jCheckBox5.setText(rb.getString("HlavnaStranka.jCheckBox5.text"));
+        addAdminBtn.setText(rb.getString("HlavnaStranka.addAdminBtn.text"));
+        jLabel39.setText(rb.getString("HlavnaStranka.jLabel39.text"));
+        jLabel38.setText(rb.getString("HlavnaStranka.jLabel38.text"));
+        jLabel37.setText(rb.getString("HlavnaStranka.jLabel37.text"));
+        jLabel22.setText(rb.getString("HlavnaStranka.jLabel22.text"));
+        jLabel21.setText(rb.getString("HlavnaStranka.jLabel21.text"));
+        jLabel16.setText(rb.getString("HlavnaStranka.jLabel16.text"));
+        PrvyjLabel16.setText(rb.getString("HlavnaStranka.PrvyjLabel16.text"));
+        PrvyjLabel15.setText(rb.getString("HlavnaStranka.PrvyjLabel15.text"));
+        jLabel14.setText(rb.getString("HlavnaStranka.jLabel14.text"));
+        addBookBtn.setText(rb.getString("HlavnaStranka.addBookBtn.text"));
+        jLabel15.setText(rb.getString("HlavnaStranka.jLabel15.text"));
+        returnBookBtn.setText(rb.getString("HlavnaStranka.returnBookBtn.text"));
+        PrvyjLabel14.setText(rb.getString("HlavnaStranka.PrvyjLabel14.text"));
+        PrvyjLabel13.setText(rb.getString("HlavnaStranka.PrvyjLabel13.text"));
+        jLabel11.setText(rb.getString("HlavnaStranka.jLabel11.text"));
+        jLabel10.setText(rb.getString("HlavnaStranka.jLabel10.text"));
+        borrowBookBtn.setText(rb.getString("HlavnaStranka.borrowBookBtn.text"));
+        jLabel9.setText(rb.getString("HlavnaStranka.jLabel9.text"));
+        jLabel40.setText(rb.getString("HlavnaStranka.jLabel40.text"));
+        userLateReturnCheckBox.setText(rb.getString("HlavnaStranka.userLateReturnCheckBox.text"));
+        userSearchBtn.setText(rb.getString("HlavnaStranka.userSearchBtn.text"));
+        jButton11.setText(rb.getString("HlavnaStranka.jButton11.text"));
+        jLabel36.setText(rb.getString("HlavnaStranka.jLabel36.text"));
+        PrvyjLabel8.setText(rb.getString("HlavnaStranka.PrvyjLabel8.text"));
+        PrvyjLabel7.setText(rb.getString("HlavnaStranka.PrvyjLabel7.text"));
+        PrvyjLabel6.setText(rb.getString("HlavnaStranka.PrvyjLabel6.text"));
+        PrvyjLabel5.setText(rb.getString("HlavnaStranka.PrvyjLabel5.text"));
+        jLabel35.setText(rb.getString("HlavnaStranka.jLabel35.text"));
+        jLabel34.setText(rb.getString("HlavnaStranka.jLabel34.text"));
+        jLabel33.setText(rb.getString("HlavnaStranka.jLabel33.text"));
+        jLabel32.setText(rb.getString("HlavnaStranka.jLabel32.text"));
+        PrvyjLabel4.setText(rb.getString("HlavnaStranka.PrvyjLabel4.text"));
+        jButton10.setText(rb.getString("HlavnaStranka.jButton10.text"));
+        jLabel31.setText(rb.getString("HlavnaStranka.jLabel31.text"));
+        deleteUserBtn.setText(rb.getString("HlavnaStranka.deleteUserBtn.text"));
+        jLabel30.setText(rb.getString("HlavnaStranka.jLabel30.text"));
+        jLabel29.setText(rb.getString("HlavnaStranka.jLabel29.text"));
+        jLabel12.setText(rb.getString("HlavnaStranka.jLabel12.text"));
+        isAvailableCheckBox.setText(rb.getString("HlavnaStranka.isAvailableCheckBox.text"));
+        jLabel4.setText(rb.getString("HlavnaStranka.jLabel4.text"));
+        jLabel1.setText(rb.getString("HlavnaStranka.jLabel1.text"));
+        searchBooksBtn.setText(rb.getString("HlavnaStranka.searchBooksBtn.text"));
+        userAddPhoneFld.setText(rb.getString("HlavnaStranka.userAddPhoneFld.text"));
+        jLabel28.setText(rb.getString("HlavnaStranka.jLabel28.text"));
+        jLabel27.setText(rb.getString("HlavnaStranka.jLabel27.text"));
+        jLabel26.setText(rb.getString("HlavnaStranka.jLabel26.text"));
+        addUserBtn.setText(rb.getString("HlavnaStranka.addUserBtn.text"));
+        jLabel17.setText(rb.getString("HlavnaStranka.jLabel17.text"));
+        LogSpatjButton.setText(rb.getString("HlavnaStranka.LogSpatjButton.text"));
+        LogPrihlasitjButton.setText(rb.getString("HlavnaStranka.LogPrihlasitjButton.text"));
+        jLabel3.setText(rb.getString("HlavnaStranka.jLabel3.text"));
+        jLabel2.setText(rb.getString("HlavnaStranka.jLabel2.text"));
+        PrvyjLabel.setText(rb.getString("HlavnaStranka.PrvyjLabel.text"));
+        DatumCasjLabel.setText(rb.getString("HlavnaStranka.DatumCasjLabel.text"));
+        PrvyjLabel12.setText(rb.getString("HlavnaStranka.PrvyjLabel12.text"));
+        PrihlasitSajLabel.setText(rb.getString("HlavnaStranka.PrihlasitSajLabel.text"));
+        PrvyjLabel11.setText(rb.getString("HlavnaStranka.PrvyjLabel11.text"));
+        PrvyjLabel2.setText(rb.getString("HlavnaStranka.PrvyjLabel2.text"));
+        PrvyjLabel3.setText(rb.getString("HlavnaStranka.PrvyjLabel3.text"));
+        PrvyjLabel1.setText(rb.getString("HlavnaStranka.PrvyjLabel1.text"));
+        PrvyjLabel10.setText(rb.getString("HlavnaStranka.PrvyjLabel10.text"));
+        PrvyjLabel9.setText(rb.getString("HlavnaStranka.PrvyjLabel9.text"));
+        jButton2.setText(rb.getString("HlavnaStranka.jButton2.text"));
     }//GEN-LAST:event_JazykjComboBoxItemStateChanged
 
     /**
