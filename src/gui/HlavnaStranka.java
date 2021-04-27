@@ -2889,13 +2889,21 @@ public class HlavnaStranka extends javax.swing.JFrame {
      */
     private void addUserBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserBtnMouseReleased
         String name = userAddNameFld.getText().trim();
-        // TODO pridat email email
-        // TODO regex
         String address = userAddAddressFld.getText().trim();
         String city = userAddCityFld.getText().trim();
         String psc = userAddPSCFld.getText().trim();
         String phone = userAddPhoneFld.getText().trim();
 
+        if (!Zakaznik.isValidPhoneNumber(phone)) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát telefónneho čísla.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!Zakaznik.isValidPSC(psc)) {
+            JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát PSČ.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         databaza.zakaznikPridat(name, address, psc, city, phone);
         JOptionPane.showMessageDialog(MainLogjPanel, "Do systému bol pridaný nový zákazník.", "Pridaný zákazník!", JOptionPane.INFORMATION_MESSAGE);
 
