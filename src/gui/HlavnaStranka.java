@@ -381,6 +381,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
         JazykjComboBox.setForeground(new java.awt.Color(255, 255, 255));
         JazykjComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SK", "EN" }));
         JazykjComboBox.setBorder(null);
+        JazykjComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                JazykjComboBoxItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout HornyPaneljPanelLayout = new javax.swing.GroupLayout(HornyPaneljPanel);
         HornyPaneljPanel.setLayout(HornyPaneljPanelLayout);
@@ -752,7 +757,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 .addComponent(isAvailableCheckBox)
                 .addGap(18, 18, 18)
                 .addComponent(searchBooksBtn)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(443, Short.MAX_VALUE))
         );
 
         MainUserVyhtadavanieKnihjPanel.add(LVyhMainjPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 740));
@@ -3121,6 +3126,16 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainZmenaHeslajPasswordField2.setText("");
         MainZmenaHeslajPasswordField3.setText("");
     }//GEN-LAST:event_jButton2MouseReleased
+
+    private void JazykjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JazykjComboBoxItemStateChanged
+        int index = JazykjComboBox.getSelectedIndex();
+
+        if (index == 0) { // SK
+            System.out.println("SK");
+        } else if (index == 1) { // EN
+            System.out.println("EN");
+        }
+    }//GEN-LAST:event_JazykjComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments

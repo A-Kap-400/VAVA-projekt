@@ -1,5 +1,8 @@
 package users;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author velco & Akos Kappel
@@ -8,7 +11,6 @@ public class Zakaznik {
 
     private int idZakaznik;
     private String meno;
-    private String email; // TODO pridat email
     private String adresa;
     private String mesto;
     private String psc;
@@ -37,14 +39,6 @@ public class Zakaznik {
 
     public void setMeno(String meno) {
         this.meno = meno;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getAdresa() {
@@ -77,6 +71,32 @@ public class Zakaznik {
 
     public void setTelCislo(String telCislo) {
         this.telCislo = telCislo;
+    }
+
+    /**
+     * Validacia PSC.
+     *
+     * @param psc
+     * @return
+     */
+    public static boolean isValidPSC(String psc) {
+        String regex = "^[0-9]{5}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(psc);
+        return matcher.matches();
+    }
+
+    /**
+     * Validacia telefonneho cisla.
+     *
+     * @param phoneNumber telefonne cislo
+     * @return
+     */
+    public static boolean isValidPhoneNumber(String phoneNumber) {
+        String regex = "^((00|\\+)[0-9]{3}[- ]|0)[0-9]{3}[- ]?[0-9]{3}[- ]?[0-9]{3}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
     }
 
 }

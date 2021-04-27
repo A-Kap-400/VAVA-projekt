@@ -130,12 +130,22 @@ public final class Admin {
         this.upraveny = upraveny;
     }
 
+    /**
+     * Vytvorenie soli pre heslo a vypocet hashu ako h = HASH(password + salt).
+     *
+     * @param passwd heslo
+     */
     public void createPasswordHash(String passwd) {
         this.passwordSalt = generatePasswordSalt();
         this.passwordHash = getHashValue(passwd, this.passwordSalt);
     }
 
-    // https://www.baeldung.com/java-random-string#apachecommons-bounded 
+    // https://www.baeldung.com/java-random-string#apachecommons-bounded
+    /**
+     * Funkcia na generovanie soli pre heslo.
+     *
+     * @return sol
+     */
     private static String generatePasswordSalt() {
         return new Random().ints(48, 123)
                 .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
@@ -144,6 +154,14 @@ public final class Admin {
                 .toString();
     }
 
+    /**
+     * Tato funkcia vypocita hashovu hodnotu z pouzivatelskeho hesla a soli. Na
+     * vypocet sa pouziva kryptograficka funkcia SHA256.
+     *
+     * @param passwd heslo
+     * @param salt sol
+     * @return hash
+     */
     public static String getHashValue(String passwd, String salt) {
         MessageDigest messageDigest;
         try {
