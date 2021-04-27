@@ -403,7 +403,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 .addComponent(DatumCasjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JazykjComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 763, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 759, Short.MAX_VALUE)
                 .addComponent(PrihlasitjPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -773,6 +773,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PVyhMainjPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         searchedBooksCustomerTbl.setBackground(new java.awt.Color(255, 255, 255));
+        searchedBooksCustomerTbl.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         searchedBooksCustomerTbl.setForeground(new java.awt.Color(23, 35, 51));
         searchedBooksCustomerTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -797,7 +798,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        searchedBooksCustomerTbl.setRowHeight(26);
+        searchedBooksCustomerTbl.setRowHeight(30);
         searchedBooksCustomerTbl.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(searchedBooksCustomerTbl);
 
@@ -1315,6 +1316,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
 
         searchedBooksAdminTable.setBackground(new java.awt.Color(255, 255, 255));
+        searchedBooksAdminTable.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         searchedBooksAdminTable.setForeground(new java.awt.Color(23, 35, 51));
         searchedBooksAdminTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1339,7 +1341,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        searchedBooksAdminTable.setRowHeight(26);
+        searchedBooksAdminTable.setRowHeight(30);
         searchedBooksAdminTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(searchedBooksAdminTable);
 
@@ -1822,6 +1824,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
 
         jTable3.setBackground(new java.awt.Color(255, 255, 255));
+        jTable3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTable3.setForeground(new java.awt.Color(23, 35, 51));
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1846,7 +1849,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable3.setRowHeight(26);
+        jTable3.setRowHeight(30);
         jTable3.getTableHeader().setReorderingAllowed(false);
         jScrollPane4.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
@@ -2242,6 +2245,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jScrollPane5.setBackground(new java.awt.Color(255, 255, 255));
 
         jTable4.setBackground(new java.awt.Color(255, 255, 255));
+        jTable4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTable4.setForeground(new java.awt.Color(23, 35, 51));
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -2266,7 +2270,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable4.setRowHeight(26);
+        jTable4.setRowHeight(30);
         jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(jTable4);
 
@@ -3277,7 +3281,6 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel.setText(rb.getString("HlavnaStranka.PrvyjLabel.text"));
         DatumCasjLabel.setText(rb.getString("HlavnaStranka.DatumCasjLabel.text"));
         PrvyjLabel12.setText(rb.getString("HlavnaStranka.PrvyjLabel12.text"));
-        PrihlasitSajLabel.setText(rb.getString("HlavnaStranka.PrihlasitSajLabel.text"));
         PrvyjLabel11.setText(rb.getString("HlavnaStranka.PrvyjLabel11.text"));
         PrvyjLabel2.setText(rb.getString("HlavnaStranka.PrvyjLabel2.text"));
         PrvyjLabel3.setText(rb.getString("HlavnaStranka.PrvyjLabel3.text"));
@@ -3285,6 +3288,34 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel10.setText(rb.getString("HlavnaStranka.PrvyjLabel10.text"));
         PrvyjLabel9.setText(rb.getString("HlavnaStranka.PrvyjLabel9.text"));
         jButton2.setText(rb.getString("HlavnaStranka.jButton2.text"));
+
+        if (data.getPrihlaseny() != null) {
+            PrihlasitSajLabel.setText(rb.getString("ODHLÁSIŤ SA"));
+        } else {
+            PrihlasitSajLabel.setText(rb.getString("PRIHLÁSIŤ SA"));
+        }
+
+        searchedBooksCustomerTbl.getColumnModel().getColumn(1).setHeaderValue(rb.getString("ZANER"));
+        searchedBooksCustomerTbl.getColumnModel().getColumn(2).setHeaderValue(rb.getString("NAZOV"));
+        searchedBooksCustomerTbl.getColumnModel().getColumn(3).setHeaderValue(rb.getString("AUTOR"));
+        searchedBooksCustomerTbl.getColumnModel().getColumn(4).setHeaderValue(rb.getString("VYPOZICANE DO"));
+
+        searchedBooksAdminTable.getColumnModel().getColumn(1).setHeaderValue(rb.getString("ZANER"));
+        searchedBooksAdminTable.getColumnModel().getColumn(2).setHeaderValue(rb.getString("NAZOV"));
+        searchedBooksAdminTable.getColumnModel().getColumn(3).setHeaderValue(rb.getString("AUTOR"));
+        searchedBooksAdminTable.getColumnModel().getColumn(4).setHeaderValue(rb.getString("VYPOZICANE DO"));
+        searchedBooksAdminTable.getColumnModel().getColumn(5).setHeaderValue(rb.getString("POZICANE KOMU"));
+
+        jTable3.getColumnModel().getColumn(1).setHeaderValue(rb.getString("MENO A PRIEZVISKO"));
+        jTable3.getColumnModel().getColumn(2).setHeaderValue(rb.getString("ADRESA"));
+        jTable3.getColumnModel().getColumn(3).setHeaderValue(rb.getString("PSC"));
+        jTable3.getColumnModel().getColumn(4).setHeaderValue(rb.getString("MESTO"));
+        jTable3.getColumnModel().getColumn(5).setHeaderValue(rb.getString("TELEFONNE CISLO"));
+
+        jTable4.getColumnModel().getColumn(1).setHeaderValue(rb.getString("POUZIVATELSKE MENO"));
+        jTable4.getColumnModel().getColumn(2).setHeaderValue(rb.getString("ADMINISTRATOR"));
+        jTable4.getColumnModel().getColumn(3).setHeaderValue(rb.getString("VYTVORENY DNA"));
+        jTable4.getColumnModel().getColumn(4).setHeaderValue(rb.getString("UPRAVENY DNA"));
     }//GEN-LAST:event_JazykjComboBoxItemStateChanged
 
     /**
