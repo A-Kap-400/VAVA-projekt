@@ -30,7 +30,6 @@ import users.Zakaznik;
 public class HlavnaStranka extends javax.swing.JFrame {
 
     private PostgresDB databaza;
-    private Data data;
     private ResourceBundle rb;
     private static final Logger LOGGER = Logger.getLogger(HlavnaStranka.class);
 
@@ -48,7 +47,6 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         this.databaza = new PostgresDB();
         this.databaza.connect();
-        this.data = Data.getInstance();
         this.rb = ResourceBundle.getBundle("gui/Bundle", new Locale("sk", "SK"));
 
         // Toto pri zatvoreni okna ukonci spojenie s databazou.
@@ -2400,13 +2398,14 @@ public class HlavnaStranka extends javax.swing.JFrame {
         LogHeslojPasswordField.setText("");
         PrihlasitSajLabel.setText(rb.getString("PRIHLÁSIŤ SA"));
 
-        if (data.getPrihlaseny() == null) {
+        if (databaza.getData().getPrihlaseny() == null) {
             setVisibleFalse();
             MainSelectedNone();
             MainjPanel.setVisible(true);
             MainLogjPanel.setVisible(true);
         } else {
-            data.logoff();
+            databaza.getData().logoff();
+            LOGGER.info("Odhlásenie používateľa.");
             setVisibleFalse();
             MainSelectedNone();
             defaultPage();
@@ -2424,15 +2423,14 @@ public class HlavnaStranka extends javax.swing.JFrame {
         String name = LogMenojTextField.getText();
         String passwd = String.valueOf(LogHeslojPasswordField.getPassword());
 
-        databaza.loadAdmins(data, "");
-
-        boolean prihlaseny = data.login(name, passwd);
+        databaza.loadAdmins("");
+        boolean prihlaseny = databaza.getData().login(name, passwd);
 
         if (prihlaseny) {
             setVisibleFalse();
             PrihlasitSajLabel.setText(rb.getString("ODHLÁSIŤ SA"));
 
-            if (data.getPrihlaseny().isRoot()) {
+            if (databaza.getData().getPrihlaseny().isRoot()) {
                 KnihajPanel.setVisible(true);
                 UzivateljPanel1.setVisible(true);
                 NastaveniaUctujPanel.setVisible(true);
@@ -2443,13 +2441,15 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 NastaveniaUctujPanel.setVisible(true);
                 AdministrativajPanel2.setVisible(false);
             }
+            LOGGER.info("Prihlásenie používateľa.");
         } else {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne meno alebo heslo", "Chyba", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávne meno alebo heslo používateľa pri prihlásení.");
         }
     }//GEN-LAST:event_LogPrihlasitjButtonActionPerformed
 
     private void KnihajPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_KnihajPanelMouseClicked
-        if (data.getPrihlaseny() != null) {
+        if (databaza.getData().getPrihlaseny() != null) {
             SecondLeftSelectedNone();
             MainSelectedNone();
             setVisibleFalse();
@@ -2795,12 +2795,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
         String author = bookAuthorSearchFld.getText().trim();
         boolean isAvailable = isAvailableCheckBox.isSelected();
 
-        databaza.neprihlasenyKnihaZobraz(data, title, genre, author, isAvailable);
+        databaza.neprihlasenyKnihaZobraz(title, genre, author, isAvailable);
 
         DefaultTableModel tblModel = (DefaultTableModel) searchedBooksCustomerTbl.getModel();
         tblModel.setRowCount(0);
 
-        ArrayList<Kniha> books = data.getKnihaArrayList();
+        ArrayList<Kniha> books = databaza.getData().getKnihaArrayList();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         for (int i = 0; i < books.size(); i++) {
@@ -2888,12 +2888,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
         boolean available = availableCheckBox.isSelected();
         boolean late = lateCheckBox.isSelected();
 
-        databaza.knihaZobraz(data, title, genre, author, available, late, customerId, bookId);
+        databaza.knihaZobraz(title, genre, author, available, late, customerId, bookId);
 
         DefaultTableModel tblModel = (DefaultTableModel) searchedBooksAdminTable.getModel();
         tblModel.setRowCount(0);
 
-        ArrayList<Kniha> books = data.getKnihaArrayList();
+        ArrayList<Kniha> books = databaza.getData().getKnihaArrayList();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         for (int i = 0; i < books.size(); i++) {
@@ -2964,11 +2964,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
         boolean lateReturn = userLateReturnCheckBox.isSelected();
         String customerId = userSearchIdFld.getText().trim();
 
-        databaza.zakaznikZobrazit(data, customerId, lateReturn);
+        databaza.zakaznikZobrazit(customerId, lateReturn);
 
         DefaultTableModel tblModel = (DefaultTableModel) jTable3.getModel();
         tblModel.setRowCount(0);
-        ArrayList<Zakaznik> customers = data.getZakaznikArrayList();
+        ArrayList<Zakaznik> customers = databaza.getData().getZakaznikArrayList();
 
         for (int i = 0; i < customers.size(); i++) {
             Zakaznik z = customers.get(i);
@@ -3003,10 +3003,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
             return;
         }
 
-        databaza.zakaznikZobrazit(data, customerId, false);
+        databaza.zakaznikZobrazit(customerId, false);
 
         try {
-            Zakaznik z = data.getZakaznikArrayList().get(0);
+            Zakaznik z = databaza.getData().getZakaznikArrayList().get(0);
 
             jTextField24.setText(z.getMeno());
             jTextField24.setEnabled(true);
@@ -3075,8 +3075,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
         }
 
         try {
-            databaza.zakaznikZobrazit(data, name, false);
-            int customerId = data.getZakaznikArrayList().get(0).getIdZakaznik();
+            databaza.zakaznikZobrazit(name, false);
+            int customerId = databaza.getData().getZakaznikArrayList().get(0).getIdZakaznik();
 
             databaza.zakaznikUpravit(name, address, psc, city, phone, customerId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Údaje o zákazníkovi boli aktualizované.", "Úprava údajov!", JOptionPane.INFORMATION_MESSAGE);
@@ -3139,11 +3139,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private void showAdminsBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showAdminsBtnMouseReleased
         String adminId = jTextField38.getText().trim();
 
-        databaza.loadAdmins(data, adminId);
+        databaza.loadAdmins(adminId);
 
         DefaultTableModel tblModel = (DefaultTableModel) jTable4.getModel();
         tblModel.setRowCount(0);
-        ArrayList<Admin> admins = data.getAdminArrayList();
+        ArrayList<Admin> admins = databaza.getData().getAdminArrayList();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         for (int i = 0; i < admins.size(); i++) {
@@ -3169,8 +3169,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(MainLogjPanel, "Potvdené heslo nie je rovnaké s novým heslom.", "Chyba hesla!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Nové používateľské heslo sa nezhoduje s opakovaným heslom.");
         } else {
-            databaza.loadAdmins(data, adminId);
-            Admin a = data.getAdminArrayList().get(0);
+            databaza.loadAdmins(adminId);
+            Admin a = databaza.getData().getAdminArrayList().get(0);
             a.createPasswordHash(password);
 
             databaza.adminZmenaHesla(adminId, a.getPasswordHash(), a.getPasswordSalt());
@@ -3191,7 +3191,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         String newPw = String.valueOf(MainZmenaHeslajPasswordField2.getPassword());
         String confirmNewPw = String.valueOf(MainZmenaHeslajPasswordField3.getPassword());
 
-        Admin loggedInAdmin = data.getPrihlaseny();
+        Admin loggedInAdmin = databaza.getData().getPrihlaseny();
 
         if (!Admin.getHashValue(oldPw, loggedInAdmin.getPasswordSalt()).equals(loggedInAdmin.getPasswordHash())) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne heslo.", "Chyba!", JOptionPane.WARNING_MESSAGE);
@@ -3331,7 +3331,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         PrvyjLabel9.setText(rb.getString("HlavnaStranka.PrvyjLabel9.text"));
         jButton2.setText(rb.getString("HlavnaStranka.jButton2.text"));
 
-        if (data.getPrihlaseny() != null) {
+        if (databaza.getData().getPrihlaseny() != null) {
             PrihlasitSajLabel.setText(rb.getString("ODHLÁSIŤ SA"));
         } else {
             PrihlasitSajLabel.setText(rb.getString("PRIHLÁSIŤ SA"));

@@ -28,6 +28,9 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     private Connection conn;
     private PreparedStatement statement;
 
+    // Lokalne data z databazy
+    private final Data data;
+
     // Logovanie
     private static final Logger LOGGER = Logger.getLogger(PostgresDB.class);
 
@@ -43,9 +46,10 @@ public class PostgresDB implements JavaDatabaseConnectivity {
 
         this.conn = null;
         this.statement = null;
+        this.data = Data.getInstance();
     }
 
-    // Getters and setters for: url, user, password
+    // Getters and setters for: url, user, password and data
     public String getUrl() {
         return url;
     }
@@ -68,6 +72,10 @@ public class PostgresDB implements JavaDatabaseConnectivity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Data getData() {
+        return this.data;
     }
 
     /**
@@ -105,7 +113,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     }
 
     // toto pouzi aj pre zobrazovanie zamestnancov
-    public void loadAdmins(Data data, String meno_ID_zamestnanec) {
+    public void loadAdmins(String meno_ID_zamestnanec) {
         try {
             boolean jeInt;
             int id_zam = 0;
@@ -155,7 +163,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
         }
     }
 
-    public void neprihlasenyKnihaZobraz(Data data, String nazov, String zaner, String autor, Boolean dostupne) {
+    public void neprihlasenyKnihaZobraz(String nazov, String zaner, String autor, Boolean dostupne) {
         try {
             ArrayList<String> premenne = new ArrayList<>();
 
@@ -276,7 +284,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
         }
     }
 
-    public void knihaZobraz(Data data, String nazov, String zaner, String autor, Boolean dostupne, Boolean neskore, String meno_id, String kniha_id) {
+    public void knihaZobraz(String nazov, String zaner, String autor, Boolean dostupne, Boolean neskore, String meno_id, String kniha_id) {
         try {
             ArrayList<String> premenne = new ArrayList<>();
 
@@ -418,7 +426,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
         }
     }
 
-    public void zakaznikZobrazit(Data data, String zakMeno_id, boolean neskore) {
+    public void zakaznikZobrazit(String zakMeno_id, boolean neskore) {
         try {
             boolean jeInt;
             int id_zam = 0;
