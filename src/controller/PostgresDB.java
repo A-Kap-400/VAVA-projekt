@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import org.apache.log4j.Logger;
 import users.Admin;
 import users.Kniha;
 import users.Zakaznik;
@@ -26,6 +27,9 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     // Pripojenie k databaze
     private Connection conn;
     private PreparedStatement statement;
+
+    // Logovanie
+    private static final Logger LOGGER = Logger.getLogger(PostgresDB.class);
 
     /**
      * Tento konstruktor vytvori objekt, ktory je pripojeny k databaze. Tutorial
@@ -75,12 +79,10 @@ public class PostgresDB implements JavaDatabaseConnectivity {
         try {
             this.statement = null;
             this.conn = DriverManager.getConnection(url, user, password);
-
-            System.out.println("Database connected successfully."); // TODO log4j
+            LOGGER.debug("Úspešne sa podarilo pripojiť k databáze.");
         } catch (SQLException e) {
             this.conn = null;
-
-            System.out.println("Connection failed."); // TODO log4j
+            LOGGER.error("Zlyhalo pripojenie k databáze.");
         }
     }
 
@@ -96,9 +98,9 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             if (conn != null) {
                 conn.close();
             }
-            System.out.println("Database connection ended."); // TODO log4j
+            LOGGER.debug("Spojenie k databáze bolo ukončené.");
         } catch (SQLException e) {
-            System.out.println("Disconnection failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa ukončiť spojenie k databáze.");
         }
     }
 
@@ -149,7 +151,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             resultSet.close();
 
         } catch (SQLException e) {
-            System.out.println("Function loadAdmin() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa z databázy načítať zamestnancov a administrátorov.");
         }
     }
 
@@ -201,7 +203,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             resultSet.close();
 
         } catch (SQLException e) {
-            System.out.println("Function neprihlasenyKnihaZobraz() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa z databázy načítať knihy.");
         }
     }
 
@@ -221,7 +223,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function knihaPozicat() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa vypožičaž knihu.");
         }
     }
 
@@ -235,7 +237,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function knihaVratit() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa vrátiť knihu.");
         }
     }
 
@@ -256,7 +258,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function () failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa pridať knihu do databázy.");
         }
     }
 
@@ -270,7 +272,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function knihaOdstran() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa odstrániť knihu z databázy.");
         }
     }
 
@@ -355,7 +357,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             resultSet.close();
 
         } catch (SQLException e) {
-            System.out.println("Function knihaZobraz() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa načítať knihy z databázy.");
         }
     }
 
@@ -377,7 +379,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function zakaznikPridat() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa pridať zákazníka do databázy.");
         }
     }
 
@@ -391,7 +393,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function zakaznikOdstran() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa odstrániť zákazníka z databázy.");
         }
     }
 
@@ -412,7 +414,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function zakaznikUpravit() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa v databáze upraviť údaje o zákazníkovi.");
         }
     }
 
@@ -464,7 +466,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             resultSet.close();
 
         } catch (SQLException e) {
-            System.out.println("Function zakaznikZobrazit() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa naćítať údaje o zákazníkoch z databázy.");
         }
     }
 
@@ -485,7 +487,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function adminPridat() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa pridať zamestnanca do databázy.");
         }
     }
 
@@ -514,7 +516,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function adminOdstranit() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa odstrániť zamestnanca z databázy.");
         }
     }
 
@@ -546,7 +548,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Function adminZmenaHesla() failed."); // TODO log4j
+            LOGGER.error("Nepodarilo sa zmeniť heslo zamestnanca.");
         }
     }
 

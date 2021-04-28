@@ -32,13 +32,15 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private PostgresDB databaza;
     private Data data;
     private ResourceBundle rb;
-    private static final Logger LOG = Logger.getLogger(HlavnaStranka.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HlavnaStranka.class);
 
     /**
-     * Creates new form HlavnaStranka
+     * Spustenie a inicializacia GUI.
      */
     public HlavnaStranka() {
         initComponents();
+
+        LOGGER.info("Spustenie aplikácie");
 
         pocitajCas();
         setVisibleFalse();
@@ -54,8 +56,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent ev) {
                 databaza.disconnect();
-                LOG.info("Koniec aplikacie.");
-                System.out.println("Ukončenie aplikácie.\n"); // TODO log4j
+                LOGGER.info("Ukončenie aplikácie.");
                 dispose();
                 System.exit(0);
             }
@@ -2585,8 +2586,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
         lateCheckBox.setSelected(false);
         availableCheckBox.setSelected(false);
 
-        // Zobrazi vsetky knihy v systeme
-        searchBookBtnMouseReleased(null);
+        DefaultTableModel tblModel = (DefaultTableModel) searchedBooksAdminTable.getModel();
+        tblModel.setRowCount(0);
 
         KnihaSelectedNone();
         MainKnihaZobraziVybranyjPanel5.setBackground(new Color(240, 240, 240));
@@ -2771,6 +2772,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (title.isBlank() || author.isBlank() || genre.isBlank() || description.isBlank()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Prosím vyplňte všetky informácie.", "Chýbajú údaje o knihe!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Chýbajú údaje o novej knihe.");
             return;
         }
 
@@ -2781,6 +2783,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         bookGenreFld.setText("");
         bookDescriptionArea.setText("");
         JOptionPane.showMessageDialog(MainLogjPanel, "Do systému bola pridaná nová kniha.", "Pridanie knihy", JOptionPane.INFORMATION_MESSAGE);
+        LOGGER.info("Do systému bola pridaná nová kniha.");
     }//GEN-LAST:event_addBookBtnMouseReleased
 
     /**
@@ -2816,8 +2819,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
             int id = Integer.valueOf(bookRemoveIdFld.getText().trim());
             databaza.knihaOdstran(id);
             JOptionPane.showMessageDialog(MainLogjPanel, "Kniha bola úspešne odstránená.", "Odstánenie knihy", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.warn("Kniha bola úspešne odstránená zo systému.");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne ID knihy.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávne ID na odstránenie knihy.");
         } finally {
             bookRemoveIdFld.setText("");
         }
@@ -2840,9 +2845,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             databaza.knihaPozicat(customerId, localDate, bookId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Kniha bola požičaná zákazníkovi.", "Požičanie knihy", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.info("Kniha bola požičaná zákazníkovi.");
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne ID knihy alebo zákazníka.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávne ID knihy alebo ID zákazníka pri požičaní knihy.");
         } finally {
             borrowBookIdFld.setText("");
             borrowCustomerIdFld.setText("");
@@ -2858,9 +2865,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             databaza.knihaVratit(bookId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Kniha bola vrátená do knižnice.", "Vrátenie knihy", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.info("Kniha bola vrátená do knižnice.");
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne ID knihy.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávne ID knihy pri vrátení.");
         } finally {
             returnBookIdFld.setText("");
         }
@@ -2908,16 +2917,19 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (!Zakaznik.isValidPhoneNumber(phone)) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát telefónneho čísla.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávny formát telefónneho čísla pri pridaní nového zákazníka.");
             return;
         }
 
         if (!Zakaznik.isValidPSC(psc)) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát PSČ.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávny formát PSČ pri pridaní nového zákazníka.");
             return;
         }
 
         databaza.zakaznikPridat(name, address, psc, city, phone);
         JOptionPane.showMessageDialog(MainLogjPanel, "Do systému bol pridaný nový zákazník.", "Pridaný zákazník!", JOptionPane.INFORMATION_MESSAGE);
+        LOGGER.info("Do systému bol pridaný nový zákazník.");
 
         userAddNameFld.setText("");
         userAddAddressFld.setText("");
@@ -2935,9 +2947,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             databaza.zakaznikOdstran(userId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Zo systému bol odstránený zákazník.", "Odstánenie zákazníka!", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.info("Zo systému bol odstránený zákazník.");
 
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Neplatné ID zákazníka.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Neplatné ID zákazníka pre odstránenie.");
         } finally {
             userDeleteIdFld.setText("");
         }
@@ -3028,6 +3042,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             jButton11.setEnabled(false);
             JOptionPane.showMessageDialog(MainLogjPanel, "Neplatné ID zákazníka.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Neplatné ID na zmenu údajov zákazníka.");
         }
     }//GEN-LAST:event_jButton10MouseReleased
 
@@ -3043,16 +3058,19 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (name.isBlank() || address.isBlank() || city.isBlank() || psc.isBlank() || phone.isBlank()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Chýbajú údaje o zákazníkovi.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Chýbajú údaje pri zmene údajov o zákazníkovi.");
             return;
         }
 
         if (!Zakaznik.isValidPhoneNumber(phone)) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát telefónneho čísla.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávny formát telefónneho čísla pri zmene údajov o zákazníkovi.");
             return;
         }
 
         if (!Zakaznik.isValidPSC(psc)) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávny formát PSČ.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávny formát PSČ pri zmene údajov o zákazníkovi.");
             return;
         }
 
@@ -3062,8 +3080,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             databaza.zakaznikUpravit(name, address, psc, city, phone, customerId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Údaje o zákazníkovi boli aktualizované.", "Úprava údajov!", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.info("Údaje o zákazníkovi boli aktualizované.");
         } catch (IndexOutOfBoundsException e) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nepodarilo sa upraviť údaje o zákazníkovi.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nepodarilo sa upraviť údaje o zákazníkovi.");
         }
     }//GEN-LAST:event_jButton11MouseReleased
 
@@ -3078,12 +3098,15 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (name.isBlank() || password.isBlank() || pwConfirm.isBlank()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Zadajte meno a heslo nového zamestnanca.", "Chýba meno alebo heslo!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Chýba meno alebo heslo nového zamestnanca.");
         } else if (!password.equals(pwConfirm)) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Potvdené heslo nie je rovnaké s pôvodným heslom.", "Chyba hesla!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Potvdené heslo nového zamestnanca nie je rovnaké s pôvodným heslom.");
         } else {
             Admin a = new Admin(name, password, isRoot);
             databaza.adminPridat(name, a.getPasswordHash(), a.getPasswordSalt(), isRoot);
             JOptionPane.showMessageDialog(MainLogjPanel, "Do systému bol pridaný nový zamestnanec.", "Pridanie zamestnanca", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.info("Do systému bol pridaný nový zamestnanec.");
 
             jTextField30.setText("");
             jTextField31.setText("");
@@ -3100,9 +3123,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (adminId.isBlank()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Neplatné ID zamestnanca.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Neplatné ID na vymazanie zamestnanca.");
         } else {
             databaza.adminOdstranit(adminId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Zo systému bol odstránený zamestnanec.", "Odstránenie zamestnanca", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.info("Zo systému bol odstránený zamestnanec.");
         }
 
         jTextField34.setText("");
@@ -3139,8 +3164,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (adminId.isBlank() || password.isBlank() || pwConfirm.isBlank()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Zadajte meno a nové heslo zamestnanca.", "Chýba meno alebo heslo!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nepodarilo sa zmeniť heslo.");
         } else if (!password.equals(pwConfirm)) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Potvdené heslo nie je rovnaké s novým heslom.", "Chyba hesla!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nové používateľské heslo sa nezhoduje s opakovaným heslom.");
         } else {
             databaza.loadAdmins(data, adminId);
             Admin a = data.getAdminArrayList().get(0);
@@ -3148,6 +3175,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             databaza.adminZmenaHesla(adminId, a.getPasswordHash(), a.getPasswordSalt());
             JOptionPane.showMessageDialog(MainLogjPanel, "Heslo zamestnanca bolo úspešne zmenené.", "Zmena hesla", JOptionPane.INFORMATION_MESSAGE);
+            LOGGER.info("Heslo zamestnanca bolo úspešne zmenené.");
 
             jTextField35.setText("");
             jTextField36.setText("");
@@ -3155,6 +3183,9 @@ public class HlavnaStranka extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_changeAdminPasswordBtnMouseReleased
 
+    /**
+     * Zmena pouzivatelskeho hesla.
+     */
     private void jButton2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseReleased
         String oldPw = String.valueOf(MainZmenaHeslajPasswordField1.getPassword());
         String newPw = String.valueOf(MainZmenaHeslajPasswordField2.getPassword());
@@ -3164,43 +3195,54 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         if (!Admin.getHashValue(oldPw, loggedInAdmin.getPasswordSalt()).equals(loggedInAdmin.getPasswordHash())) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne heslo.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nesprávne používateľské heslo.");
             return;
         }
 
         if (!newPw.equals(confirmNewPw)) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nové heslo sa nezhoduje.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+            LOGGER.warn("Nové používateľské heslo sa nezhoduje s opakovaným heslom.");
             return;
         }
 
         loggedInAdmin.createPasswordHash(newPw);
         databaza.adminZmenaHesla(loggedInAdmin.getName(), loggedInAdmin.getPasswordHash(), loggedInAdmin.getPasswordSalt());
         JOptionPane.showMessageDialog(MainLogjPanel, "Heslo bolo úspešne zmenené.", "Zmena hesla", JOptionPane.INFORMATION_MESSAGE);
+        LOGGER.info("Používateľské heslo bolo zmenené.");
 
         MainZmenaHeslajPasswordField1.setText("");
         MainZmenaHeslajPasswordField2.setText("");
         MainZmenaHeslajPasswordField3.setText("");
     }//GEN-LAST:event_jButton2MouseReleased
 
+    /**
+     * Zmena jazyka.
+     */
     private void JazykjComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JazykjComboBoxItemStateChanged
         int index = JazykjComboBox.getSelectedIndex();
+
+        // Default language
         String language = "sk";
         String country = "SK";
 
-        if (index == 0) { // SK
+        if (index == 0) { // sk-SK
             language = "sk";
             country = "SK";
-            // TODO log4j
-        } else if (index == 1) { // EN
+        } else if (index == 1) { // en-US
             language = "en";
             country = "US";
-            // TODO log4j
         }
 
         Locale l = new Locale(language, country);
         this.rb = ResourceBundle.getBundle("gui/Bundle", l);
         changeLanguage();
+
+        LOGGER.info("Jazyk aplikácie bol zmenený na " + language + ".");
     }
 
+    /**
+     * Zmena jazyka v aplikacii.
+     */
     private void changeLanguage() {
         jLabel25.setText(rb.getString("HlavnaStranka.jLabel25.text"));
         jLabel24.setText(rb.getString("HlavnaStranka.jLabel24.text"));
