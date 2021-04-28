@@ -115,3 +115,35 @@ VALUES ('Anna Karenina', 'Leo Tolstoy', 'Novel',
         'The Hobbit, or There and Back Again is a children''s fantasy novel by English author J. R. R. Tolkien. It was published on 21 September 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction.'),
        ('The Hobbit, or There and Back Again', 'J. R. R. Tolkien', 'Novel',
         'The Hobbit, or There and Back Again is a children''s fantasy novel by English author J. R. R. Tolkien. It was published on 21 September 1937 to wide critical acclaim, being nominated for the Carnegie Medal and awarded a prize from the New York Herald Tribune for best juvenile fiction.');
+
+
+CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+    RETURNS TRIGGER AS
+$$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER set_timestamp
+    BEFORE UPDATE
+    ON library.administrators
+    FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+
+CREATE TRIGGER set_timestamp
+    BEFORE UPDATE
+    ON library.users
+    FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+
+CREATE TRIGGER set_timestamp
+    BEFORE UPDATE
+    ON library.books
+    FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
