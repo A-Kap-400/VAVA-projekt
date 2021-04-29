@@ -112,7 +112,6 @@ public class PostgresDB implements JavaDatabaseConnectivity {
         }
     }
 
-    // toto pouzi aj pre zobrazovanie zamestnancov
     public void loadAdmins(String meno_ID_zamestnanec) {
         try {
             boolean jeInt;
@@ -129,8 +128,8 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                     "SELECT id, admin_name, password_hash, password_salt, root, created_at, updated_at "
                     + "FROM library.administrators "
                     + "WHERE deleted_at is NULL "
-                    + ((meno_ID_zamestnanec.isBlank()) ? ("") : ("AND " + ((jeInt) ? ("id = ?") : ("admin_name = ?"))))
-                    + ";");
+                    + ((meno_ID_zamestnanec.isEmpty()) ? ("") : ("AND " + ((jeInt) ? ("id = ?") : ("admin_name = ?"))))
+                    + " ORDER BY id;");
 
             if (!meno_ID_zamestnanec.isEmpty()) {
                 if (jeInt) {
@@ -188,7 +187,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                     + ((zaner.isEmpty()) ? ("") : (" AND books.typ ILIKE ?"))
                     + ((autor.isEmpty()) ? ("") : (" AND books.author ILIKE ?"))
                     + ((dostupne) ? (" AND books.borrow_until is NULL") : (""))
-                    + ";"
+                    + " ORDER BY books.id;"
             );
 
             for (int i = 0; i < premenne.size(); i++) {
@@ -216,10 +215,9 @@ public class PostgresDB implements JavaDatabaseConnectivity {
     }
 
     public void knihaPozicat(int user_id, LocalDate borrow_until, int book_id) {
-        // TODO: nie je osetrene pozicanie uz pozicanej knihy !!!
         try {
             statement = conn.prepareStatement(
-                    "UPDATE library.books SET user_id = ?, borrow_until = ? WHERE id = ? AND deleted_at is NULL;"
+                    "UPDATE library.books SET user_id = ?, borrow_until = ? WHERE id = ? AND deleted_at IS NULL AND borrow_until IS NULL;"
             );
 
             java.sql.Date sqlDate = java.sql.Date.valueOf(borrow_until);
@@ -325,7 +323,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                     + ((autor.isEmpty()) ? ("") : (" AND books.author ILIKE ?"))
                     + ((dostupne) ? (" AND books.borrow_until is NULL") : (""))
                     + ((neskore) ? (" AND books.borrow_until < current_timestamp") : (""))
-                    + ";"
+                    + " ORDER BY books.id;"
             );
 
             if (!meno_id.isEmpty()) {
@@ -355,11 +353,10 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                 String zaner_kniha = resultSet.getString("typ");
                 String nazov_kniha = resultSet.getString("name");
                 String autor_kniha = resultSet.getString("author");
-                String zak_kniha = resultSet.getString("user_name");
+                String pozicaneKomu = resultSet.getString("user_name");
                 Date pozicanaDo_kniha = resultSet.getTimestamp("borrow_until");
-                // TODO pozicaneKomu
 
-                data.addBook(new Kniha(id_kniha, zaner_kniha, nazov_kniha, autor_kniha, pozicanaDo_kniha, zak_kniha));
+                data.addBook(new Kniha(id_kniha, zaner_kniha, nazov_kniha, autor_kniha, pozicanaDo_kniha, pozicaneKomu));
             }
 
             resultSet.close();
@@ -438,13 +435,12 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                 jeInt = false;
             }
 
-            // TODO: ILIKE
             statement = conn.prepareStatement(
                     "SELECT DISTINCT Users.id, user_name, address, psc, city, phone_number FROM library.Users LEFT JOIN library.Books b on Users.id = b.user_id "
                     + "WHERE b.deleted_at is NULL AND Users.deleted_at is NULL "
                     + ((zakMeno_id.isEmpty()) ? ("") : ("AND " + ((jeInt) ? ("Users.id = ?") : ("Users.user_name ILIKE ?"))))
                     + ((neskore) ? (" AND b.borrow_until < current_timestamp ") : (""))
-                    + " ORDER BY Users.id ASC"
+                    + " ORDER BY users.id ASC"
                     + ";"
             );
 

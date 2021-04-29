@@ -21,6 +21,7 @@ public final class Kniha {
         this.nazov = nazov;
         this.autor = autor;
         this.pozicaneDo = pozicaneDo;
+        this.pozicaneKomu = new Zakaznik(meno);
     }
 
     public Kniha(int idKniha, String zaner, String nazov, String autor, Date pozicaneDo) {

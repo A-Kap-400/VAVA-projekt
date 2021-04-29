@@ -6,8 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -22,6 +21,8 @@ public final class Admin {
     private boolean root;
     private Date vytvoreny;
     private Date upraveny;
+
+    private static final Logger LOGGER = Logger.getLogger(Admin.class);
 
     public Admin(int id, String name, String passwordHash, String passwordSalt, boolean root, Date vytvoreny, Date upraveny) {
         this.id = id;
@@ -170,7 +171,7 @@ public final class Admin {
             return new BigInteger(1, messageDigest.digest()).toString(16);
 
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex); // TODO log4j
+            LOGGER.error("Nepodarilo sa vypočítať hash hesla.");
             return null;
         }
     }

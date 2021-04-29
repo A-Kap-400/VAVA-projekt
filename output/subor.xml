@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE library SYSTEM "roles.xml">
+<library>
+    <meta>
+        <created_at>29-04-2021</created_at>
+        <book_count>7</book_count>
+    </meta>
+    <books>
+        <book id="8">
+            <title>Harry Potter and the Philosopher’s Stone</title>
+            <genre>Fantasy</genre>
+            <author>J.K. Rowling</author>
+            <return_date>-</return_date>
+            <borrowed_to>-</borrowed_to>
+        </book>
+        <book id="9">
+            <title>Harry Potter and the Chamber of Secrets</title>
+            <genre>Fantasy</genre>
+            <author>J.K. Rowling</author>
+            <return_date>30-04-2021</return_date>
+            <borrowed_to>-</borrowed_to>
+        </book>
+        <book id="10">
+            <title>Harry Potter and the Prisoner of Azkaban</title>
+            <genre>Fantasy</genre>
+            <author>J.K. Rowling</author>
+            <return_date>-</return_date>
+            <borrowed_to>-</borrowed_to>
+        </book>
+        <book id="11">
+            <title>Harry Potter and the Goblet of Fire</title>
+            <genre>Fantasy</genre>
+            <author>J.K. Rowling</author>
+            <return_date>-</return_date>
+            <borrowed_to>-</borrowed_to>
+        </book>
+        <book id="12">
+            <title>Harry Potter and the Order of the Phoenix</title>
+            <genre>Fantasy</genre>
+            <author>J.K. Rowling</author>
+            <return_date>-</return_date>
+            <borrowed_to>-</borrowed_to>
+        </book>
+        <book id="13">
+            <title>Harry Potter and the Half-Blood Prince</title>
+            <genre>Fantasy</genre>
+            <author>J.K. Rowling</author>
+            <return_date>-</return_date>
+            <borrowed_to>-</borrowed_to>
+        </book>
+        <book id="14">
+            <title>Harry Potter and the Deathly Hallows</title>
+            <genre>Fantasy</genre>
+            <author>J.K. Rowling</author>
+            <return_date>-</return_date>
+            <borrowed_to>-</borrowed_to>
+        </book>
+    </books>
+</library>

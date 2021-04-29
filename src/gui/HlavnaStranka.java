@@ -1,6 +1,5 @@
 package gui;
 
-import controller.Data;
 import controller.PostgresDB;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -19,6 +18,7 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
+import resources.XMLWriterDOM;
 import users.Admin;
 import users.Kniha;
 import users.Zakaznik;
@@ -39,6 +39,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     public HlavnaStranka() {
         initComponents();
 
+        XMLWriterDOM.initMainDirectories();
         LOGGER.info("Spustenie aplikácie");
 
         pocitajCas();
@@ -304,10 +305,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jTextField30 = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
-        jTextField31 = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
-        jTextField32 = new javax.swing.JTextField();
         addAdminBtn = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
         jCheckBox5 = new javax.swing.JCheckBox();
         PMainAdmiOdstranitZamjPanel3 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
@@ -317,10 +318,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel42 = new javax.swing.JLabel();
         jTextField35 = new javax.swing.JTextField();
         jLabel43 = new javax.swing.JLabel();
-        jTextField36 = new javax.swing.JTextField();
         jLabel44 = new javax.swing.JLabel();
-        jTextField37 = new javax.swing.JTextField();
         changeAdminPasswordBtn = new javax.swing.JButton();
+        jPasswordField7 = new javax.swing.JPasswordField();
+        jPasswordField8 = new javax.swing.JPasswordField();
         PMainAdminZobrazjPanel4 = new javax.swing.JPanel();
         showAdminsBtn = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -2110,21 +2111,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel38.setText(bundle.getString("HlavnaStranka.jLabel38.text")); // NOI18N
         PMainAdmiPridatZamjPanel2.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
 
-        jTextField31.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField31.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField31.setForeground(new java.awt.Color(23, 35, 51));
-        PMainAdmiPridatZamjPanel2.add(jTextField31, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 280, -1));
-
         jLabel39.setBackground(new java.awt.Color(255, 255, 255));
         jLabel39.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(23, 35, 51));
         jLabel39.setText(bundle.getString("HlavnaStranka.jLabel39.text")); // NOI18N
         PMainAdmiPridatZamjPanel2.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
-
-        jTextField32.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField32.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField32.setForeground(new java.awt.Color(23, 35, 51));
-        PMainAdmiPridatZamjPanel2.add(jTextField32, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 280, -1));
 
         addAdminBtn.setBackground(new java.awt.Color(71, 120, 197));
         addAdminBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -2136,6 +2127,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
             }
         });
         PMainAdmiPridatZamjPanel2.add(addAdminBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, -1, -1));
+
+        jPasswordField1.setText(bundle.getString("HlavnaStranka.jPasswordField1.text")); // NOI18N
+        PMainAdmiPridatZamjPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 280, 40));
+
+        jPasswordField2.setText(bundle.getString("HlavnaStranka.jPasswordField2.text")); // NOI18N
+        PMainAdmiPridatZamjPanel2.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 280, 40));
 
         jCheckBox5.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -2196,21 +2193,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
         jLabel43.setText(bundle.getString("HlavnaStranka.jLabel43.text")); // NOI18N
         PMainAdmiZmenaHeslajPanel3.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
 
-        jTextField36.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField36.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField36.setForeground(new java.awt.Color(23, 35, 51));
-        PMainAdmiZmenaHeslajPanel3.add(jTextField36, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 280, -1));
-
         jLabel44.setBackground(new java.awt.Color(255, 255, 255));
         jLabel44.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel44.setForeground(new java.awt.Color(23, 35, 51));
         jLabel44.setText(bundle.getString("HlavnaStranka.jLabel44.text")); // NOI18N
         PMainAdmiZmenaHeslajPanel3.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
-
-        jTextField37.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField37.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField37.setForeground(new java.awt.Color(23, 35, 51));
-        PMainAdmiZmenaHeslajPanel3.add(jTextField37, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 280, -1));
 
         changeAdminPasswordBtn.setBackground(new java.awt.Color(71, 120, 197));
         changeAdminPasswordBtn.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -2222,6 +2209,12 @@ public class HlavnaStranka extends javax.swing.JFrame {
             }
         });
         PMainAdmiZmenaHeslajPanel3.add(changeAdminPasswordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, -1, -1));
+
+        jPasswordField7.setText(bundle.getString("HlavnaStranka.jPasswordField7.text")); // NOI18N
+        PMainAdmiZmenaHeslajPanel3.add(jPasswordField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 280, 40));
+
+        jPasswordField8.setText(bundle.getString("HlavnaStranka.jPasswordField8.text")); // NOI18N
+        PMainAdmiZmenaHeslajPanel3.add(jPasswordField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 280, 40));
 
         PVyhMainjPanel3.add(PMainAdmiZmenaHeslajPanel3, "card2");
 
@@ -2397,6 +2390,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
         LogMenojTextField.setText("");
         LogHeslojPasswordField.setText("");
         PrihlasitSajLabel.setText(rb.getString("PRIHLÁSIŤ SA"));
+
+        bookAuthorSearchFld.setText("");
+        bookTitleSearchFld.setText("");
+        bookGenreSearchFld.setText("");
+        isAvailableCheckBox.setSelected(false);
 
         if (databaza.getData().getPrihlaseny() == null) {
             setVisibleFalse();
@@ -2707,8 +2705,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
     private void MainAdminPridatjPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminPridatjPanel3MouseClicked
         jTextField30.setText("");
-        jTextField31.setText("");
-        jTextField32.setText("");
+        jPasswordField1.setText("");
+        jPasswordField2.setText("");
         jCheckBox5.setSelected(false);
 
         AdminSelectedNone();
@@ -2734,8 +2732,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
     private void MainAdminZmenHeslojPanel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MainAdminZmenHeslojPanel5MouseClicked
         jTextField35.setText("");
-        jTextField36.setText("");
-        jTextField37.setText("");
+        jPasswordField7.setText("");
+        jPasswordField8.setText("");
 
         AdminSelectedNone();
         MainAdminZmenHesloVybranyjPanel9.setBackground(new Color(240, 240, 240));
@@ -2770,7 +2768,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         String genre = bookGenreFld.getText().trim();
         String description = bookDescriptionArea.getText().trim();
 
-        if (title.isBlank() || author.isBlank() || genre.isBlank() || description.isBlank()) {
+        if (title.isEmpty() || author.isEmpty() || genre.isEmpty() || description.isEmpty()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Prosím vyplňte všetky informácie.", "Chýbajú údaje o knihe!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Chýbajú údaje o novej knihe.");
             return;
@@ -2801,6 +2799,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         tblModel.setRowCount(0);
 
         ArrayList<Kniha> books = databaza.getData().getKnihaArrayList();
+        XMLWriterDOM.exportToXML(books, "subor.xml");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         for (int i = 0; i < books.size(); i++) {
@@ -2839,20 +2838,33 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
             // Konvertovanie casu z java.util.Date na LocalDate
             Instant instant = until.toInstant();
-            ZoneId zoneId = ZoneId.of("Europe/Paris"); // TODO I18N "America/Montreal"
+            ZoneId zoneId = ZoneId.of("Europe/Paris");
             ZonedDateTime zdt = ZonedDateTime.ofInstant(instant, zoneId);
             LocalDate localDate = zdt.toLocalDate();
 
+            // Kontrola toho, ci je kniha pozicana niekomu inemu
+            databaza.knihaZobraz("", "", "", true, false, "", String.valueOf(bookId));
+            if (databaza.getData().getKnihaArrayList().size() != 1) {
+                JOptionPane.showMessageDialog(MainLogjPanel, "Táto kniha je už vypožičaná niekomu inému.", "Chyba!", JOptionPane.WARNING_MESSAGE);
+                LOGGER.warn("Táto kniha je už vypožičaná niekomu inému.");
+                return;
+            }
+
+            // Pozicana kniha sa zapise do XML suboru
+            Kniha k = databaza.getData().getKnihaArrayList().get(0);
+            System.out.println(k.getIdKniha() + " " + k.getNazov() + " " + k.getAutor() + " " + k.getZaner() + " " + k.getPozicaneDo() + " " + k.getPozicaneKomu());
+            XMLWriterDOM.saveToXML(k, XMLWriterDOM.BORROW_HISTORY);
+
+            // Pozicanie knihy
             databaza.knihaPozicat(customerId, localDate, bookId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Kniha bola požičaná zákazníkovi.", "Požičanie knihy", JOptionPane.INFORMATION_MESSAGE);
             LOGGER.info("Kniha bola požičaná zákazníkovi.");
 
+            borrowBookIdFld.setText("");
+            borrowCustomerIdFld.setText("");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne ID knihy alebo zákazníka.", "Chyba!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Nesprávne ID knihy alebo ID zákazníka pri požičaní knihy.");
-        } finally {
-            borrowBookIdFld.setText("");
-            borrowCustomerIdFld.setText("");
         }
     }//GEN-LAST:event_borrowBookBtnMouseReleased
 
@@ -2983,7 +2995,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
      */
     private void jButton10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton10MouseReleased
         String customerId = jTextField29.getText().trim();
-        if (customerId.isBlank()) {
+        if (customerId.isEmpty()) {
             jTextField24.setText("");
             jTextField24.setEnabled(false);
 
@@ -3056,7 +3068,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
         String psc = jTextField27.getText().trim();
         String phone = jTextField28.getText().trim();
 
-        if (name.isBlank() || address.isBlank() || city.isBlank() || psc.isBlank() || phone.isBlank()) {
+        if (name.isEmpty() || address.isEmpty() || city.isEmpty() || psc.isEmpty() || phone.isEmpty()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Chýbajú údaje o zákazníkovi.", "Chyba!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Chýbajú údaje pri zmene údajov o zákazníkovi.");
             return;
@@ -3092,11 +3104,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
      */
     private void addAdminBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addAdminBtnMouseReleased
         String name = jTextField30.getText().trim();
-        String password = jTextField31.getText();
-        String pwConfirm = jTextField32.getText();
+        String password = String.valueOf(jPasswordField1.getPassword());
+        String pwConfirm = String.valueOf(jPasswordField2.getPassword());
         boolean isRoot = jCheckBox5.isSelected();
 
-        if (name.isBlank() || password.isBlank() || pwConfirm.isBlank()) {
+        if (name.isEmpty() || password.isEmpty() || pwConfirm.isEmpty()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Zadajte meno a heslo nového zamestnanca.", "Chýba meno alebo heslo!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Chýba meno alebo heslo nového zamestnanca.");
         } else if (!password.equals(pwConfirm)) {
@@ -3109,8 +3121,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
             LOGGER.info("Do systému bol pridaný nový zamestnanec.");
 
             jTextField30.setText("");
-            jTextField31.setText("");
-            jTextField32.setText("");
+            jPasswordField1.setText("");
+            jPasswordField2.setText("");
             jCheckBox5.setSelected(false);
         }
     }//GEN-LAST:event_addAdminBtnMouseReleased
@@ -3121,7 +3133,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private void deleteAdminBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteAdminBtnMouseReleased
         String adminId = jTextField34.getText().trim();
 
-        if (adminId.isBlank()) {
+        if (adminId.isEmpty()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Neplatné ID zamestnanca.", "Chyba!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Neplatné ID na vymazanie zamestnanca.");
         } else {
@@ -3159,10 +3171,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
      */
     private void changeAdminPasswordBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeAdminPasswordBtnMouseReleased
         String adminId = jTextField35.getText().trim();
-        String password = jTextField36.getText();
-        String pwConfirm = jTextField37.getText();
+        String password = String.valueOf(jPasswordField7.getPassword());
+        String pwConfirm = String.valueOf(jPasswordField8.getPassword());
 
-        if (adminId.isBlank() || password.isBlank() || pwConfirm.isBlank()) {
+        if (adminId.isEmpty() || password.isEmpty() || pwConfirm.isEmpty()) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Zadajte meno a nové heslo zamestnanca.", "Chýba meno alebo heslo!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Nepodarilo sa zmeniť heslo.");
         } else if (!password.equals(pwConfirm)) {
@@ -3178,8 +3190,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
             LOGGER.info("Heslo zamestnanca bolo úspešne zmenené.");
 
             jTextField35.setText("");
-            jTextField36.setText("");
-            jTextField37.setText("");
+            jPasswordField7.setText("");
+            jPasswordField8.setText("");
         }
     }//GEN-LAST:event_changeAdminPasswordBtnMouseReleased
 
@@ -3557,6 +3569,10 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JPasswordField jPasswordField7;
+    private javax.swing.JPasswordField jPasswordField8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -3571,12 +3587,8 @@ public class HlavnaStranka extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField28;
     private javax.swing.JTextField jTextField29;
     private javax.swing.JTextField jTextField30;
-    private javax.swing.JTextField jTextField31;
-    private javax.swing.JTextField jTextField32;
     private javax.swing.JTextField jTextField34;
     private javax.swing.JTextField jTextField35;
-    private javax.swing.JTextField jTextField36;
-    private javax.swing.JTextField jTextField37;
     private javax.swing.JTextField jTextField38;
     private javax.swing.JCheckBox lateCheckBox;
     private javax.swing.JButton returnBookBtn;

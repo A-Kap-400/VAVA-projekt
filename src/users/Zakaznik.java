@@ -25,6 +25,10 @@ public class Zakaznik {
         this.telCislo = telCislo;
     }
 
+    public Zakaznik(String meno) {
+        this.meno = meno;
+    }
+
     public int getIdZakaznik() {
         return idZakaznik;
     }
