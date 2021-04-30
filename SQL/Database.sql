@@ -64,14 +64,14 @@ VALUES ('Patrik Velcicky', 'Svitavska 903/6', '96501', 'Ziar nad Hronom', '+4219
        ('Akos Kappel', 'Svitavska 903/10', '96501', 'Ziar nad Hronom', '+421918071679'),
        ('James Bond', 'Baker street', '00007', 'London', '0918273465'),
        ('Tony Stark', 'Wold Street', '12345', 'New York', '0987654321'),
-       ('Bruce Banner', '', '69420', 'Los Angeles', '0908765123'),
-       ('Steve Rogers', '', '99999', 'Bratislava', '+421945287534'),
-       ('Nick Fury', '', '25025', 'Paris', '+421985462537'),
-       ('Scott Lang', '', '75421', 'Rome', '+421942571598'),
-       ('Peter Parker', '', '23579', 'Berlin', '+421953276618'),
-       ('Natasha Romanoff', '', '06660', 'Moskva', '+421977514236'),
-       ('Clint Barton', '', '98765', 'Nitra', '+421911245755'),
-       ('Wanda Maximoff', '', '11111', 'Trnava', '+421923665875');
+       ('Bruce Banner', 'Ford Avenue', '69420', 'Los Angeles', '0908765123'),
+       ('Steve Rogers', '2381 Gandy street', '99999', 'Bratislava', '+421945287534'),
+       ('Nick Fury', '188 Liberty street', '25025', 'Paris', '+421985462537'),
+       ('Scott Lang', 'Ferrell street', '75421', 'Rome', '+421942571598'),
+       ('Peter Parker', '711 Fair road', '23579', 'Berlin', '+421953276618'),
+       ('Natasha Romanoff', 'Hilltop street', '06660', 'Moskva', '+421977514236'),
+       ('Clint Barton', 'Blackwell street', '98765', 'Nitra', '+421911245755'),
+       ('Wanda Maximoff', 'Middleville 3758', '11111', 'Trnava', '+421923665875');
 
 
 INSERT INTO library.books (name, author, typ, description)
