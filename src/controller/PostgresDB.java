@@ -316,7 +316,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                     "SELECT books.id, books.typ, books.name, books.author, books.borrow_until, users.user_name"
                     + " FROM library.books AS books LEFT JOIN library.users AS users ON users.id = books.user_id"
                     + " WHERE books.deleted_at is NULL AND users.deleted_at is NULL"
-                    + ((meno_id.isEmpty()) ? ("") : (" AND " + ((jeInt) ? ("users.id = ?") : ("users.user_name = ?"))))
+                    + ((meno_id.isEmpty()) ? ("") : (" AND " + ((jeInt) ? ("users.id = ?") : ("users.user_name ILIKE ?"))))
                     + ((kniha_id.isEmpty()) ? ("") : (" AND books.id = ?"))
                     + ((nazov.isEmpty()) ? ("") : (" AND books.name ILIKE ?"))
                     + ((zaner.isEmpty()) ? ("") : (" AND books.typ ILIKE ?"))
@@ -330,7 +330,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                 if (jeInt) {
                     statement.setInt(1, id_zak);
                 } else {
-                    statement.setString(1, meno_id);
+                    statement.setString(1, "%" + meno_id + "%");
                 }
             }
 
@@ -448,7 +448,7 @@ public class PostgresDB implements JavaDatabaseConnectivity {
                 if (jeInt) {
                     statement.setInt(1, id_zam);
                 } else {
-                    statement.setString(1, zakMeno_id);
+                    statement.setString(1, "%" + zakMeno_id + "%");
                 }
             }
 

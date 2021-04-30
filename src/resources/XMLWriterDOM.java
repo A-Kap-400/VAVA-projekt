@@ -113,7 +113,6 @@ public class XMLWriterDOM {
         PrintWriter writer;
 
         try {
-
             file = new Scanner(new File(fileName));
             writer = new PrintWriter("temp.xml");
 
@@ -133,7 +132,6 @@ public class XMLWriterDOM {
         }
 
         try {
-
             file = new Scanner(new File("temp.xml"));
             writer = new PrintWriter(fileName);
 
@@ -180,6 +178,10 @@ public class XMLWriterDOM {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
+        Element borrowDateElement = doc.createElement("borrow_date");
+        borrowDateElement.appendChild(doc.createTextNode(sdf.format(new Date())));
+        e.appendChild(borrowDateElement);
+
         Element returnDateElement = doc.createElement("return_date");
         returnDateElement.appendChild(doc.createTextNode(k.getPozicaneDo() != null ? sdf.format(k.getPozicaneDo()) : "-"));
         e.appendChild(returnDateElement);
@@ -189,6 +191,63 @@ public class XMLWriterDOM {
         e.appendChild(borrowedToElement);
 
         return e;
+    }
+
+    /**
+     * Metoda na exportovanie zoznamu knih do XML suboru.
+     *
+     * @param exportedBooks zoznam knih
+     * @param xmlFileName nazov XML suboru
+     */
+    public static void exportToXML(ArrayList<Kniha> exportedBooks, String xmlFileName) {
+        try {
+            File xmlFile = new File(OUTPUT_DIR_NAME + "\\" + xmlFileName);
+            DocumentBuilderFactory DBFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = DBFactory.newDocumentBuilder();
+            doc = db.newDocument();
+
+            Element root = doc.createElement("library");
+            Element meta = doc.createElement("meta");
+            Element books = doc.createElement("books");
+
+            // Metadata
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            Element createdAtElement = doc.createElement("date_of_export");
+            createdAtElement.appendChild(doc.createTextNode(sdf.format(new Date())));
+            meta.appendChild(createdAtElement);
+
+            Element bookCountElement = doc.createElement("book_count");
+            bookCountElement.appendChild(doc.createTextNode(String.valueOf(exportedBooks.size())));
+            meta.appendChild(bookCountElement);
+
+            // Books
+            for (Kniha k : exportedBooks) {
+                Element e = createElement(k);
+                books.appendChild(e);
+            }
+
+            // Root
+            root.appendChild(meta);
+            root.appendChild(books);
+            doc.appendChild(root);
+
+            // Ulozenie udajov
+            Transformer tr = TransformerFactory.newInstance().newTransformer();
+            tr.setOutputProperty(OutputKeys.INDENT, "yes");
+            tr.setOutputProperty(OutputKeys.METHOD, "xml");
+            tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "roles.xml");
+            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+            tr.transform(new DOMSource(doc), new StreamResult(new FileOutputStream(xmlFile)));
+
+        } catch (ParserConfigurationException pce) {
+            LOGGER.error("ParserConfigurationException");
+        } catch (IOException ioe) {
+            LOGGER.error("IOException");
+        } catch (TransformerException te) {
+            LOGGER.error("TransformerException");
+        }
     }
 
 }

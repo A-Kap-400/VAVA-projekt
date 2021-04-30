@@ -2835,7 +2835,11 @@ public class HlavnaStranka extends javax.swing.JFrame {
             int customerId = Integer.valueOf(borrowCustomerIdFld.getText().trim());
             Date until = borrowUntilDateChooser.getDate();
 
-            // TODO date
+            if (until == null) {
+                JOptionPane.showMessageDialog(MainLogjPanel, "Prosím vyberte predpokladaný dátum vrátenia knihy.", "Chyba", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
             // Konvertovanie casu z java.util.Date na LocalDate
             Instant instant = until.toInstant();
             ZoneId zoneId = ZoneId.of("Europe/Paris");
