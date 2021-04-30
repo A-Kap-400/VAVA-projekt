@@ -38,7 +38,6 @@ public class XMLWriterDOM {
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(XMLWriterDOM.class);
 
     public static void main(String[] args) {
-        initMainDirectories();
         saveToXML(new Kniha(123, "zaner123", "nazov123", "autor123", new Date(), "komu123"), BORROW_HISTORY);
     }
 
@@ -94,8 +93,6 @@ public class XMLWriterDOM {
             tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             tr.setOutputProperty(OutputKeys.INDENT, "yes");
 
-            System.out.println(fileName);
-            System.out.println(doc != null ? doc : "DOC == NULL");
             tr.transform(new DOMSource(doc), new StreamResult(new FileOutputStream(xmlFile)));
             removeEmptyLines(fileName);
 
@@ -105,7 +102,7 @@ public class XMLWriterDOM {
             LOGGER.error("IOException");
         } catch (TransformerException te) {
             LOGGER.error("TransformerException");
-            te.printStackTrace();
+            te.printStackTrace();  // TODO remove line
         } catch (SAXException ex) {
             LOGGER.error("SAXException");
         }
@@ -183,7 +180,7 @@ public class XMLWriterDOM {
 
             // Metadata
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Element createdAtElement = doc.createElement("created_at");
+            Element createdAtElement = doc.createElement("date_of_export");
             createdAtElement.appendChild(doc.createTextNode(sdf.format(new Date())));
             meta.appendChild(createdAtElement);
 

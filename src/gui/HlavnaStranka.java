@@ -652,7 +652,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 LogPrihlasitjButtonActionPerformed(evt);
             }
         });
-        MainLogjPanel.add(LogPrihlasitjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(505, 319, -1, -1));
+        MainLogjPanel.add(LogPrihlasitjButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(505, 319, 108, -1));
 
         LogSpatjButton.setBackground(new java.awt.Color(255, 99, 71));
         LogSpatjButton.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -739,7 +739,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                             .addGroup(LVyhMainjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(LVyhMainjPanelLayout.createSequentialGroup()
                                     .addGap(44, 44, 44)
-                                    .addComponent(searchBooksBtn)
+                                    .addComponent(searchBooksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(isAvailableCheckBox, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addComponent(jLabel12))
@@ -1615,7 +1615,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 addUserBtnMouseReleased(evt);
             }
         });
-        PMainUzivatelPriatjPanel.add(addUserBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 530, -1, -1));
+        PMainUzivatelPriatjPanel.add(addUserBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 530, 179, -1));
 
         userAddNameFld.setBackground(new java.awt.Color(255, 255, 255));
         userAddNameFld.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -2126,7 +2126,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 addAdminBtnMouseReleased(evt);
             }
         });
-        PMainAdmiPridatZamjPanel2.add(addAdminBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, -1, -1));
+        PMainAdmiPridatZamjPanel2.add(addAdminBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 208, -1));
 
         jPasswordField1.setText(bundle.getString("HlavnaStranka.jPasswordField1.text")); // NOI18N
         PMainAdmiPridatZamjPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 280, 40));
@@ -2167,7 +2167,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 deleteAdminBtnMouseReleased(evt);
             }
         });
-        PMainAdmiOdstranitZamjPanel3.add(deleteAdminBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, -1, -1));
+        PMainAdmiOdstranitZamjPanel3.add(deleteAdminBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 239, -1));
 
         PVyhMainjPanel3.add(PMainAdmiOdstranitZamjPanel3, "card2");
 
@@ -2208,7 +2208,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 changeAdminPasswordBtnMouseReleased(evt);
             }
         });
-        PMainAdmiZmenaHeslajPanel3.add(changeAdminPasswordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, -1, -1));
+        PMainAdmiZmenaHeslajPanel3.add(changeAdminPasswordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, 200, -1));
 
         jPasswordField7.setText(bundle.getString("HlavnaStranka.jPasswordField7.text")); // NOI18N
         PMainAdmiZmenaHeslajPanel3.add(jPasswordField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 270, 280, 40));
@@ -2290,6 +2290,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(23, 35, 51));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText(bundle.getString("HlavnaStranka.jLabel5.text")); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -2328,25 +2329,24 @@ public class HlavnaStranka extends javax.swing.JFrame {
         MainNastaveniaUcetjPanelLayout.setHorizontalGroup(
             MainNastaveniaUcetjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MainNastaveniaUcetjPanelLayout.createSequentialGroup()
+                .addGap(359, 359, 359)
                 .addGroup(MainNastaveniaUcetjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MainNastaveniaUcetjPanelLayout.createSequentialGroup()
-                        .addGap(382, 382, 382)
-                        .addComponent(jLabel5))
-                    .addGroup(MainNastaveniaUcetjPanelLayout.createSequentialGroup()
-                        .addGap(359, 359, 359)
-                        .addGroup(MainNastaveniaUcetjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(MainNastaveniaUcetjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel7)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel8)
-                                .addComponent(MainZmenaHeslajPasswordField1)
-                                .addComponent(MainZmenaHeslajPasswordField2)
-                                .addComponent(MainZmenaHeslajPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainNastaveniaUcetjPanelLayout.createSequentialGroup()
-                                .addGap(89, 89, 89)
-                                .addComponent(jButton2)
-                                .addGap(93, 93, 93)))))
-                .addGap(366, 366, 366))
+                    .addGroup(MainNastaveniaUcetjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel8)
+                        .addComponent(MainZmenaHeslajPasswordField1)
+                        .addComponent(MainZmenaHeslajPasswordField2)
+                        .addComponent(MainZmenaHeslajPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainNastaveniaUcetjPanelLayout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(jButton2)
+                        .addGap(93, 93, 93)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(MainNastaveniaUcetjPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         MainNastaveniaUcetjPanelLayout.setVerticalGroup(
             MainNastaveniaUcetjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2836,6 +2836,7 @@ public class HlavnaStranka extends javax.swing.JFrame {
             int customerId = Integer.valueOf(borrowCustomerIdFld.getText().trim());
             Date until = borrowUntilDateChooser.getDate();
 
+            // TODO date
             // Konvertovanie casu z java.util.Date na LocalDate
             Instant instant = until.toInstant();
             ZoneId zoneId = ZoneId.of("Europe/Paris");
@@ -2850,18 +2851,20 @@ public class HlavnaStranka extends javax.swing.JFrame {
                 return;
             }
 
-            // Pozicana kniha sa zapise do XML suboru
-            Kniha k = databaza.getData().getKnihaArrayList().get(0);
-            System.out.println(k.getIdKniha() + " " + k.getNazov() + " " + k.getAutor() + " " + k.getZaner() + " " + k.getPozicaneDo() + " " + k.getPozicaneKomu());
-            XMLWriterDOM.saveToXML(k, XMLWriterDOM.BORROW_HISTORY);
-
             // Pozicanie knihy
             databaza.knihaPozicat(customerId, localDate, bookId);
             JOptionPane.showMessageDialog(MainLogjPanel, "Kniha bola požičaná zákazníkovi.", "Požičanie knihy", JOptionPane.INFORMATION_MESSAGE);
             LOGGER.info("Kniha bola požičaná zákazníkovi.");
 
+            // Pozicana kniha sa zapise do XML suboru
+            databaza.knihaZobraz("", "", "", false, false, "", String.valueOf(bookId));
+            Kniha k = databaza.getData().getKnihaArrayList().get(0);
+            k.setPozicaneDo(until);
+            XMLWriterDOM.saveToXML(k, XMLWriterDOM.BORROW_HISTORY);
+
             borrowBookIdFld.setText("");
             borrowCustomerIdFld.setText("");
+            borrowUntilDateChooser.setDate(null);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(MainLogjPanel, "Nesprávne ID knihy alebo zákazníka.", "Chyba!", JOptionPane.WARNING_MESSAGE);
             LOGGER.warn("Nesprávne ID knihy alebo ID zákazníka pri požičaní knihy.");
