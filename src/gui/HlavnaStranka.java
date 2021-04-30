@@ -2799,7 +2799,6 @@ public class HlavnaStranka extends javax.swing.JFrame {
         tblModel.setRowCount(0);
 
         ArrayList<Kniha> books = databaza.getData().getKnihaArrayList();
-        XMLWriterDOM.exportToXML(books, "subor.xml");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         for (int i = 0; i < books.size(); i++) {

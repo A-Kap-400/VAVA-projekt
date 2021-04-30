@@ -34,12 +34,8 @@ public class XMLWriterDOM {
     private static Document doc;
     public static final String LOG_DIR_NAME = "logs";
     public static final String OUTPUT_DIR_NAME = "output";
-    public static final String BORROW_HISTORY = "borrowed_books_history.xml";
+    public static final String BORROW_HISTORY = "historia_pozicanych_knih.xml";
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(XMLWriterDOM.class);
-
-    public static void main(String[] args) {
-        saveToXML(new Kniha(123, "zaner123", "nazov123", "autor123", new Date(), "komu123"), BORROW_HISTORY);
-    }
 
     /**
      * Inicializacia potrebnych priecinkov.
@@ -102,7 +98,6 @@ public class XMLWriterDOM {
             LOGGER.error("IOException");
         } catch (TransformerException te) {
             LOGGER.error("TransformerException");
-            te.printStackTrace();  // TODO remove line
         } catch (SAXException ex) {
             LOGGER.error("SAXException");
         }
@@ -158,63 +153,6 @@ public class XMLWriterDOM {
             LOGGER.warn("Súbor sa nepodarilo prekopírovať.");
         } catch (IOException ex) {
             LOGGER.warn("Súbor sa nepodarilo vymazať.");
-        }
-    }
-
-    /**
-     * Metoda na exportovanie zoznamu knih do XML suboru.
-     *
-     * @param exportedBooks zoznam knih
-     * @param xmlFileName nazov XML suboru
-     */
-    public static void exportToXML(ArrayList<Kniha> exportedBooks, String xmlFileName) {
-        try {
-            File xmlFile = new File(OUTPUT_DIR_NAME + "\\" + xmlFileName);
-            DocumentBuilderFactory DBFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = DBFactory.newDocumentBuilder();
-            doc = db.newDocument();
-
-            Element root = doc.createElement("library");
-            Element meta = doc.createElement("meta");
-            Element books = doc.createElement("books");
-
-            // Metadata
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            Element createdAtElement = doc.createElement("date_of_export");
-            createdAtElement.appendChild(doc.createTextNode(sdf.format(new Date())));
-            meta.appendChild(createdAtElement);
-
-            Element bookCountElement = doc.createElement("book_count");
-            bookCountElement.appendChild(doc.createTextNode(String.valueOf(exportedBooks.size())));
-            meta.appendChild(bookCountElement);
-
-            // Books
-            for (Kniha k : exportedBooks) {
-                Element e = createElement(k);
-                books.appendChild(e);
-            }
-
-            // Root
-            root.appendChild(meta);
-            root.appendChild(books);
-            doc.appendChild(root);
-
-            // Ulozenie udajov
-            Transformer tr = TransformerFactory.newInstance().newTransformer();
-            tr.setOutputProperty(OutputKeys.INDENT, "yes");
-            tr.setOutputProperty(OutputKeys.METHOD, "xml");
-            tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-            tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "roles.xml");
-            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
-            tr.transform(new DOMSource(doc), new StreamResult(new FileOutputStream(xmlFile)));
-
-        } catch (ParserConfigurationException pce) {
-            LOGGER.error("ParserConfigurationException");
-        } catch (IOException ioe) {
-            LOGGER.error("IOException");
-        } catch (TransformerException te) {
-            LOGGER.error("TransformerException");
         }
     }
 
