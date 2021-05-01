@@ -14,8 +14,16 @@ import users.Kniha;
 import users.Zakaznik;
 
 /**
+ * Tento projekt vznikol vramci predmetu Vyvoj aplikacii s viacvrstvovou
+ * architekturou na Fakulte informatiky a informacnych technologii na Slovenskej
+ * technickej univerzite.
  *
- * @author Akos Kappel & velco
+ * Kto co robil?
+ * Akos Kappel - XML, logovanie, I/O, internacionalizacia, regularne vyrazy
+ * Patrik Velcicky - GUI, kolekcie, SQL queries, dokumentacia
+ * 
+ * @author Akos Kappel
+ * @author Patrik Velcicky
  */
 public class PostgresDB implements JavaDatabaseConnectivity {
 

@@ -26,8 +26,16 @@ import org.xml.sax.SAXException;
 import users.Kniha;
 
 /**
+ * Tento projekt vznikol vramci predmetu Vyvoj aplikacii s viacvrstvovou
+ * architekturou na Fakulte informatiky a informacnych technologii na Slovenskej
+ * technickej univerzite.
  *
+ * Kto co robil?
+ * Akos Kappel - XML, logovanie, I/O, internacionalizacia, regularne vyrazy
+ * Patrik Velcicky - GUI, kolekcie, SQL queries, dokumentacia
+ * 
  * @author Akos Kappel
+ * @author Patrik Velcicky
  */
 public class XMLWriterDOM {
 

@@ -9,8 +9,16 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 /**
+ * Tento projekt vznikol vramci predmetu Vyvoj aplikacii s viacvrstvovou
+ * architekturou na Fakulte informatiky a informacnych technologii na Slovenskej
+ * technickej univerzite.
  *
- * @author velco & Akos Kappel
+ * Kto co robil?
+ * Akos Kappel - XML, logovanie, I/O, internacionalizacia, regularne vyrazy
+ * Patrik Velcicky - GUI, kolekcie, SQL queries, dokumentacia
+ * 
+ * @author Akos Kappel
+ * @author Patrik Velcicky
  */
 public final class Admin {
 
