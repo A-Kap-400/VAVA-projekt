@@ -24,8 +24,12 @@ import users.Kniha;
 import users.Zakaznik;
 
 /**
+ * Tento projekt vznikol vramci predmetu Vyvoj aplikacii s viacvrstvovou
+ * architekturou na Fakulte informatiky a informacnych technologii na Slovenskej
+ * technickej univerzite.
  *
- * @author velco & Akos Kappel
+ * @author Akos Kappel
+ * @author Patrik Velcicky
  */
 public class HlavnaStranka extends javax.swing.JFrame {
 
